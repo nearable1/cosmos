@@ -5,7 +5,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.APIResultModel;
 /**
  * API执行器父类
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public abstract class APIExcutor {

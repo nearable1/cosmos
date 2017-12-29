@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * 会计凭证模块
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class Exp0301AccountingDetailRowModel {

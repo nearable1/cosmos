@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * 补贴
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class Exp0301AllowanceModel {

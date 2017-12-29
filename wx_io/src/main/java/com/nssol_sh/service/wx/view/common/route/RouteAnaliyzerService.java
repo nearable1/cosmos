@@ -8,7 +8,7 @@ import com.nssol_sh.util.tools.properties.CnfPropsUtil;
 /**
  * 页面数据获取路径解析类
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 @Service("wx.veiw.common.route.service")

@@ -20,7 +20,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.user.getuserinfo.GetUserInfoB
 /**
  * 微信页面操作类
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 @Service("wx.veiw.common.service")

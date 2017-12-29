@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 案件系统信息
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class MatterSystemInfoModel {

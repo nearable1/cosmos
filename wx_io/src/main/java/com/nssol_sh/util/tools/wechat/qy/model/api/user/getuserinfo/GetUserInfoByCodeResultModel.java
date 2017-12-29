@@ -5,7 +5,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.APIResultModel;
 /**
  * 根据code获取成员信息API返回值
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class GetUserInfoByCodeResultModel extends APIResultModel {

@@ -18,7 +18,7 @@ import com.nssol_sh.util.tools.http.ResponseUtil;
 /**
  * 出差申请
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 @Controller("wx.view.syz.yexp.exp0301.controller")

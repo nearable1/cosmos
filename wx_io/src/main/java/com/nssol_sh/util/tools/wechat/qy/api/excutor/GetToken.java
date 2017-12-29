@@ -16,7 +16,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.gettoken.GetTokenResultModel;
 /**
  * 企业号获得令牌API
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class GetToken extends APIExcutor {

@@ -7,7 +7,7 @@ import com.nssol_sh.entity.wx.view.common.approveview.ai.AccountInfoModel;
 /**
  * 未处理案件
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class UnprocessNodeDataModel {

@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 扩展属性
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class ExtAttrModel {

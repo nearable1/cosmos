@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 可处理用户一览实体类
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class AuthUserAndOrgzModel {

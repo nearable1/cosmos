@@ -3,7 +3,7 @@ package com.nssol_sh.util.tools.wechat.qy.model.api.message.send.sendtext;
 /**
  * 发送文本信息参数
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class SendTextParamsModel {

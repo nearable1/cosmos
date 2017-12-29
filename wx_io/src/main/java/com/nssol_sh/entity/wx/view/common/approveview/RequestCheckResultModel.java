@@ -3,7 +3,7 @@ package com.nssol_sh.entity.wx.view.common.approveview;
 /**
  * 请求检查返回实体类
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class RequestCheckResultModel {

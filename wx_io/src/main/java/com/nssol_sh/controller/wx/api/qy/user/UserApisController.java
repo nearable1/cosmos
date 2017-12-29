@@ -24,7 +24,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.user.update.UpdateUserParamsM
 /**
  * 用户相关API
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 @Controller

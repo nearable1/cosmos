@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * 出差日程
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class Exp0301ScheduleModel {

@@ -3,7 +3,7 @@ package com.nssol_sh.entity.wx.view.common.approveview.ai;
 /**
  * 用户信息
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class AccountInfoModel {

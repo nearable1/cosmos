@@ -25,7 +25,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.message.send.sendtext.TextMes
 /**
  * 用户相关API
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 @Controller
@@ -120,7 +120,7 @@ public class MessageSendApisController {
 	public String sendNews(@RequestParam(value = "token", required = true) String token,
 			@RequestParam(value = "test", required = false) String test,
 			@RequestParam(value = "messageinfo", required = true) String messageinfo)
-					throws UnsupportedEncodingException {
+			throws UnsupportedEncodingException {
 
 		// 检查令牌
 		if (_internalToken.equals(token)) {

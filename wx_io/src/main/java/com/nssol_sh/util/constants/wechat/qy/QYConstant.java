@@ -3,7 +3,7 @@ package com.nssol_sh.util.constants.wechat.qy;
 /**
  * 企业号常量
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class QYConstant {

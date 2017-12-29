@@ -3,7 +3,7 @@ package com.nssol_sh.util.tools.wechat.qy.model.api.user.delete;
 /**
  * 删除成员参数
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class DeleteUserParamsModel {

@@ -17,7 +17,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.user.delete.DeleteUserParamsM
 /**
  * 删除成员API
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class DeleteUser extends APIExcutor {

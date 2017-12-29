@@ -3,7 +3,7 @@ package com.nssol_sh.model.message;
 /**
  * 文本消息体
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class NewsMessageModel {

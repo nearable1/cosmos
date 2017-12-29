@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 请求操作类
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class RequestUtils {

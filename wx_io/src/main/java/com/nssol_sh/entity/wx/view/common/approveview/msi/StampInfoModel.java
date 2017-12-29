@@ -3,7 +3,7 @@ package com.nssol_sh.entity.wx.view.common.approveview.msi;
 /**
  * 印章信息实体类
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class StampInfoModel {

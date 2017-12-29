@@ -12,7 +12,7 @@ import com.nssol_sh.util.log.LogUtils;
 /**
  * 请求对象操作类
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class RequestUtil {

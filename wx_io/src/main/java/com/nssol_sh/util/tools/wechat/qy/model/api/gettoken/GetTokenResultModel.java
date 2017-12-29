@@ -5,7 +5,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.APIResultModel;
 /**
  * 令牌获取API返回值
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class GetTokenResultModel extends APIResultModel {

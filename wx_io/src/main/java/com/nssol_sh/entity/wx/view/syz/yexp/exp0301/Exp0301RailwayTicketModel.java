@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * 个人预定一览
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class Exp0301RailwayTicketModel {

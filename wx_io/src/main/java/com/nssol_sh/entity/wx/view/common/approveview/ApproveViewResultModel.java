@@ -3,7 +3,7 @@ package com.nssol_sh.entity.wx.view.common.approveview;
 /**
  * 审批页面数据获取返回值
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class ApproveViewResultModel {

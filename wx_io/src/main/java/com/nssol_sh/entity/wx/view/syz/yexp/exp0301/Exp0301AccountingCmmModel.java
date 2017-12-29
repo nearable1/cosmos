@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 出差申请-财务入力信息
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class Exp0301AccountingCmmModel {

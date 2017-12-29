@@ -17,7 +17,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.user.get.GetUserParamsModel;
 /**
  * 获取成员信息API
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class GetUser extends APIExcutor {

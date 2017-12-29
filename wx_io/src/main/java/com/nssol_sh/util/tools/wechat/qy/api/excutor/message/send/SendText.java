@@ -17,7 +17,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.message.send.sendtext.SendTex
 /**
  * 发送文本信息API
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class SendText extends APIExcutor {

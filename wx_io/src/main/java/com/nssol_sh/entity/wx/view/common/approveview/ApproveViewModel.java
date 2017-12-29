@@ -6,7 +6,7 @@ import com.nssol_sh.entity.wx.view.common.approveview.msi.MatterSystemInfoModel;
 /**
  * 审批页面数据
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class ApproveViewModel {

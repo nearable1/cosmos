@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * 日期时间操作类
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class DateTimeUtil {

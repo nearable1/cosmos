@@ -3,7 +3,7 @@ package com.nssol_sh.util.tools.wechat.qy.model.api.user.list;
 /**
  * 读取成员列表
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class ListUserParamsModel {

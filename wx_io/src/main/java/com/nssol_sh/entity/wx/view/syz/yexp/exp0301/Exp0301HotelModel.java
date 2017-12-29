@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * 住宿一览
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  */
 public class Exp0301HotelModel {
 	/**

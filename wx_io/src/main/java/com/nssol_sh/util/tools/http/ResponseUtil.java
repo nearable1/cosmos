@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 响应对象操作类
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class ResponseUtil {

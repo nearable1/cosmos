@@ -5,7 +5,7 @@ import org.springframework.util.StringUtils;
 /**
  * 请求参数实体类
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class RequestParamsModel {

@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * 公司代订一览
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class Exp0301FlightTicketModel {

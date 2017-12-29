@@ -7,7 +7,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.user.ExtAttrModel;
 /**
  * 成员信息
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class CreateUserModel {

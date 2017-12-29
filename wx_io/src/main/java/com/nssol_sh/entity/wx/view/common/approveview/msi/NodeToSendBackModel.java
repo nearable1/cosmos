@@ -3,7 +3,7 @@ package com.nssol_sh.entity.wx.view.common.approveview.msi;
 /**
  * 可退回节点实体类
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class NodeToSendBackModel {

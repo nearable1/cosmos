@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 会计科目表头信息
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class Exp0601AccountingHeadModel {

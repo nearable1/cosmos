@@ -30,7 +30,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.user.update.UpdateUserParamsM
 /**
  * 企业微信API调用类
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class QyAPICaller {

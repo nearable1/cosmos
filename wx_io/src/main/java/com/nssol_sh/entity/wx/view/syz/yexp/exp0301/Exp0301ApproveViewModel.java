@@ -5,7 +5,7 @@ import com.nssol_sh.entity.wx.view.common.approveview.ApproveViewModel;
 /**
  * 页面模块
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class Exp0301ApproveViewModel extends ApproveViewModel {

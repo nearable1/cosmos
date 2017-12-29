@@ -16,7 +16,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.user.getuserinfo.GetUserInfoB
 /**
  * 根据code获取成员信息API
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class GetUserInfoByCode extends APIExcutor {

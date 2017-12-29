@@ -7,7 +7,7 @@ import com.nssol_sh.util.tools.wechat.qy.cache.UserTokenCacher;
 /**
  * 过期用户令牌清理
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 @Service

@@ -3,7 +3,7 @@ package com.nssol_sh.util.tools.wechat.qy.model.api.user;
 /**
  * 属性
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class AttrModel {

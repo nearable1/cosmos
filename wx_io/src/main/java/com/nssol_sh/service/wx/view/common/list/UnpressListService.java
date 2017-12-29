@@ -34,7 +34,7 @@ import net.arnx.jsonic.JSON;
 /**
  * 获取未处理页面数据
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 @Service("wx.veiw.common.list.service")

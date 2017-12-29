@@ -8,7 +8,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.user.UserModel;
 /**
  * 成员列表
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class ListUserResultModel extends APIResultModel {

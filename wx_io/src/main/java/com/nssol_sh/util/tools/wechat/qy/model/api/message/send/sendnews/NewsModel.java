@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 图文信息集合
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class NewsModel {

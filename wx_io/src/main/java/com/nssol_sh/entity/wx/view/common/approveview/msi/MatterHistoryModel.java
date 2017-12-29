@@ -3,7 +3,7 @@ package com.nssol_sh.entity.wx.view.common.approveview.msi;
 /**
  * 案件履历实体类
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class MatterHistoryModel {

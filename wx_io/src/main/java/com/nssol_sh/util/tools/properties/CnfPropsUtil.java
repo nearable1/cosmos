@@ -10,7 +10,7 @@ import com.nssol_sh.util.log.LogUtils;
 /**
  * 设定文件属性操作类
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class CnfPropsUtil {

@@ -6,7 +6,7 @@ import com.nssol_sh.util.tools.wechat.qy.api.excutor.APIExcutor;
 /**
  * API执行类对象工厂
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class APIObjectFactory {

@@ -17,7 +17,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.user.list.ListUserResultModel
 /**
  * 获取成员列表API
  *
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class ListUser extends APIExcutor {

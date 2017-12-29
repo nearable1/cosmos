@@ -11,7 +11,7 @@ import com.nssol_sh.util.tools.wechat.qy.model.api.gettoken.GetTokenResultModel;
 /**
  * 取得企业号令牌
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 @Service

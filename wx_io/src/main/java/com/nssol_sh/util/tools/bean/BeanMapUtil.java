@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSON;
 /**
  * Bean与哈希表转换类
  * 
- * @author he.jiaqi
+ * @author liu.yigeng
  *
  */
 public class BeanMapUtil {
