@@ -10,17 +10,17 @@ def getHtml(url):
     return html.decode('UTF-8')  
   
 def getImg(html):  
-    reg = r'src="(.+?\.jpg)" pic_ext' #è¦åŠ æ‹¬å·ï¼Œä½œä¸ºå…ƒç»„è¿”å›ï¼ŒæŠ“å–æ·˜å®çš„å›¾ç‰‡png(å…ˆçœ‹æºç ä¸­å›¾ç‰‡çš„åœ°å€è·¯å¾„)reg = r'data-lazy="(.+?\.png)" '  
+    reg = r'src="(.+?\.jpg)" pic_ext' #Òª¼ÓÀ¨ºÅ£¬×÷ÎªÔª×é·µ»Ø£¬×¥È¡ÌÔ±¦µÄÍ¼Æ¬png(ÏÈ¿´Ô´ÂëÖĞÍ¼Æ¬µÄµØÖ·Â·¾¶)reg = r'data-lazy="(.+?\.png)" '  
     imgre = re.compile(reg)  
     imglist = imgre.findall(html)  
     x = 0  
     path = 'D:\\test'  
     if not os.path.isdir(path):  
         os.makedirs(path)  
-    paths = path+'\\'      #ä¿å­˜åœ¨testè·¯å¾„ä¸‹  
+    paths = path+'\\'      #±£´æÔÚtestÂ·¾¶ÏÂ  
     for imgurl in imglist:  
         urllib.request.urlretrieve(imgurl,'{}{}.jpg'.format(paths,x))  
         x = x + 1          
      
-html = getHtml("http://tieba.baidu.com/p/2460150866") #æ·˜å®çš„ï¼šhtml = getHtml(r"http://www.taobao.com/")  
+html = getHtml("http://tieba.baidu.com/p/2460150866") #ÌÔ±¦µÄ£ºhtml = getHtml(r"http://www.taobao.com/")  
 getImg(html)  
