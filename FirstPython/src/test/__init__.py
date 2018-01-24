@@ -1,6 +1,5 @@
 import re  
 import urllib.request  
-import urllib  
 import os  
   
 def getHtml(url):  

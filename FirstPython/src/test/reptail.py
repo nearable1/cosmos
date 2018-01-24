@@ -1,6 +1,5 @@
 import re  
-import urllib.request  
-import urllib  
+import urllib.request   
 import os  
   
 def getHtml(url):  
@@ -10,17 +9,17 @@ def getHtml(url):
     return html.decode('UTF-8')  
   
 def getImg(html):  
-    reg = r'src="(.+?\.jpg)" pic_ext' #Òª¼ÓÀ¨ºÅ£¬×÷ÎªÔª×é·µ»Ø£¬×¥È¡ÌÔ±¦µÄÍ¼Æ¬png(ÏÈ¿´Ô´ÂëÖÐÍ¼Æ¬µÄµØÖ·Â·¾¶)reg = r'data-lazy="(.+?\.png)" '  
+    reg = r'src="(.+?\.jpg)" pic_ext' #Òªï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½ÎªÔªï¿½é·µï¿½Ø£ï¿½×¥È¡ï¿½Ô±ï¿½ï¿½ï¿½Í¼Æ¬png(ï¿½È¿ï¿½Ô´ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½Äµï¿½Ö·Â·ï¿½ï¿½)reg = r'data-lazy="(.+?\.png)" '  
     imgre = re.compile(reg)  
     imglist = imgre.findall(html)  
     x = 0  
     path = 'D:\\test'  
     if not os.path.isdir(path):  
         os.makedirs(path)  
-    paths = path+'\\'      #±£´æÔÚtestÂ·¾¶ÏÂ  
+    paths = path+'\\'      #ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½testÂ·ï¿½ï¿½ï¿½ï¿½  
     for imgurl in imglist:  
         urllib.request.urlretrieve(imgurl,'{}{}.jpg'.format(paths,x))  
         x = x + 1          
      
-html = getHtml("http://tieba.baidu.com/p/2460150866") #ÌÔ±¦µÄ£ºhtml = getHtml(r"http://www.taobao.com/")  
+html = getHtml("http://tieba.baidu.com/p/2460150866") #ï¿½Ô±ï¿½ï¿½Ä£ï¿½html = getHtml(r"http://www.taobao.com/")  
 getImg(html)  
