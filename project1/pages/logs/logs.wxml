@@ -1,6 +1,6 @@
 <!--logs.wxml-->
 <view class="container log-list">
-  <map></map>
+  <map longitude='{{longitude}}' latitude='{{latitude}}'></map>
   <!--<block wx:for="{{logs}}" wx:for-item="log">
     <text class="log-item">{{index + 1}}. {{log}}</text>
   </block>-->
@@ -22,3 +22,4 @@
     <icon type="success" size="40" color="{{item}}"/>
   </block>
 </view>
+<button bindtap="clickme">click me</button>
