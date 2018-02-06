@@ -1,8 +1,8 @@
 {
   "pages":[
+    "pages/cube/cube",
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/wxkey/wxkey"
+    "pages/logs/logs"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -19,11 +19,11 @@
       },
       {
         "pagePath": "pages/logs/logs",
-        "text": "日志"
+        "text": "图标"
       },
       {
-        "pagePath": "pages/wxkey/wxkey",
-        "text": "wx:key"
+        "pagePath": "pages/cube/cube",
+        "text": "cube"
       }
     ],
     "selectedColor": "blue",
