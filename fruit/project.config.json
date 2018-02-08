@@ -8,9 +8,9 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.1",
+	"libVersion": "1.9.8",
 	"appid": "wxad41ea369514839b",
-	"projectname": "project1",
+	"projectname": "fruit",
 	"isGameTourist": false,
 	"condition": {
 		"search": {

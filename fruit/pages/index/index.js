@@ -4,11 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello world',
-    array: [1,2,3,4,5],
-    staffA: { firstName: 'Hulk', lastName: 'Hu' },
-    staffB: { firstName: 'Shang', lastName: 'You' },
-    staffC: { firstName: 'Gideon', lastName: 'Lin' },
+    motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -54,11 +50,5 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  },
-  onShareAppMessage: function () {
-    return {
-      title: '自定义转发标题',
-      path: '/page/user?id=123'
-    }
   }
 })

@@ -1,0 +1,10 @@
+<button class="blackboard">黑板</button>
+<view class="blank"></view>
+<block>
+  <button class="platform">讲台</button>
+</block>
+ <view wx:for="{{seats}}" wx:key="*this" >
+  <button class="seat">座位</button>
+ </view>
+
+ <button bindtap="clicktoaddseat" style="float:left">新增</button>

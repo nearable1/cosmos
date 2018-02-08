@@ -1,0 +1,11 @@
+.platform {
+  position: relative;
+  width: 400rpx
+}
+.blank {
+  height:30rpx
+}
+.seat {
+  float: left;
+  font-size:19rpx;
+}
