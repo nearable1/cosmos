@@ -7,5 +7,5 @@
 }
 .seat {
   float: left;
-  font-size:19rpx;
+  font-size:19rpx
 }

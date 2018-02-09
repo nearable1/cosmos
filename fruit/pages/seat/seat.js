@@ -1,11 +1,16 @@
 Page({
   data:{
-    seats:[]
+    seats: [],
+    count: 1,
+    it: "" 
   },
   clicktoaddseat:function(){
-    this.data.seats = ['<button class="seat">座位</button>'].concat(this.data.seats)
+    this.data.it = "座位"+this.data.count
+    this.data.seats = [this.data.it].concat(this.data.seats)
+    this.data.count += 1
     this.setData({
-      seats: this.data.seats
+      seats: this.data.seats,
+      count: this.data.count
     })
   }
 })
