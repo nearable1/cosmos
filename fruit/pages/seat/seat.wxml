@@ -1,0 +1,20 @@
+<button class="blackboard">黑板</button>
+<view class="blank"></view>
+<block>
+  <button class="platform">讲台</button>
+</block>
+ <view wx:for="{{seats}}" wx:key="*this">
+  <button class="seat">[{{item}}]</button>
+ </view>
+
+ <button bindtap="clicktoaddseat" style="float:right">新增</button>
+
+ <template name="odd">
+  <button> odd </button>
+</template>
+<template name="even">
+  <button> even </button>
+</template>
+<block wx:for="{{[1, 2, 3, 4, 5]}}">
+    <template is="{{item % 2 == 0 ? 'even' : 'odd'}}"/>
+</block>
