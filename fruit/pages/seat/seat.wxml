@@ -3,16 +3,19 @@
 <block>
   <button class="platform">讲台</button>
 </block>
- <view wx:for="{{seats}}" wx:key="*this">
-  <button class="seat">[{{item}}]</button>
- </view>
+<view class="window">窗</view>
 
- <button bindtap="clicktoaddseat" style="float:right">新增</button>
-<view class="section">
-  <view class="section__title">省市区选择器</view>
-  <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
-    <view class="picker">
-      当前选择：{{region[0]}}，{{region[1]}}，{{region[2]}}
-    </view>
-  </picker>
-</view>
+<view class='seat' bindtap="modalinput">{{name1}}</view>
+<view class='seat'></view>
+<view class='seat'></view>
+<view class='seat'></view>
+<view class='seat'></view>
+<view class='seat'></view>
+<view class='seat'></view>
+<view class='seat'></view>
+<view class='seat'></view>
+<view class='seat'></view>
+
+<modal hidden="{{hiddenmodalput}}" title="请输入" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">  
+    <input bindtap="clicktotap" type='text' placeholder="请输入内容" auto-focus/>  
+</modal> 

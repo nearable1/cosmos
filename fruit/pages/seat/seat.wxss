@@ -3,9 +3,20 @@
   width: 400rpx
 }
 .blank {
-  height:30rpx
+  height:30rpx;
+  border:1rpx solid gray
 }
 .seat {
   float: left;
-  font-size:19rpx
+  width: 70rpx;
+  height: 33rpx;
+  font-size: 25rpx;
+  border:1rpx solid gray;
+  text-align: center;
+  vertical-align: middle
+}
+
+.window {
+  position:relative;
+  top:-100rpx
 }
