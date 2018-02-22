@@ -3,7 +3,7 @@ Page({
     name1:'位子1',
     hiddenmodalput: true,
   },
-  clicktotap: function(e) {
+  bindchange: function(e) {
     this.setData({
       name1: e.detail.value
     })
