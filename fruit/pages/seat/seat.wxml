@@ -3,18 +3,9 @@
 <block>
   <button class="platform">讲台</button>
 </block>
-<view class="window">窗</view>
+<view class="door">门</view>
 
 <view class='seat' bindtap="modalinput">{{name1}}</view>
-<view class='seat'></view>
-<view class='seat'></view>
-<view class='seat'></view>
-<view class='seat'></view>
-<view class='seat'></view>
-<view class='seat'></view>
-<view class='seat'></view>
-<view class='seat'></view>
-<view class='seat'></view>
 
 <modal hidden="{{hiddenmodalput}}" title="请输入" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">  
     <input bindchange="bindchange" type='text' placeholder="请输入内容" auto-focus/>  

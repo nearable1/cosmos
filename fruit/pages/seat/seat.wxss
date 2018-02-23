@@ -10,13 +10,13 @@
   float: left;
   width: 70rpx;
   height: 33rpx;
-  font-size: 25rpx;
+  font-size: 20rpx;
   border:1rpx solid gray;
   text-align: center;
-  vertical-align: middle
 }
 
-.window {
+.door {
   position:relative;
-  top:-100rpx
+  top:-100rpx;
+  left:700rpx;
 }
