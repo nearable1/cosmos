@@ -13,10 +13,33 @@
   font-size: 20rpx;
   border:1rpx solid gray;
   text-align: center;
+  margin-top: 10rpx;
 }
 
 .door {
   position:relative;
   top:-100rpx;
   left:700rpx;
+}
+
+.bc_green {
+  background-color:green;
+}
+.bc_red {
+  background-color:red;
+}
+.bc_yellow {
+  background-color: yellow;
+}
+.bc_blue {
+  background-color: blue;
+}
+
+.scroll-view-item{
+  height: 200px;
+}
+.scroll-view-item_H{
+  display: inline-block;
+  width: 100%;
+  height: 200px;
 }

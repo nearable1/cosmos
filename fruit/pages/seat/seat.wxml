@@ -5,8 +5,16 @@
 </block>
 <view class="door">门</view>
 
-<view class='seat' bindtap="modalinput">{{name1}}</view>
+<!--<view class="seat" wx:key="{{index}}" wx:for="{{list}}" id="{{index}}" bindtap="modalinput">
+{{item.name}}</view>-->
 
 <modal hidden="{{hiddenmodalput}}" title="请输入" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">  
     <input bindchange="bindchange" type='text' placeholder="请输入内容" auto-focus/>  
-</modal> 
+</modal>
+
+<scroll-view scroll-y scroll-x style="height: 200px;width: 100%;" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-left="{{scrollLeft}}">
+    <view id="green" class="scroll-view-item bc_green"></view>
+    <view id="red"  class="scroll-view-item bc_red"></view>
+    <view id="yellow" class="scroll-view-item bc_yellow"></view>
+    <view id="blue" class="scroll-view-item bc_blue"></view>
+</scroll-view>
