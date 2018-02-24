@@ -43,3 +43,14 @@
   width: 100%;
   height: 200px;
 }
+
+.scroll-view_H{
+  margin-top: 100rpx;
+  width: 100%;
+  white-space: nowrap;
+}
+.scroll-view-item_H{
+  width: 200px;
+  height: 100px;
+  display: inline-block;
+}
