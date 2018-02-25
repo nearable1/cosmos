@@ -2,14 +2,12 @@ var order = ['red', 'yellow', 'blue', 'green', 'red']
 Page({
   data:{
     hiddenmodalput: true,
-    list: [{ id: 0, name: '位子1' }, { id: 1, name: '位子2' }, { id: 2, name: '位子3' }, 
-      { id: 3, name: '位子3' }, { id: 4, name: '位子3' }, { id: 5, name: '位子3' },
-      { id: 6, name: '位子3' }, { id: 7, name: '位子3' }, { id: 8, name: '位子3' },
-      { id: 9, name: '位子3' }, { id: 10, name: '位子3' }, { id: 11, name: '位子3' }],
+    list: [{ id: 0, name: '' }, { id: 1, name: '' }, { id: 2, name: '' }, 
+      { id: 3, name: '' }, { id: 4, name: '' }, { id: 5, name: '' },
+      { id: 6, name: '' }, { id: 7, name: '' }, { id: 8, name: '' },
+      { id: 9, name: '' }, { id: 10, name: '' }, { id: 11, name: '' }],
     index: 0,
-    toView: 'green',
-    scrollTop: 100,
-    scrollLeft: 0
+    name:'test'
   },
   //更改赋值
   bindchange: function(e) {

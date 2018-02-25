@@ -1,27 +1,28 @@
-<button class="blackboard">黑板</button>
-<view class="blank"></view>
-<block>
-  <button class="platform">讲台</button>
-</block>
-<view class="door">门</view>
+<!--黑板-->
+<view class="blackboard">
+  <button>黑板</button>
+</view>
 
-<!--<view class="seat" wx:key="{{index}}" wx:for="{{list}}" id="{{index}}" bindtap="modalinput">
-{{item.name}}</view>-->
+<!--讲台-->
+<view class="platview" scroll-x>
+    <button class="platform">讲台</button>
+    <button class="platform">讲台</button>
+    <button class="platform">讲台</button>
+    <button class="platform">讲台</button>
+    <button class="platform">讲台</button>
+</view>
 
+<!--座次表-->
+<movable-area style="left:34rpx;height: 200px;width: 100%;background: white;">
+    <movable-view style="left:-40%;height: 300px; width: 210%; background: white;" direction="all">
+    <view wx:key="{{index}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14]}}" wx:for-index="i">
+      <view class="seat" wx:if="{{j<14}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}}" id="{{i}}{{j}}" bindtap="modalinput" wx:for-index="j" wx:key="{{index}}">{{i}}{{j}}</view>
+      <view class="seat lastSeat" wx:if="{{j==14}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}}" id="{{i}}{{j}}" bindtap="modalinput" wx:for-index="j" wx:key="{{index}}">{{i}}{{j}}</view>
+    </view>
+    </movable-view>
+  </movable-area>
+
+<!--更改名字的弹窗-->
 <modal hidden="{{hiddenmodalput}}" title="请输入" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">  
     <input bindchange="bindchange" type='text' placeholder="请输入内容" auto-focus/>  
 </modal>
-
-<scroll-view scroll-y scroll-x style="height: 200px;width: 100%;" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-left="{{scrollLeft}}">
-    <view id="green" class="scroll-view-item bc_green"></view>
-    <view id="red"  class="scroll-view-item bc_red"></view>
-    <view id="yellow" class="scroll-view-item bc_yellow"></view>
-    <view id="blue" class="scroll-view-item bc_blue"></view>
-</scroll-view>
-
-<scroll-view class="scroll-view_H" scroll-x style="width: 100%">
-    <view id="green" class="scroll-view-item_H bc_green"></view>
-    <view id="red"  class="scroll-view-item_H bc_red"></view>
-    <view id="yellow" class="scroll-view-item_H bc_yellow"></view>
-    <view id="blue" class="scroll-view-item_H bc_blue"></view>
-  </scroll-view>
