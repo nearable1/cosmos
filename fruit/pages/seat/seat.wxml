@@ -23,9 +23,13 @@
     <view wx:key="{{index}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14]}}" wx:for-index="i">
       <!--列数-->
       <view class="seat" wx:if="{{j<14}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}}" id="{{i}}{{j}}" bindtap="modalinput" wx:for-index="j" wx:key="{{index}}">
-        <text>{{i+''+j}}</text>
+        <view wx:for="{{list}}" wx:key="{{index}}">
+        <text wx:if="{{item.id==i+''+j}}">{{item.name}}</text></view>
       </view>
-      <view class="seat" wx:if="{{j==14}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}}" id="{{i}}{{j}}" style="border:1rpx solid gray" bindtap="modalinput" wx:for-index="j" wx:key="{{index}}">{{i}}{{j}}</view>
+      <view class="seat" wx:if="{{j==14}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}}" id="{{i}}{{j}}" style="border:1rpx solid gray" bindtap="modalinput" wx:for-index="j" wx:key="{{index}}">
+        <view wx:for="{{list}}" wx:key="{{index}}">
+        <text wx:if="{{item.id==i+''+j}}">{{item.name}}</text></view>
+      </view>
     </view>
     </movable-view>
   </movable-area>
