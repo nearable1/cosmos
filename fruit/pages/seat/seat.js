@@ -2,9 +2,15 @@ var order = ['red', 'yellow', 'blue', 'green', 'red']
 Page({
   data:{
     hiddenmodalput: true,
-    list: [],
+    list: {id:310,name:'刘熠庚',state:''},
     index: 0,
-    currentItem: ''
+    currentItem: '',
+    name: ''
+  },
+  onLoad: function() {
+    this.setData({
+      name: this.data.list.id,
+    })
   },
   //更改赋值
   bindchange: function(e) {
