@@ -4,20 +4,26 @@
 </view>
 
 <!--讲台-->
-<view class="platview" scroll-x>
-    <button class="platform">讲台</button>
-    <button class="platform">讲台</button>
-    <button class="platform">讲台</button>
-    <button class="platform">讲台</button>
-    <button class="platform">讲台</button>
-</view>
+<scroll-view class="platview" scroll-x scroll-left="60">
+    <view class="seatSide"></view>
+    <view class="seatSide"></view>
+    <view class="seatNext {{currentItem=='aa'?'active-tag':''}}" bindtap="clickToChangeStyle" id="aa" style="border-left:1rpx solid gray"></view>
+    <view class="seatNext" id="bb" style="border-left:1rpx solid gray"></view>
+    <view class="platform">讲台</view>
+    <view class="seatNext" id="cc" style="border-right:1rpx solid gray"></view>
+    <view class="seatNext" id="dd" style="border-right:1rpx solid gray;"></view>
+    <view class="seatSide"></view>
+    <view class="seatSide"></view>
+</scroll-view>
 
 <!--座次表-->
 <movable-area style="left:34rpx;height: 200px;width: 100%;background: white;">
-    <movable-view style="left:-40%;height: 300px; width: 210%; background: white;" direction="all">
+    <movable-view style="left:-60%;height: 300px; width: 213%; background: white;" direction="all">
+    <!--行数-->
     <view wx:key="{{index}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14]}}" wx:for-index="i">
+      <!--列数-->
       <view class="seat" wx:if="{{j<14}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}}" id="{{i}}{{j}}" bindtap="modalinput" wx:for-index="j" wx:key="{{index}}">{{i}}{{j}}</view>
-      <view class="seat lastSeat" wx:if="{{j==14}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}}" id="{{i}}{{j}}" bindtap="modalinput" wx:for-index="j" wx:key="{{index}}">{{i}}{{j}}</view>
+      <view class="seat" wx:if="{{j==14}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}}" id="{{i}}{{j}}" style="border:1rpx solid gray" bindtap="modalinput" wx:for-index="j" wx:key="{{index}}">{{i}}{{j}}</view>
     </view>
     </movable-view>
   </movable-area>

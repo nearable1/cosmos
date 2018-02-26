@@ -2,12 +2,9 @@ var order = ['red', 'yellow', 'blue', 'green', 'red']
 Page({
   data:{
     hiddenmodalput: true,
-    list: [{ id: 0, name: '' }, { id: 1, name: '' }, { id: 2, name: '' }, 
-      { id: 3, name: '' }, { id: 4, name: '' }, { id: 5, name: '' },
-      { id: 6, name: '' }, { id: 7, name: '' }, { id: 8, name: '' },
-      { id: 9, name: '' }, { id: 10, name: '' }, { id: 11, name: '' }],
+    list: [],
     index: 0,
-    name:'test'
+    currentItem: ''
   },
   //更改赋值
   bindchange: function(e) {
@@ -32,6 +29,13 @@ Page({
     this.setData({
       hiddenmodalput: true,
       list: this.data.list
+    })
+  },
+  //点击变换样式
+  clickToChangeStyle:function(e) {
+    //console.log(e)
+    this.setData({
+      currentItem: e.currentTarget.id
     })
   }  
 })
