@@ -2,8 +2,7 @@
   "pages":[
     "pages/choose/choose",
     "pages/seat/seat",
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/index/index"
     
   ],
   "window":{
@@ -17,10 +16,6 @@
       {
         "pagePath": "pages/index/index",
         "text": "首页"
-      },
-      {
-        "pagePath": "pages/logs/logs",
-        "text": "日志"
       },
       {
         "pagePath": "pages/seat/seat",
