@@ -4,17 +4,15 @@ Page({
     hiddenmodalput: true,
     list: [{ id: '310', name: '刘熠庚', state: '' }, { id: '410', name: '刘熠庚', state: '' }, { id: '614', name: '刘熠庚', state: '' }],
     index: 0,
-    currentItem: '',
-    name: ''
+    currentItem: ''
   },
   onLoad: function() {
-    this.setData({
-      name: this.data.list.id,
-    })
+    //数据的遍历
   },
   //更改赋值
   bindchange: function(e) {
     this.data.list[this.data.index].name = e.detail.value
+    
   },
   //显示弹窗，指定选中的index
   modalinput: function (e) {
@@ -36,6 +34,7 @@ Page({
       hiddenmodalput: true,
       list: this.data.list
     })
+    //访问后台，update数据库，加锁访问
   },
   //点击变换样式
   clickToChangeStyle:function(e) {

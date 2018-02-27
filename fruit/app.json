@@ -1,8 +1,10 @@
 {
   "pages":[
+    "pages/choose/choose",
     "pages/seat/seat",
     "pages/index/index",
     "pages/logs/logs"
+    
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -23,6 +25,10 @@
       {
         "pagePath": "pages/seat/seat",
         "text": "座位"
+      },
+      {
+        "pagePath": "pages/choose/choose",
+        "text": "选择"
       }
     ],
     "position": "bottom"

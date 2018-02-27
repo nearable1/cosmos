@@ -1,0 +1,36 @@
+<view class="section">
+  <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
+    <view class="picker">
+      地区：{{region[0]}}，{{region[1]}}，{{region[2]}}
+    </view>
+  </picker>
+</view>
+
+<view class="section">
+  <picker mode="date" value="{{date}}" fields="year" start="1970" end="2018" bindchange="bindDateChange">
+    <view class="picker">
+      入学年份: {{date}}年
+    </view>
+  </picker>
+</view>
+<view class="section">
+  <picker bindchange="bindSchoolChange" value="{{index}}" range="{{arraySchool}}">
+    <view class="picker">
+      学校：{{arraySchool[indexSchool]}}
+    </view>
+  </picker>
+</view>
+<view class="section">
+  <picker bindchange="bindClassChange" value="{{indexClass}}" range="{{arrayClass}}">
+    <view class="picker">
+      班级：{{arrayClass[indexClass]}}
+    </view>
+  </picker>
+</view>
+<view class="section">
+  <picker bindchange="bindGradeChange" value="{{indexGrade}}" range="{{arrayGrade}}">
+    <view class="picker">
+      年级：{{arrayGrade[indexGrade]}}
+    </view>
+  </picker>
+</view>
