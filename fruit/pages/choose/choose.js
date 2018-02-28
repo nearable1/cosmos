@@ -1,3 +1,4 @@
+
 Page({
 
   /**
@@ -12,8 +13,19 @@ Page({
     arrayGrade: ['初一第一次座位', '初三最后一次座位', '高一第一次座位', '高三最后一次座位'],
     indexClass: 0,
     indexSchool: 0,
-    indexGrade: 0
+    indexGrade: 0,
+
+    months: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+    month: 1,
+    value: [1],//数组中的数字依次表示 picker-view 内的 picker-view-colume 选择的第几项（下标从 0 开始）
   },
+  bindChange: function (e) {
+    const val = e.detail.value
+    this.setData({
+      month: this.data.months[val[0]],
+    })
+  },
+
   bindRegionChange: function (e) {
     console.log(e.detail.value)
     this.setData({
