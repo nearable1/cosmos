@@ -1,0 +1,4 @@
+.section {
+  border-bottom:1rpx solid gray;
+  line-height:100rpx
+}

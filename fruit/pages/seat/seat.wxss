@@ -2,7 +2,6 @@
 .blackboard {
   width:100%;
   position:relative;
-  padding-bottom:20rpx;
   background-color:white;
   z-index: 1;
 }

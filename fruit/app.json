@@ -18,14 +18,10 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/seat/seat",
-        "text": "座位"
-      },
-      {
         "pagePath": "pages/choose/choose",
         "text": "选择"
       }
     ],
-    "position": "bottom"
+    "position": "top"
   }
 }
