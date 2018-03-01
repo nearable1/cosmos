@@ -36,9 +36,9 @@
 
 <!--学校选择的弹窗-->
 <modal hidden="{{hiddenmodalput}}" confirm-text="提交" cancel-text="取消" bindcancel="schoolCancel" bindconfirm="schoolConfirm">  
-    <input confirm-type="search" bindchange="bindInputChange" type='text' placeholder="若在下方没找到学校，请在此处新建" auto-focus value="{{school}}" style="border:1rpx solid gray;height:50rpx"/> 
+    <input confirm-type="search" bindchange="bindInputChange" type='text' placeholder="若在下方没找到学校，请在此处新建" auto-focus value="{{school}}" style="border:1rpx solid gray;height:50rpx;font-size:30rpx"/> 
     <view>
-  <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" bindchange="bindSchoolChange">
+  <picker-view indicator-style="height: 50px;" style="width: 100%; height: 150px;" value="{{value}}" bindchange="bindSchoolChange">
     <picker-view-column>
       <view wx:for="{{arraySchool}}" wx:key="*this" style="text-align:center;line-height: 50px">{{item}}</view>
     </picker-view-column>
