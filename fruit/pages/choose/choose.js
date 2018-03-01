@@ -93,7 +93,7 @@ Page({
   },
   clickToGoSeat: function() {
     wx.navigateTo({
-      url: '../seat/seat'
+      url: 'seat/seat'
     })
   }
 })

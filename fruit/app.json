@@ -1,7 +1,8 @@
 {
   "pages":[
+    "pages/login/login",
     "pages/choose/choose",
-    "pages/seat/seat",
+    "pages/choose/seat/seat",
     "pages/index/index"
     
   ],
@@ -20,6 +21,10 @@
       {
         "pagePath": "pages/choose/choose",
         "text": "选择"
+      },
+      {
+        "pagePath": "pages/login/login",
+        "text": "登录"
       }
     ],
     "position": "top"

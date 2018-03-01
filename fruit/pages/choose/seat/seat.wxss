@@ -1,0 +1,63 @@
+/*黑板*/
+.blackboard {
+  width:100%;
+  position:relative;
+  background-color:white;
+  z-index: 1;
+}
+/*讲台的view*/
+.platview {
+  position:relative;
+  width:100%;
+  background-color:white;
+  white-space: nowrap;
+  z-index:1;
+}
+/*讲台*/
+.platform {
+  width: 200rpx;
+  height: 70rpx;
+  text-align: center;
+  display: inline-block;
+  padding-top: 2%;
+  border:1rpx solid gray;
+}
+.seatNext {
+  width: 100rpx;
+  height: 40rpx;
+  font-size: 20rpx;
+  border-top:1rpx solid gray;
+  border-bottom:1rpx solid gray;
+  text-align: center;
+  margin-top: 80rpx;
+  background-color:bisque;
+  display: inline-block;
+  vertical-align: bottom;
+  padding-top:10rpx;
+}
+
+.seatSide {
+  width: 100rpx;
+  height: 40rpx;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.seat {
+  float:left;
+  width: 100rpx;
+  height: 40rpx;
+  font-size: 20rpx;
+  border-top:1rpx solid gray;
+  border-bottom:1rpx solid gray;
+  border-left:1rpx solid gray;
+  text-align: center;
+  margin-top: 20rpx;
+  background-color:bisque;
+  padding-top:10rpx;
+  z-index: -1;
+}
+
+.active-tag {
+  background-color:red;
+}
