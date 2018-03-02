@@ -5,12 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    region: ['北京市', '北京市', '东城区'],
-    date: '2009',
-    arrayClass: ['1班', '2班', '3班', '4班', '5班', '6班', '7班', '8班', '9班', '10班', '11班'
+    region: [],
+    date: '',
+    arrayClass: ['','1班', '2班', '3班', '4班', '5班', '6班', '7班', '8班', '9班', '10班', '11班'
       , '12班', '13班', '14班', '15班', '16班', '17班', '18班', '19班', '20班', '21班', '22班', '23班', '24班', '25班', '26班', '27班', '28班', '29班', '30班', '31班', '32班', '33班', '34班', '35班'],
     arraySchool: ['','学校1', '学校2', '学校3', '学校4'],
-    arrayGrade: ['初一第一次座位', '初三最后一次座位', '高一第一次座位', '高三最后一次座位'],
+    arrayGrade: ['','初一第一次座位', '初三最后一次座位', '高一第一次座位', '高三最后一次座位'],
     indexClass: 0,
     indexSchool: 0,
     indexGrade: 0,
@@ -93,8 +93,22 @@ Page({
   },
   //点击跳转到seat.wxml
   clickToGoSeat: function() {
-    wx.navigateTo({
-      url: 'seat/seat'
-    })
+    var grade = this.data.indexGrade
+    var inc = this.data.indexClass
+    var school = this.data.school
+    var date = this.data.date
+    var region = this.data.region
+    if (grade==0||inc==0||school==''||date==''||region.length==0) {
+      wx.showToast({
+        title:'请输入空白部分',
+        icon: 'loading',
+        mask:true,
+        duration:2000
+      })
+    }else {
+      wx.navigateTo({
+        url: 'seat/seat'
+      })
+    }
   }
 })
