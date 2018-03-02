@@ -42,5 +42,19 @@ Page({
     this.setData({
       currentItem: e.currentTarget.id
     })
-  }  
+  },
+  //设置分享
+  onShareAppMessage: function () {
+    return {
+      title: '学校+班级+年级',
+      path: '/page/choose/seat?schoolId=***&seatId=***',
+      success: function(){
+        wx.showToast({
+          title:'转发成功',
+          icon:'success',
+          duration:2000
+        })
+      }
+    }
+  },
 })

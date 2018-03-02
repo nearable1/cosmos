@@ -91,6 +91,7 @@ Page({
       })
     }
   },
+  //点击跳转到seat.wxml
   clickToGoSeat: function() {
     wx.navigateTo({
       url: 'seat/seat'
