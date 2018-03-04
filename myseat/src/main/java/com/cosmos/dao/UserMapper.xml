@@ -6,4 +6,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getUserList" resultType="com.cosmos.entity.User" parameterType="java.util.HashMap">
 		select * from user where name=#{name} and password=#{password}
 	</select>
+	
+	<!-- 插入school -->
+	<insert id="insertSchool" parameterType="com.cosmos.entity.School">
+		insert into school(schoolId,province,city,area,chineseName) values(#{schoolId},#{province},#{city},#{area},#{chineseName})
+	</insert>
+	
+	<!-- 查询school-在弹窗显示 -->
+	<select id="selectSchoolByRegion" resultType="java.util.ArrayList">
+		select chineseName from school where province=#{0},city=#{1},area=#{2}
+	</select>
+	
+	<!-- 查询schoolId -->
+	<select id="selectSchoolId" resultType="java.lang.String">
+		select schoolId from school where province=#{0},city=#{1},area=#{2}
+	</select>
+	
+	<!-- 查询classId -->
+	<select id="selectClassId" resultType="java.lang.String">
+		select classId from classTable where year=#{0} and className=#{1} and times=#{2} and schoolId=#{3}
+	</select>
+	
+	<!-- 插入class -->
+	<insert id="insertClass" parameterType="com.cosmos.entity.ClassTable">
+		insert into classTable(classId,year,className,times,schoolId) values(#{classId},#{year},#{className},#{times},#{schoolId})
+	</insert>
+	
+	<!-- 插入seat -->
+	<insert id="insertSeat" parameterType="com.cosmos.entity.Seat">
+		insert into seat(seatId,name,classId,schoolId) values(#{seatId},#{name},#{classId},#{schoolId})
+	</insert>
+	
+	<!-- 查询以及分享seat -->
+	<select id="selectSeat" resultType="com.cosmos.entity.Seat">
+		select seatId,name,classId,schoolId from seat where classId=#{0} and schoolId=#{1}
+	</select>
+
 </mapper>
