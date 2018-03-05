@@ -17,12 +17,8 @@
     </view>
   </picker>
 </view>
-<view class="section">
-  <picker bindchange="bindClassChange" value="{{indexClass}}" range="{{arrayClass}}">
-    <view class="picker">
-      班级：{{arrayClass[indexClass]}}
-    </view>
-  </picker>
+<view class="section" bindtap="clickToChooseClass">
+  班级：{{className}}
 </view>
 <view class="section" style="border:0rpx">
   <picker bindchange="bindGradeChange" value="{{indexGrade}}" range="{{arrayGrade}}">
@@ -41,6 +37,18 @@
   <picker-view indicator-style="height: 50px;" style="width: 100%; height: 150px;" value="{{value}}" bindchange="bindSchoolChange">
     <picker-view-column>
       <view wx:for="{{arraySchool}}" wx:key="*this" style="text-align:center;line-height: 50px">{{item}}</view>
+    </picker-view-column>
+  </picker-view>
+</view>
+</modal>
+
+<!--班级选择的弹窗-->
+<modal hidden="{{hiddenClass}}" confirm-text="提交" cancel-text="取消" bindcancel="classCancel" bindconfirm="classConfirm">  
+    <input confirm-type="search" bindchange="bindClassInputChange" type='text' placeholder="若在下方没找到学校，请在此处新建" auto-focus value="{{className}}" style="border:1rpx solid gray;height:50rpx;font-size:30rpx"/> 
+    <view>
+  <picker-view indicator-style="height: 50px;" style="width: 100%; height: 150px;" value="{{value}}" bindchange="bindClassChange">
+    <picker-view-column>
+      <view wx:for="{{arrayClass}}" wx:key="*this" style="text-align:center;line-height: 50px">{{item}}</view>
     </picker-view-column>
   </picker-view>
 </view>
