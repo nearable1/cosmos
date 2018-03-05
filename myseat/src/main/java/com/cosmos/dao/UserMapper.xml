@@ -3,9 +3,6 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cosmos.dao.UserDao">
-	<select id="getUserList" resultType="com.cosmos.entity.User" parameterType="java.util.HashMap">
-		select * from user where name=#{name} and password=#{password}
-	</select>
 	
 	<!-- 插入school -->
 	<insert id="insertSchool" parameterType="com.cosmos.entity.School">
@@ -27,6 +24,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select classId from classTable where year=#{0} and className=#{1} and times=#{2} and schoolId=#{3}
 	</select>
 	
+	<!-- 查询查询className -->
+	<select id="selectClass" resultType="java.util.ArrayList">
+		select className from classTable where classId=#{0} and year=#{1} and and schoolId=#{2}
+	</select>
+	
 	<!-- 插入class -->
 	<insert id="insertClass" parameterType="com.cosmos.entity.ClassTable">
 		insert into classTable(classId,year,className,times,schoolId) values(#{classId},#{year},#{className},#{times},#{schoolId})
@@ -36,6 +38,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertSeat" parameterType="com.cosmos.entity.Seat">
 		insert into seat(seatId,name,classId,schoolId) values(#{seatId},#{name},#{classId},#{schoolId})
 	</insert>
+	
+	<!-- 更新seat -->
+	<update id="updateSeat" parameterType="com.cosmos.entity.Seat">
+		update seat set name=#{name} where seatId=#{seatId} and classId=#{classId} and schoolId=#{schoolId}
+	</update>
+	
+	<!-- 查询seat -->
+	<select id="selectOneSeat" parameterType="com.cosmos.entity.Seat" resultType="String">
+		select seatId from seat where seatId=#{seatId} and classId=#{classId} and schoolId=#{schoolId})
+	</select>
 	
 	<!-- 查询以及分享seat -->
 	<select id="selectSeat" resultType="com.cosmos.entity.Seat">

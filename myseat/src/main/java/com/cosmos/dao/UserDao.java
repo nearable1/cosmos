@@ -1,15 +1,12 @@
 package com.cosmos.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.cosmos.entity.ClassTable;
 import com.cosmos.entity.School;
 import com.cosmos.entity.Seat;
-import com.cosmos.entity.User;
 
 public interface UserDao {
-	public User getUserList(HashMap map);
 	
 	//查询school--在弹窗显示
 	public ArrayList<String> selectSchoolByRegion(String province, String city, String area);
@@ -20,6 +17,9 @@ public interface UserDao {
 	//查询classId
 	public String selectClassId(String year, String className, String times, String schoolId);
 	
+	//查询className
+	public ArrayList<String> selectClass(String year, String schoolId);
+	
 	//插入school
 	public int insertSchool(School school);
 	
@@ -28,6 +28,12 @@ public interface UserDao {
 	
 	//插入seat
 	public int insertSeat(Seat seat);
+	
+	//更新seat
+	public int updateSeat(Seat seat);
+	
+	//查询seat
+	public String selectOneSeat(Seat seat);
 	
 	//查询以及分享seat
 	public ArrayList<Seat> selectSeat(String schoolId, String classId);

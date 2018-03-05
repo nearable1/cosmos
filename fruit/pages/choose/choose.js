@@ -24,14 +24,10 @@ Page({
     //界面显示班级
     className: '',
     //是否需要新建班级
-    newClass: false
-  },
-  //picker-view学校选择事件
-  bindSchoolChange: function (e) {
-    const val = e.detail.value
-    this.setData({
-      indexSchool: val[0],
-    })
+    newClass: false,
+    //中间值
+    inputSchool:'',
+    inputClass:''
   },
   //地区事件
   bindRegionChange: function (e) {
@@ -60,6 +56,13 @@ Page({
       indexGrade: e.detail.value
     })
   },
+  //picker-view学校选择事件
+  bindSchoolChange: function (e) {
+    const val = e.detail.value
+    this.setData({
+      indexSchool: val[0],
+    })
+  },
   //弹窗左下角取消
   schoolCancel: function() {
     this.setData({
@@ -78,7 +81,6 @@ Page({
     })
     if (!this.data.newSchool) {
       this.setData({
-        hiddenmodalput: true,
         school: this.data.arraySchool[this.data.indexSchool]
       })
     }
@@ -87,9 +89,12 @@ Page({
     this.setData({
       hiddenClass: true,
     })
-    if (!this.data.newClass) {
+    if (this.data.newClass) {
       this.setData({
-        hiddenClass: true,
+        className: this.data.inputClass
+      })
+    } else {
+      this.setData({
         className: this.data.arrayClass[this.data.indexClass]
       })
     }
@@ -108,12 +113,12 @@ Page({
     })
   },
   //弹窗中输入框值改变事件
-  bindInputChange: function(e) {
+  bindSchoolInputChange: function(e) {
     if(e.detail.value.length>=4) {
       this.setData({
         //school: e.detail.value
         newSchool: true,
-        school: e.detail.value
+        inputSchool: e.detail.value
       })
     }
   },
@@ -122,7 +127,7 @@ Page({
       this.setData({
         //school: e.detail.value
         newClass: true,
-        className: e.detail.value
+        inputClass: e.detail.value
       })
     }
   },

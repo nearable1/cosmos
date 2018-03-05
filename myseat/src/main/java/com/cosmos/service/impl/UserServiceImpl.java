@@ -1,7 +1,6 @@
 package com.cosmos.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import com.cosmos.dao.UserDao;
 import com.cosmos.entity.ClassTable;
 import com.cosmos.entity.School;
 import com.cosmos.entity.Seat;
-import com.cosmos.entity.User;
 import com.cosmos.service.UserService;
 
 @Service
@@ -19,11 +17,6 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserDao ud;
-
-	public User getUserList(HashMap map) {
-		// TODO Auto-generated method stub
-		return ud.getUserList(map);
-	}
 
 	public ArrayList<String> selectSchoolByRegion(String province, String city, String area) {
 		// TODO Auto-generated method stub
@@ -61,6 +54,22 @@ public class UserServiceImpl implements UserService{
 	public ArrayList<Seat> selectSeat(String schoolId, String classId) {
 		// TODO Auto-generated method stub
 		return ud.selectSeat(schoolId, classId);
+	}
+	
+	@Transactional
+	public int updateSeat(Seat seat) {
+		// TODO Auto-generated method stub
+		return ud.updateSeat(seat);
+	}
+
+	public String selectOneSeat(Seat seat) {
+		// TODO Auto-generated method stub
+		return ud.selectOneSeat(seat);
+	}
+
+	public ArrayList<String> selectClass(String year, String schoolId) {
+		// TODO Auto-generated method stub
+		return ud.selectClass(year, schoolId);
 	}
 
 }

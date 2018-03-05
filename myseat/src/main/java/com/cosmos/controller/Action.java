@@ -1,41 +1,24 @@
 package com.cosmos.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.cosmos.entity.ClassTable;
 import com.cosmos.entity.School;
-import com.cosmos.entity.User;
+import com.cosmos.entity.Seat;
 import com.cosmos.service.UserService;
 
 @Controller
 public class Action {
 	@Autowired
 	private UserService us;
-	
-	//登陆
-	@RequestMapping("login.do")
-	public String getUser(@RequestParam(value="userCode") String name, @RequestParam(value="userPassword") String password, Model mod) {
-		
-		HashMap<String, String> map = new HashMap<String,String>();
-		map.put("name", name);
-		map.put("password",password);
-		User user = us.getUserList(map);
-		if(user!=null) {
-			mod.addAttribute("user", user);
-			return "show.jsp";
-		}else {
-			return "error.jsp";
-		}
-	}
 	
 	//查询school--在弹窗显示
 	@RequestMapping("selectSchoolByRegion.html")
@@ -48,28 +31,14 @@ public class Action {
 		return JSON.toJSONString(schoolList);
 	}
 	
-	//查询schoolId
-	@RequestMapping("selectSchoolId.html")
+	//查询class--在弹窗显示
+	@RequestMapping("selectClass.html")
 	@ResponseBody
-	public String findSchoolId(@RequestParam(value="province")String province, @RequestParam(value="city")String city, @RequestParam(value="area")String area) {
-		String schoolId = us.selectSchoolId(province, city, area);
+	public String showClassName(@RequestParam(value="year")String year,
+			@RequestParam(value="schoolId")String schoolId) {
+		ArrayList<String> classList = us.selectClass(year, schoolId);
 	 
-		return schoolId;
-	}
-	
-	//查询classId
-	@RequestMapping("selectClassId.html")
-	@ResponseBody
-	public String findClassId(@RequestParam(value="province")String province, 
-			@RequestParam(value="city")String city, 
-			@RequestParam(value="area")String area, 
-			@RequestParam(value="year")String year, 
-			@RequestParam(value="className")String className, 
-			@RequestParam(value="times")String times) {
-		String schoolId = us.selectSchoolId(province, city, area);
-		String classId = us.selectClassId(year, className, times, schoolId);
-	 
-		return classId;
+		return JSON.toJSONString(classList);
 	}
 	
 	//插入school
@@ -77,10 +46,16 @@ public class Action {
 	@ResponseBody
 	public int addSchool(@RequestParam(value="province")String province, 
 			@RequestParam(value="city")String city, 
-			@RequestParam(value="area")String area) {
+			@RequestParam(value="area")String area,
+			@RequestParam(value="chineseName")String chineseName) {
 		
 		ArrayList<String> schoolList = us.selectSchoolByRegion(province, city, area);
 		if(schoolList.size()>0) {
+			for(int i=0; i<schoolList.size(); i++) {
+				if(schoolList.get(i)==chineseName) {
+					return 0;
+				}
+			}
 			School school = new School();
 			school.setProvince(province);
 			school.setCity(city);
@@ -94,11 +69,84 @@ public class Action {
 			
 			//返回1表示插入成功
 			return 1;
+			
 		}else {
-			//返回0表示已经有重名的
-			return 0;
+			School school = new School();
+			school.setProvince(province);
+			school.setCity(city);
+			school.setArea(area);
+			
+			//使用uuid创建schoolId
+			String schoolId = UUID.randomUUID().toString();
+			school.setSchoolId(schoolId);
+			
+			us.insertSchool(school);
+			
+			//返回1表示插入成功
+			return 1;
 		}
-		
 	}
 	
+	//插入class
+	@RequestMapping("insertClass.html")
+	@ResponseBody
+	public int addClass(@RequestParam(value="province")String province, 
+			@RequestParam(value="city")String city, 
+			@RequestParam(value="area")String area, 
+			@RequestParam(value="year")String year, 
+			@RequestParam(value="className")String className, 
+			@RequestParam(value="times")String times) {
+		String schoolId = us.selectSchoolId(province, city, area);
+		String aclassId = us.selectClassId(year, className, times, schoolId);
+		if(aclassId=="" || aclassId==null) {
+			ClassTable classTable = new ClassTable();
+			classTable.setClassName(className);
+			classTable.setSchoolId(schoolId);
+			classTable.setTimes(times);
+			classTable.setYear(year);
+			String classId = UUID.randomUUID().toString();
+			classTable.setClassId(classId);
+			
+			us.insertClass(classTable);
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+	
+	//插入seat
+	@RequestMapping("insertSeat.html")
+	@ResponseBody
+	public int addSeat(@RequestParam(value="schoolId")String schoolId,
+			@RequestParam(value="classId")String classId,
+			@RequestParam(value="name")String name,
+			@RequestParam(value="seatId")String seatId) {
+		Seat seat = new Seat();
+		seat.setClassId(classId);
+		seat.setName(name);
+		seat.setSchoolId(schoolId);
+		seat.setSeatId(seatId);
+		
+		String stId = us.selectOneSeat(seat);
+		
+		if(stId!=null) {
+			us.updateSeat(seat);
+			return 1;
+		}else {
+			us.insertSeat(seat);
+			return 1;
+		}
+	}
+	
+	//查询以及分享seat
+	@RequestMapping("selectSeat.html")
+	@ResponseBody
+	public String findSeat(@RequestParam(value="seatId")String seatId, 
+			@RequestParam(value="schoolId")String schoolId, 
+			@RequestParam(value="classId")String classId) {
+		ArrayList<Seat> list = us.selectSeat(schoolId, classId);
+		String seatList = JSON.toJSONString(list);
+		
+		return seatList;
+	}
 }
