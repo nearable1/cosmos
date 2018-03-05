@@ -1,7 +1,8 @@
 {
   "pages":[
-    "pages/choose/choose",
-    "pages/choose/seat/seat"
+    "pages/choose/seat/seat",
+    "pages/choose/choose"
+    
     
   ],
   "window":{

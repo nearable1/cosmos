@@ -79,7 +79,11 @@ Page({
     this.setData({
       hiddenmodalput: true,
     })
-    if (!this.data.newSchool) {
+    if (this.data.newSchool) {
+      this.setData({
+        school: this.data.inputSchool
+      })
+    }else {
       this.setData({
         school: this.data.arraySchool[this.data.indexSchool]
       })
@@ -120,6 +124,10 @@ Page({
         newSchool: true,
         inputSchool: e.detail.value
       })
+    } else {
+      this.setData({
+        newSchool: false
+      })
     }
   },
   bindClassInputChange: function (e) {
@@ -128,6 +136,10 @@ Page({
         //school: e.detail.value
         newClass: true,
         inputClass: e.detail.value
+      })
+    }else {
+      this.setData({
+        newClass: false
       })
     }
   },

@@ -29,11 +29,10 @@
   border-top:1rpx solid gray;
   border-bottom:1rpx solid gray;
   text-align: center;
-  margin-top: 80rpx;
-  background-color:bisque;
+  margin-top: 60rpx;
   display: inline-block;
+  line-height: 40rpx;
   vertical-align: bottom;
-  padding-top:10rpx;
 }
 
 .seatSide {
@@ -52,12 +51,7 @@
   border-bottom:1rpx solid gray;
   border-left:1rpx solid gray;
   text-align: center;
+  line-height:40rpx;
   margin-top: 20rpx;
-  background-color:bisque;
-  padding-top:10rpx;
   z-index: -1;
-}
-
-.active-tag {
-  background-color:red;
 }

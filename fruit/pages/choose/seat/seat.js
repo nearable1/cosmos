@@ -2,7 +2,7 @@ var order = ['red', 'yellow', 'blue', 'green', 'red']
 Page({
   data:{
     hiddenmodalput: true,
-    list: [{ id: '310', name: '刘熠庚', state: '' }, { id: '410', name: '刘熠庚', state: '' }, { id: '614', name: '刘熠庚', state: '' }],
+    list: [{ id: '310', name: 'gaoe'}, { id: '410', name: '刘熠庚'}, { id: '614', name: '刘熠庚'}, { id: 'aa', name: '刘熠庚'}],
     index: 0,
     currentItem: ''
   },
