@@ -7,27 +7,24 @@ Page({
   data: {
     region: [],
     date: '',
-    arrayClass: ['','1班', '2班', '3班', '4班', '5班', '6班', '7班', '8班', '9班', '10班'],
-    arraySchool: ['','学校1', '学校2', '学校3', '学校4'],
-    arrayGrade: ['','初一第一次座位', '初三最后一次座位', '高一第一次座位', '高三最后一次座位'],
+    arrayClass: ['1班', '2班', '3班', '4班', '5班', '6班', '7班', '8班', '9班', '10班'],
+    arraySchool: ['学校1', '学校2', '学校3', '学校4'],
+    arrayGrade: ['初一第一次座位', '初三最后一次座位', '高一第一次座位', '高三最后一次座位'],
     indexClass: 0,
     indexSchool: 0,
-    indexGrade: 0,
     hiddenmodalput: true,
     hiddenClass: true,
     //数组中的数字依次表示 picker-view 内的 picker-view-colume 选择的第几项（下标从 0 开始）
     value: [0],
+    grade: '',
     //界面显示的学校
     school: '',
     //是否需要新建学校
     newSchcool: false,
     //界面显示班级
     className: '',
-    //是否需要新建班级
-    newClass: false,
     //中间值
-    inputSchool:'',
-    inputClass:''
+    inputSchool:''
   },
   //地区事件
   bindRegionChange: function (e) {
@@ -52,8 +49,15 @@ Page({
   },
   //年级事件
   bindGradeChange: function (e) {
+    console.log(e)
     this.setData({
-      indexGrade: e.detail.value
+      grade: this.data.arrayGrade[e.detail.value]
+    })
+  }, 
+  //班级事件
+  bindClassChange: function(e) {
+    this.setData({
+      className: this.data.arrayClass[e.detail.value]
     })
   },
   //picker-view学校选择事件
@@ -67,11 +71,6 @@ Page({
   schoolCancel: function() {
     this.setData({
       hiddenmodalput:true
-    })
-  },
-  classCancel: function() {
-    this.setData({
-      hiddenClass:true
     })
   },
   //弹窗右下角确定
@@ -89,31 +88,11 @@ Page({
       })
     }
   },
-  classConfirm: function() {
-    this.setData({
-      hiddenClass: true,
-    })
-    if (this.data.newClass) {
-      this.setData({
-        className: this.data.inputClass
-      })
-    } else {
-      this.setData({
-        className: this.data.arrayClass[this.data.indexClass]
-      })
-    }
-  },
   //点击显示选择学校的弹窗
   clickToChooseSchool: function() {
     //需要根据地区select出学校
     this.setData({
       hiddenmodalput: !this.data.hiddenmodalput
-    })
-  },
-  clickToChooseClass: function () {
-    //select出班级
-    this.setData({
-      hiddenClass: !this.data.hiddenClass
     })
   },
   //弹窗中输入框值改变事件
@@ -130,27 +109,14 @@ Page({
       })
     }
   },
-  bindClassInputChange: function (e) {
-    if (e.detail.value.length >= 1) {
-      this.setData({
-        //school: e.detail.value
-        newClass: true,
-        inputClass: e.detail.value
-      })
-    }else {
-      this.setData({
-        newClass: false
-      })
-    }
-  },
   //点击跳转到seat.wxml
   clickToGoSeat: function() {
-    var grade = this.data.indexGrade
-    var inc = this.data.indexClass
+    var grade = this.data.grade
+    var inc = this.data.className
     var school = this.data.school
     var date = this.data.date
     var region = this.data.region
-    if (grade==0||inc==0||school==''||date==''||region.length==0) {
+    if (grade==''||inc==''||school==''||date==''||region.length==0) {
       wx.showToast({
         title:'请输入空白部分',
         icon: 'loading',

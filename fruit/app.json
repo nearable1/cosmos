@@ -1,9 +1,7 @@
 {
   "pages":[
-    "pages/choose/seat/seat",
-    "pages/choose/choose"
-    
-    
+    "pages/choose/choose",
+    "pages/choose/seat/seat"
   ],
   "window":{
     "backgroundTextStyle":"light",

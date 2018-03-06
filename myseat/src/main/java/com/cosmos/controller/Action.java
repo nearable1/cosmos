@@ -31,16 +31,6 @@ public class Action {
 		return JSON.toJSONString(schoolList);
 	}
 	
-	//查询class--在弹窗显示
-	@RequestMapping("selectClass.html")
-	@ResponseBody
-	public String showClassName(@RequestParam(value="year")String year,
-			@RequestParam(value="schoolId")String schoolId) {
-		ArrayList<String> classList = us.selectClass(year, schoolId);
-	 
-		return JSON.toJSONString(classList);
-	}
-	
 	//插入school
 	@RequestMapping("insertSchool.html")
 	@ResponseBody
@@ -90,13 +80,10 @@ public class Action {
 	//插入class
 	@RequestMapping("insertClass.html")
 	@ResponseBody
-	public int addClass(@RequestParam(value="province")String province, 
-			@RequestParam(value="city")String city, 
-			@RequestParam(value="area")String area, 
+	public String addClass(@RequestParam(value="schoolId")String schoolId, 
 			@RequestParam(value="year")String year, 
 			@RequestParam(value="className")String className, 
 			@RequestParam(value="times")String times) {
-		String schoolId = us.selectSchoolId(province, city, area);
 		String aclassId = us.selectClassId(year, className, times, schoolId);
 		if(aclassId=="" || aclassId==null) {
 			ClassTable classTable = new ClassTable();
@@ -108,10 +95,12 @@ public class Action {
 			classTable.setClassId(classId);
 			
 			us.insertClass(classTable);
-			return 1;
+			
+			return findSeat(schoolId, classId);
 		}else {
-			return 0;
+			return findSeat(schoolId, aclassId);
 		}
+		
 	}
 	
 	//插入seat
@@ -141,8 +130,7 @@ public class Action {
 	//查询以及分享seat
 	@RequestMapping("selectSeat.html")
 	@ResponseBody
-	public String findSeat(@RequestParam(value="seatId")String seatId, 
-			@RequestParam(value="schoolId")String schoolId, 
+	public String findSeat(@RequestParam(value="schoolId")String schoolId, 
 			@RequestParam(value="classId")String classId) {
 		ArrayList<Seat> list = us.selectSeat(schoolId, classId);
 		String seatList = JSON.toJSONString(list);

@@ -1,4 +1,5 @@
 .section {
   border-bottom:1rpx solid #aaa;
-  line-height:100rpx
+  line-height:100rpx;
+  background-color:azure;
 }
