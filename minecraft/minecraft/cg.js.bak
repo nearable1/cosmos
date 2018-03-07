@@ -182,7 +182,6 @@
                 }
                 this.tiles[i].setAttribute('value',count);
                 count = 0;
-
             }
         },
         //储存周围的位置；；
