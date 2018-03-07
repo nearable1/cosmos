@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <link rel="stylesheet" href="saolei_cg.css" />
+    <script src="./jquery-3.2.0.js"></script>
+    <script src = './cg.js'></script>
+
+    <script>
+        window.onload = function(){
+            var box = document.getElementById('box');
+            var arr = [0,10,40,120];
+            var arr_type = [0,10,16,24];
+            $('#new_1').click(function(){
+                window.location.reload();
+            })
+            $('#sure').click(function(){                
+                var val = $('#set_num').val();              
+                var game = new mineCraft(arr_type[val],arr_type[val],arr[val],box,$('#set_num').val()-1);                
+                $('#set_num').attr('disabled',true);
+                $(this).attr('disabled',true);
+            })
+            $('#set_num').change(function(){               
+                flag = true;
+            })
+        }
+    </script>
+    <body>
+        <ul>
+            <span>
+                <select name="" id="set_num">
+                    <option value=1>初级</option>
+                    <option value=2>中级</option>
+                    <option value=3>高级</option>
+                </select>
+                <button id = "sure">确定</button>
+            </span>
+            <span id = "new_1">New Game!!!</span>
+        </ul>
+        
+        <div id = 'box'></div>
+        
+    </body>
+</html>

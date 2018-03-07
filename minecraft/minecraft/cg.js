@@ -9,42 +9,41 @@
         this.num1 = num1;                        //行数
         this.num2 = num2;                        //列
         this.mine_num = mine_num;                //雷的个数
-        this.tiles = [];                         //
-        this.obj = obj;
+        this.tiles = [];                         //数组里面存放的是每个小格子
+        this.obj = obj;							//扫雷放置的对象
         this.flag = true;
         this.arr = [];
         this.arr_2 = [];
-        this.time_dsq = null;
-        this.time_dc ='';
-        this.time_arr = [[],[],[]];
-        this.details = [[],[],[]];
-        this.type = type;
-        this.buildTiles();
+        this.type = type;//游戏类型：初级/中级/高级/自定义
+        this.buildTiles();//创建游戏函数
     };
 
     mineCraft.prototype = {
-
+		//在页面上创建扫雷的界面 函数buildTiles
         buildTiles:function(){
-            this.obj.style.width = 51*this.num1+'px';
+            this.obj.style.width = 51*this.num1+'px'; //在传进来的对象上画整体格子，每个小格子51px大小，总大小就为个数*单个大小
             this.obj.style.height = 51*this.num2+'px';
             var indexOfdiv = 0;
             for(var i = 0;i<this.num2;i++){
                 for(var j = 0;j<this.num1;j++){
                     var tile = document.createElement('div');
-                    tile.className = 'tile';
-                    tile.index = indexOfdiv;
-                    this.tiles[indexOfdiv] = tile;
+                    tile.className = 'tile';//定义小格子class
+                    tile.index = indexOfdiv;//为每个小格子添加索引
+                    this.tiles[indexOfdiv] = tile; //将小格子存入数组中
                     indexOfdiv++;
-                    this.obj.appendChild(tile);
+                    this.obj.appendChild(tile); //将小格子插入到整个扫雷界面中  
                 }
             }
-            this.obj.oncontextmenu = function(){
+            this.obj.oncontextmenu = function(){//取消浏览器的默认右键菜单事件
                 return false;
             }
-            this.event();
-   
+            this.event();//点击事件
         },
-        setMineCraft:function(num,arr_first,num_first){
+		//布雷：我之前的布雷是在页面加载在buildTiles()的时候布雷的，
+		//但是这样会导致有可能你电机的第一个格子就是雷（游戏性不强），
+		//后来修改到第一次点击完成之后布雷（确保第一下点的不是雷），
+		//避开直接炸死的现象.所以把调用放在后面的event后触发的changeStyle函数中
+        setMineCraft:function(num,arr_first,num_first){//雷的个数、最开始被点击的格子周围的八个、被点击的那个格子
             var arr_index = [];
             for(var i = 0;i<arr_first.length;i++){
                 arr_index.push(arr_first[i].index);
@@ -55,7 +54,7 @@
             }
             for (var i = 0; i < num; i++) {
                 var index_Mine = Math.floor(Math.random() * this.tiles.length);
-                if(index_Mine == num_first||arr_index.lastIndexOf(index_Mine)>-1){
+                if(index_Mine == num_first||arr_index.lastIndexOf(index_Mine)>-1){//如果是属于第一次点击的周围的直接跳过在该位置布雷
                     num++;
                     continue;
                 }
@@ -69,6 +68,7 @@
             this.showValue();
             this.event()
         },
+		//绑事件函数
         event : function(){
             var _this = this;
             this.obj.onmouseover = function(e){
@@ -83,8 +83,8 @@
             }
             this.obj.onmousedown = function(e){
                 var index = e.target.index;
-                if(e.button == 1){
-                    event.preventDefault();
+                if(e.button == 1){//e.button属性 左键0/中键1/右键2
+                    event.preventDefault();//取消默认
                 }
                 _this.changeStyle(e.button,e.target,index);
             }
@@ -94,22 +94,24 @@
                 }
             }
         },
+		//结束判断：
         over:function(obj){
             var flag = false;
             var showed = document.getElementsByClassName('showed');
             var num = this.tiles.length - this.mine_num;
-            if(showed.length == this.tiles.length - this.mine_num){
-                this.detail_statistics(1,true);
+            if(showed.length == this.tiles.length - this.mine_num){//如果被排出来的格子数等于总格子数-雷数，这游戏成功结束   
+                
                 alert('恭喜你获得成功');
                 flag = true;
-            }else if(obj&&obj.getAttribute('val') == 1){
-                this.detail_statistics(1,false);
+            }else if(obj&&obj.getAttribute('val') == 1){//如果被点击的是雷，则炸死
+                
                 alert('被炸死！');
                 flag = true;
 
             }
             return flag;
         },
+		//结束后的显示函数：
         last:function(){
             var len = this.tiles.length;
             for(var i = 0;i<len;i++){
@@ -121,39 +123,40 @@
             this.obj.onclick = null;
             this.obj.oncontextmenu = null;
         },
+		//点击调用的函数
         changeStyle:function(num1,obj,num_index){
-            if(num1 == 0){
-                if(this.flag){
-                    this.store(num_index);
-                    this.setMineCraft(this.mine_num,this.arr,num_index);
+            if(num1 == 0){//是左键的话
+                if(this.flag){//this.flag 是之前定义的用于判断是否为第一次点击
+                    this.store(num_index);//store函数，存放被点击的格子周围的8个格子
+                    this.setMineCraft(this.mine_num,this.arr,num_index);//如果是第一次点击 即调用布雷函数 更改flag状态
                     this.flag = false;
-                    this.detail_statistics(0,false);
+                    
                 }                
-                if(obj.className != 'tile'&&obj.className !='tile current'){
+                if(obj.className != 'tile'&&obj.className !='tile current'){//如果不是第一次点击，被点击的格子不是未点击状态，无效
                     return false;
                 }
-                if(obj.getAttribute('val') == 0){
+                if(obj.getAttribute('val') == 0){//如果不是雷。改为翻开状态
                     obj.className = "showed";
-                    obj.innerHTML = obj.getAttribute('value') == 0?'':obj.getAttribute('value');
-                    this.showAll(obj.index);
+                    obj.innerHTML = obj.getAttribute('value') == 0?'':obj.getAttribute('value');//显示周围雷数
+                    this.showAll(obj.index);//递归函数判断周围格子的情况，就是扫雷游戏上一点开会出现一片的那种
                 }
-                if(this.over(obj)){
+                if(this.over(obj)){//判断游戏是否结束
                     this.last();
                 }
             }
-            if(num1 == 2){
+            if(num1 == 2){//右键标记事件
                 if(obj.className == 'biaoji'){
                     obj.className = 'tile';
                 }else if(obj.className !='biaoji'&&obj.className != 'showed'){
                     obj.className = 'biaoji';
                 }
             }
-            if(num1 == 1){
+            if(num1 == 1){// 中键事件
                 if(obj.className =="showed"){
                     this.show_zj1(obj.index);
                 }
             }
-            if(num1 == 3){
+            if(num1 == 3){//鼠标弹起事件
                 
                 if (obj.className == "showed") {
                     var flag1 = this.show_zj2(obj.index,0);
@@ -162,7 +165,7 @@
                     return false;
                 }
 
-                if(flag1&&this.over()){
+                if(flag1&&this.over()){//弹起判断是否结束
                     this.last();
                 }
             }
@@ -179,11 +182,10 @@
                 }
                 this.tiles[i].setAttribute('value',count);
                 count = 0;
-
             }
         },
         //储存周围的位置；；
-        store : function(num) {
+        store : function(num) {//传入格子的index.
             var tiles_2d = [];
             var indexs = 0;
             for(var i = 0;i<this.num2;i++){
@@ -229,6 +231,7 @@
                 this.arr.push(tiles_2d[i + 1][j + 1]);
             }
         },
+		//作用是如果该格子周围没有雷，自动翻开周围8个格子，然后再判断周围八个格子的周围8隔格子是否有雷，利用了递归的方法
         showAll:function(num){
             if (this.tiles[num].className == "showed" && this.tiles[num].getAttribute("value") == 0){
                 this.store(this.tiles[num].index);
@@ -247,6 +250,8 @@
                 }
             }
         },
+		//show_zj函数：主要是中键按钮的作用中键点击后的函数，这里的show_zj1是鼠标键按下后的显示效果，
+		//show_zj2函数就是
         show_zj1:function(num){
             this.store(this.tiles[num].index);
             for (var i = 0; i < this.arr.length; i++) {
@@ -274,17 +279,17 @@
                 return false;
             }
             var numofmines = this.tiles[num].getAttribute("value");
-            if(numofmines == count){
+            if(numofmines == count){//如果周围雷数和周围被标记数相等就翻开周围的格子
                    var arr = new Array(this.arr.length);
                    for(var i = 0;i<this.arr.length;i++){
                        arr[i] = this.arr[i];
                    }
                     for (var i = 0,length = arr.length; i < length; i++) {
-                        if (arr[i].className == "tile" && arr[i].getAttribute("val") != 1) {
+                        if (arr[i].className == "tile" && arr[i].getAttribute("val") != 1) {//如果周围格子无雷则继续
                             arr[i].className = "showed";
                             arr[i].innerHTML = arr[i].getAttribute("value") == 0?"":arr[i].getAttribute("value");
                             this.showAll(arr[i].index);
-                        } else if (arr[i].className == "tile" && arr[i].getAttribute("val") == 1) {
+                        } else if (arr[i].className == "tile" && arr[i].getAttribute("val") == 1) {//如果周围格子有雷，游戏结束
                             this.over(arr[i]);
                             this.last();
                             return false;
@@ -292,87 +297,7 @@
                     }
             }
             return true;
-        },
-        //已玩游戏，已胜游戏，胜率，最多连胜，最多连败，当前连局；
-        detail_statistics:function(num,zt){
-            var time_pay = 1;
-            var _this = this;
-            if(num == 0){
-                this.time_dsq = setInterval(function(){
-                    $('#time_need').text(time_pay);
-                    _this.time_dc =time_pay;
-                    time_pay++;
-                   
-                
-                },1000);
-        
-            }
-            else if(num == 1){
-                console.log(localStorage.details);
-                clearInterval(this.time_dsq);
-                if(this.type == 4){return false;}
-                if(localStorage.details == undefined){                    
-                    localStorage.details = JSON.stringify([[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]]);
-                }
-                if(JSON.parse(localStorage.details) instanceof Array){
-                    this.details = JSON.parse(localStorage.details);             
-                }
-                this.details[this.type][0] += 1;
-                if(zt == false){
-                    if(this.details[this.type][5]>=0){
-                        this.details[this.type][5] = -1;
-                    }else{
-                        this.details[this.type][5] -= 1;
-                    }    
-                    if(this.details[this.type][5]<this.details[this.type][4]){
-                        this.details[this.type][4] = this.details[this.type][5];
-                    }
-                    this.details[this.type][2] = this.toPercent(this.details[this.type][1]/this.details[this.type][0]);                
-                    localStorage.details = JSON.stringify(this.details);
-                    return false;
-                }
-
-                if(this.details[this.type][5]>=0){
-                    this.details[this.type][5] += 1;
-                }else{
-                    this.details[this.type][5] = 1;
-                }
-                if(this.details[this.type][5]>this.details[this.type][3]){
-                    this.details[this.type][3] = this.details[this.type][5];
-                }
-                this.details[this.type][6] = ((this.details[this.type][6]*this.details[this.type][1]+this.time_dc)/(this.details[this.type][1]+1)).toFixed(1); 
-                this.details[this.type][1] += 1;
-                this.details[this.type][2] = this.toPercent(this.details[this.type][1]/this.details[this.type][0]);
-                localStorage.details = JSON.stringify(this.details);
-                
-                var time1 = new Date();                
-                var time_str = time1.getFullYear()+'/'+time1.getMonth()+'/'+time1.getDate()+'  '+time1.getHours()+':'+time1.getMinutes();
-                if(localStorage.time == undefined){
-                    localStorage.time = JSON.stringify([[],[],[]]);
-                }
-                if(JSON.parse(localStorage.time) instanceof Array){
-                    this.time_arr = JSON.parse(localStorage.time);
-                }
-
-                this.time_arr[this.type].push([this.time_dc,time_str]);
-                this.time_arr[this.type].sort(function(a,b){
-                    return a[0]-b[0];
-                });
-                if(this.time_arr[this.type].length>5){
-                    this.time_arr[this.type].pop();
-                }
-                localStorage.time = JSON.stringify(this.time_arr);
-           
-            }
-        },
-        toPercent:function(point){
-            var str=Number(point*100).toFixed(1);
-            str+="%";
-            return str;
-        },
-        show_left:function(){
-
-        },
+        }
     }
     g.mineCraft = mineCraft;
 })
