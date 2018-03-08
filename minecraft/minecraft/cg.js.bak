@@ -5,7 +5,7 @@
     callback(g);
 })(window,function(g){
 
-    var mineCraft = function(num1,num2,mine_num,obj,type){
+    var mineCraft = function(num1,num2,mine_num,obj){
         this.num1 = num1;                        //行数
         this.num2 = num2;                        //列
         this.mine_num = mine_num;                //雷的个数
@@ -14,7 +14,6 @@
         this.flag = true;
         this.arr = [];
         this.arr_2 = [];
-        this.type = type;//游戏类型：初级/中级/高级/自定义
         this.buildTiles();//创建游戏函数
     };
 
@@ -182,7 +181,6 @@
                 }
                 this.tiles[i].setAttribute('value',count);
                 count = 0;
-
             }
         },
         //储存周围的位置；；

@@ -1,11 +1,8 @@
-/*
- 待解决：1,mouseup 异常
-*/
 (function(g,callback){
     callback(g);
 })(window,function(g){
 
-    var mineCraft = function(num1,num2,mine_num,obj,type){
+    var mineCraft = function(num1,num2,mine_num,obj){
         this.num1 = num1;                        //行数
         this.num2 = num2;                        //列
         this.mine_num = mine_num;                //雷的个数
@@ -13,8 +10,6 @@
         this.obj = obj;							//扫雷放置的对象
         this.flag = true;
         this.arr = [];
-        this.arr_2 = [];
-        this.type = type;//游戏类型：初级/中级/高级/自定义
         this.buildTiles();//创建游戏函数
     };
 
@@ -39,8 +34,8 @@
             }
             this.event();//点击事件
         },
-		//布雷：我之前的布雷是在页面加载在buildTiles()的时候布雷的，
-		//但是这样会导致有可能你电机的第一个格子就是雷（游戏性不强），
+		//布雷：在页面加载在buildTiles()的时候布雷，
+		//会导致有可能点击的第一个格子就是雷（游戏性不强），
 		//后来修改到第一次点击完成之后布雷（确保第一下点的不是雷），
 		//避开直接炸死的现象.所以把调用放在后面的event后触发的changeStyle函数中
         setMineCraft:function(num,arr_first,num_first){//雷的个数、最开始被点击的格子周围的八个、被点击的那个格子
@@ -50,16 +45,15 @@
             }
             var length = this.tiles.length;
             for (var i = 0; i < length; i++) {
-                this.tiles[i].setAttribute("val", 0);
+                this.tiles[i].setAttribute("val", 0);//将每个tile的val设定为0
             }
             for (var i = 0; i < num; i++) {
                 var index_Mine = Math.floor(Math.random() * this.tiles.length);
                 if(index_Mine == num_first||arr_index.lastIndexOf(index_Mine)>-1){//如果是属于第一次点击的周围的直接跳过在该位置布雷
-                    num++;
+                    num++;//保证布置num个雷
                     continue;
                 }
-                
-                if (this.tiles[index_Mine].getAttribute("val") == 0) {
+                if (this.tiles[index_Mine].getAttribute("val") == 0) {//防止重复布雷，雷的val=1
                     this.tiles[index_Mine].setAttribute("val", 1);
                 }else {
                     num++;
@@ -82,16 +76,9 @@
                 }
             }
             this.obj.onmousedown = function(e){
-                var index = e.target.index;
-                if(e.button == 1){//e.button属性 左键0/中键1/右键2
-                    event.preventDefault();//取消默认
-                }
-                _this.changeStyle(e.button,e.target,index);
-            }
-            this.obj.onmouseup = function(e){
-                if(e.button == 1){
-                    _this.changeStyle(3,e.target);
-                }
+
+                //e.button属性 左键0/中键1/右键2
+                _this.changeStyle(e.button,e.target,e.target.index);
             }
         },
 		//结束判断：
@@ -99,15 +86,12 @@
             var flag = false;
             var showed = document.getElementsByClassName('showed');
             var num = this.tiles.length - this.mine_num;
-            if(showed.length == this.tiles.length - this.mine_num){//如果被排出来的格子数等于总格子数-雷数，这游戏成功结束   
-                
+            if(showed.length == this.tiles.length - this.mine_num){//如果被排出来的格子数等于总格子数-雷数，这游戏成功结束
                 alert('恭喜你获得成功');
                 flag = true;
             }else if(obj&&obj.getAttribute('val') == 1){//如果被点击的是雷，则炸死
-                
                 alert('被炸死！');
                 flag = true;
-
             }
             return flag;
         },
@@ -151,33 +135,14 @@
                     obj.className = 'biaoji';
                 }
             }
-            if(num1 == 1){// 中键事件
-                if(obj.className =="showed"){
-                    this.show_zj1(obj.index);
-                }
-            }
-            if(num1 == 3){//鼠标弹起事件
-                
-                if (obj.className == "showed") {
-                    var flag1 = this.show_zj2(obj.index,0);
-                }else{
-                    this.show_zj2(obj.index,1)
-                    return false;
-                }
-
-                if(flag1&&this.over()){//弹起判断是否结束
-                    this.last();
-                }
-            }
         },
         showValue:function(){
             var count = 0;
             for(var i = 0;i<this.tiles.length;i++){
                 this.store(this.tiles[i].index);
-
                 for(var j = 0;j<this.arr.length;j++){
                     if(this.arr[j].getAttribute('val') == 1){
-                        count++;
+                        count++;//统计周围8个格子的雷数
                     }
                 }
                 this.tiles[i].setAttribute('value',count);
@@ -195,8 +160,8 @@
                     indexs++;
                 } 
             }
-            var j = num % this.num1;
-            var i = (num - j) / this.num1;
+            var j = num % this.num1;//列
+            var i = (num - j) / this.num1;//行
             this.arr = [];
                 //左上
             if (i - 1 >= 0 && j - 1 >= 0) {
@@ -249,54 +214,6 @@
                     }
                 }
             }
-        },
-		//show_zj函数：主要是中键按钮的作用中键点击后的函数，这里的show_zj1是鼠标键按下后的显示效果，
-		//show_zj2函数就是
-        show_zj1:function(num){
-            this.store(this.tiles[num].index);
-            for (var i = 0; i < this.arr.length; i++) {
-                if (this.arr[i].className == "tile") {
-                    this.arr_2.push(this.arr[i]);
-                    // this.arr[i].className = "showed";
-                    this.arr[i].className = "test";
-                }
-            }
-        },
-        show_zj2:function(num,zt){
-            
-            var count = 0;
-            this.store(this.tiles[num].index);
-            
-            for(var i = 0,len = this.arr_2.length;i<len;i++){
-                this.arr_2[i].className = 'tile';
-            }
-
-            this.arr_2.length = 0;
-            for(var i = 0;i<this.arr.length;i++){
-                this.arr[i].className == 'biaoji'&&count++;
-            }
-            if(zt == 1){
-                return false;
-            }
-            var numofmines = this.tiles[num].getAttribute("value");
-            if(numofmines == count){//如果周围雷数和周围被标记数相等就翻开周围的格子
-                   var arr = new Array(this.arr.length);
-                   for(var i = 0;i<this.arr.length;i++){
-                       arr[i] = this.arr[i];
-                   }
-                    for (var i = 0,length = arr.length; i < length; i++) {
-                        if (arr[i].className == "tile" && arr[i].getAttribute("val") != 1) {//如果周围格子无雷则继续
-                            arr[i].className = "showed";
-                            arr[i].innerHTML = arr[i].getAttribute("value") == 0?"":arr[i].getAttribute("value");
-                            this.showAll(arr[i].index);
-                        } else if (arr[i].className == "tile" && arr[i].getAttribute("val") == 1) {//如果周围格子有雷，游戏结束
-                            this.over(arr[i]);
-                            this.last();
-                            return false;
-                        }
-                    }
-            }
-            return true;
         }
     }
     g.mineCraft = mineCraft;
