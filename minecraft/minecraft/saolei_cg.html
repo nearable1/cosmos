@@ -21,6 +21,17 @@
                 $('#set_num').attr('disabled',true);
                 $(this).attr('disabled',true);
             })
+
+            //http://weatherapi.market.xiaomi.com/wtr-v2/weather?cityId=101121301
+            var city={'city':'上海'}
+            $.ajax({
+                url:'http://wthrcdn.etouch.cn/weather_mini',
+                data:city,
+                method:'GET',
+                success: function(e) {
+                    document.write(e)
+                }
+            })
         }
     </script>
     <body>
