@@ -8,8 +8,8 @@
         this.mine_num = mine_num;                //雷的个数
         this.tiles = [];                         //数组里面存放的是每个小格子
         this.obj = obj;							//扫雷放置的对象
-        this.flag = true;
-        this.arr = [];
+        this.flag = true;//判断是否为第一次点击
+        this.arr = [];//存放点击格子周围的8个格子
         this.buildTiles();//创建游戏函数
     };
 
@@ -59,8 +59,7 @@
                     num++;
                 }
             }
-            this.showValue();
-            this.event()
+            this.setValue()
         },
 		//绑事件函数
         event : function(){
@@ -105,7 +104,7 @@
                 }
             }
             this.obj.onclick = null;
-            this.obj.oncontextmenu = null;
+            this.obj.onmousedown = null
         },
 		//点击调用的函数
         changeStyle:function(num1,obj,num_index){
@@ -114,7 +113,6 @@
                     this.store(num_index);//store函数，存放被点击的格子周围的8个格子
                     this.setMineCraft(this.mine_num,this.arr,num_index);//如果是第一次点击 即调用布雷函数 更改flag状态
                     this.flag = false;
-                    
                 }                
                 if(obj.className != 'tile'&&obj.className !='tile current'){//如果不是第一次点击，被点击的格子不是未点击状态，无效
                     return false;
@@ -136,7 +134,7 @@
                 }
             }
         },
-        showValue:function(){
+        setValue:function(){
             var count = 0;
             for(var i = 0;i<this.tiles.length;i++){
                 this.store(this.tiles[i].index);
@@ -160,8 +158,8 @@
                     indexs++;
                 } 
             }
-            var j = num % this.num1;//列
-            var i = (num - j) / this.num1;//行
+            var j = num % this.num1;//行
+            var i = (num - j) / this.num1;//列
             this.arr = [];
                 //左上
             if (i - 1 >= 0 && j - 1 >= 0) {
