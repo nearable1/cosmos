@@ -8,13 +8,14 @@
         this.mine_num = mine_num;                //雷的个数
         this.tiles = [];                         //数组里面存放的是每个小格子
         this.obj = obj;							//扫雷放置的对象
-        this.flag = true;//判断是否为第一次点击
-        this.arr = [];//存放点击格子周围的8个格子
+        this.flag = true;
+        this.arr = [];
         this.buildTiles();//创建游戏函数
     };
 
     mineCraft.prototype = {
 		//在页面上创建扫雷的界面 函数buildTiles
+        //1
         buildTiles:function(){
             this.obj.style.width = 51*this.num1+'px'; //在传进来的对象上画整体格子，每个小格子51px大小，总大小就为个数*单个大小
             this.obj.style.height = 51*this.num2+'px';
@@ -38,6 +39,7 @@
 		//会导致有可能点击的第一个格子就是雷（游戏性不强），
 		//后来修改到第一次点击完成之后布雷（确保第一下点的不是雷），
 		//避开直接炸死的现象.所以把调用放在后面的event后触发的changeStyle函数中
+        //5
         setMineCraft:function(num,arr_first,num_first){//雷的个数、最开始被点击的格子周围的八个、被点击的那个格子
             var arr_index = [];
             for(var i = 0;i<arr_first.length;i++){
@@ -62,6 +64,7 @@
             this.setValue()
         },
 		//绑事件函数
+        //2
         event : function(){
             var _this = this;
             this.obj.onmouseover = function(e){
@@ -98,21 +101,25 @@
         last:function(){
             var len = this.tiles.length;
             for(var i = 0;i<len;i++){
+                //全部显示
                 this.tiles[i].className = this.tiles[i].getAttribute('val') == 1?'boom':'showed';
+                //结束之后显示数字
                 if(this.tiles[i].className != 'boom'){
                     this.tiles[i].innerHTML = this.tiles[i].getAttribute('value') == 0?'':this.tiles[i].getAttribute('value');
                 }
             }
             this.obj.onclick = null;
-            this.obj.onmousedown = null
+            this.obj.oncontextmenu = null;
         },
 		//点击调用的函数
+        //3
         changeStyle:function(num1,obj,num_index){
             if(num1 == 0){//是左键的话
                 if(this.flag){//this.flag 是之前定义的用于判断是否为第一次点击
                     this.store(num_index);//store函数，存放被点击的格子周围的8个格子
                     this.setMineCraft(this.mine_num,this.arr,num_index);//如果是第一次点击 即调用布雷函数 更改flag状态
                     this.flag = false;
+                    
                 }                
                 if(obj.className != 'tile'&&obj.className !='tile current'){//如果不是第一次点击，被点击的格子不是未点击状态，无效
                     return false;
@@ -134,6 +141,7 @@
                 }
             }
         },
+        //6
         setValue:function(){
             var count = 0;
             for(var i = 0;i<this.tiles.length;i++){
@@ -147,7 +155,8 @@
                 count = 0;
             }
         },
-        //储存周围的位置；；
+        //储存周围的位置；
+        //4
         store : function(num) {//传入格子的index.
             var tiles_2d = [];
             var indexs = 0;
@@ -158,8 +167,8 @@
                     indexs++;
                 } 
             }
-            var j = num % this.num1;//行
-            var i = (num - j) / this.num1;//列
+            var j = num % this.num1;//列
+            var i = (num - j) / this.num1;//行
             this.arr = [];
                 //左上
             if (i - 1 >= 0 && j - 1 >= 0) {
@@ -195,6 +204,7 @@
             }
         },
 		//作用是如果该格子周围没有雷，自动翻开周围8个格子，然后再判断周围八个格子的周围8隔格子是否有雷，利用了递归的方法
+        //7
         showAll:function(num){
             if (this.tiles[num].className == "showed" && this.tiles[num].getAttribute("value") == 0){
                 this.store(this.tiles[num].index);
