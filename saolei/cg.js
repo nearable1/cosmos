@@ -48,7 +48,7 @@
             var length = this.tiles.length;
             for (var i = 0; i < length; i++) {
                 this.tiles[i].setAttribute("val", 0);//将每个tile的val设定为0
-            }
+            } 
             for (var i = 0; i < num; i++) {
                 var index_Mine = Math.floor(Math.random() * this.tiles.length);
                 if(index_Mine == num_first||arr_index.lastIndexOf(index_Mine)>-1){//如果是属于第一次点击的周围的直接跳过在该位置布雷
@@ -121,7 +121,7 @@
                     this.flag = false;
                     
                 }                
-                if(obj.className != 'tile'&&obj.className !='tile current'){//如果不是第一次点击，被点击的格子不是未点击状态，无效
+                if(obj.className !='tile current'){//如果不是第一次点击，被点击的格子不是未点击状态，无效
                     return false;
                 }
                 if(obj.getAttribute('val') == 0){//如果不是雷。改为翻开状态
