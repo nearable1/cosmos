@@ -12,7 +12,7 @@ public interface UserDao {
 	public ArrayList<String> selectSchoolByRegion(String province, String city, String area);
 	
 	//≤È—ØschoolId
-	public String selectSchoolId(String province, String city, String area);
+	public String selectSchoolId(String province, String city, String area, String chineseName);
 	
 	//≤È—ØclassId
 	public String selectClassId(String year, String className, String times, String schoolId);

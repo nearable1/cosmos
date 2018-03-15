@@ -1,5 +1,10 @@
 //app.js
 App({
+  data: {
+    seatList:[],
+    classId: '',
+    schoolId: ''
+  },
   onLaunch: function () {
 
     // 登录

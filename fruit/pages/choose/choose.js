@@ -1,4 +1,4 @@
-
+var global = getApp().data
 Page({
 
   /**
@@ -17,7 +17,7 @@ Page({
       '71班', '72班', '73班', '74班', '75班', '76班', '77班', '78班', '79班', '80班',
       '81班', '82班', '83班', '84班', '85班', '86班', '87班', '88班', '89班', '90班',
       '91班', '92班', '93班', '94班', '95班', '96班', '97班', '98班', '99班'],
-    arraySchool: ['学校1', '学校2', '学校3', '学校4'],
+    arraySchool: ['','学校1', '学校2', '学校3', '学校4'],
     arrayGrade: ['初一第一次座位', '初三最后一次座位', '高一第一次座位', '高三最后一次座位'],
     indexClass: 0,
     indexSchool: 0,
@@ -37,9 +37,28 @@ Page({
   },
   //地区事件
   bindRegionChange: function (e) {
+    
     console.log(e.detail.value)
     this.setData({
       region: e.detail.value
+    })
+    //提取学校
+    var data={province:this.data.region[0],
+      city:this.data.region[1],
+      area:this.data.region[2]}
+    wx.request({
+      url: 'https://www.4java.cn/myseat/selectSchoolByRegion.html',
+      timeout: 5000,
+      data: data,
+      method: 'POST',
+      success: function(e) {
+        this.setData({
+          arraySchool: e.detail.value
+        })
+      },
+      fail: function(e){
+        console.log(e)
+      }
     })
   },
   //入学年份事件
@@ -88,6 +107,26 @@ Page({
       hiddenmodalput: true,
     })
     if (this.data.newSchool) {
+      //插入学校
+      var data = {province:this.data.region[0],
+        city:this.data.region[1],
+        area:this.data.region[2],
+        chineseName: this.data.inputSchool}
+      wx.request({
+        url: 'https://www.4java.cn/myseat/insertSchool.html',
+        data: data,
+        method: 'GET',
+        success: function(e) {
+          if(e.detail.value==1) {
+            console.log('success')
+          }else if(e.detail.value==0) {
+            console.log(e)
+          }
+        },
+        fail: function(e) {
+          console.log(e)
+        }
+      })
       this.setData({
         school: this.data.inputSchool
       })
@@ -125,6 +164,40 @@ Page({
     var school = this.data.school
     var date = this.data.date
     var region = this.data.region
+    var data = {
+      province: this.data.region[0],
+      city: this.data.region[1],
+      area: this.data.region[2],
+      ChineseName: school,
+      className: inc,
+      year: date,
+      times: grade}
+    var data1 = {
+      province: this.data.region[0],
+      city: this.data.region[1],
+      area: this.data.region[2],
+      ChineseName: school
+    }
+    //给schoolId赋值
+    wx.request({
+      url: 'https://www.4java.cn/myseat/getSchoolId.html',
+      data: data1,
+      method: 'POST',
+      success: function (e) {
+        //给每个班的座位赋值-全局变量
+        global.schoolId = e.detail.value
+      },
+      fail: function (e) {
+        console.log(e)
+      }
+    })
+    //获得classId的参数
+    var data2 = {
+      className: inc,
+      year: date,
+      times: grade,
+      schoolId: global.schoolId
+    }
     if (grade==''||inc==''||school==''||date==''||region.length==0) {
       wx.showToast({
         title:'请输入空白部分',
@@ -133,6 +206,31 @@ Page({
         duration:1000
       })
     }else {
+      wx.request({
+        url: 'https://www.4java.cn/myseat/insertClass.html',
+        data: data,
+        method: 'POST',
+        success: function(e) {
+          //给每个班的座位赋值-全局变量
+          global.seatList = e.detail.value
+        },
+        fail: function(e) {
+          console.log(e)
+        }
+      })
+      //给classId赋值
+      wx.request({
+        url: 'https://www.4java.cn/myseat/getClassId.html',
+        data: data2,
+        method: 'POST',
+        success: function (e) {
+          //给每个班的座位赋值-全局变量
+          global.classId = e.detail.value
+        },
+        fail: function (e) {
+          console.log(e)
+        }
+      })
       wx.navigateTo({
         url: 'seat/seat'
       })

@@ -59,8 +59,7 @@
                     num++;
                 }
             }
-            this.showValue();
-            this.event()
+            this.showValue()
         },
 		//绑事件函数
         event : function(){

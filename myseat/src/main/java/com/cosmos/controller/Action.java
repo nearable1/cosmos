@@ -20,6 +20,29 @@ public class Action {
 	@Autowired
 	private UserService us;
 	
+	//查询schoolId
+	@RequestMapping("getSchoolId.html")
+	@ResponseBody
+	public String getSchoolId(@RequestParam(value="province")String province, 
+			@RequestParam(value="city")String city, 
+			@RequestParam(value="area")String area,
+			@RequestParam(value="chineseName")String chineseName) {
+		String schoolId = us.selectSchoolId(province, city, area, chineseName);
+		
+		return schoolId;
+	}
+	
+	//查询classId
+	@RequestMapping("getClassId.html")
+	@ResponseBody
+	public String getClassId(@RequestParam(value="year")String year, 
+			@RequestParam(value="className")String className, 
+			@RequestParam(value="times")String times,
+			@RequestParam(value="schoolId")String schoolId) {
+		String classId = us.selectClassId(year, className, times, schoolId);
+		return classId;
+	}
+	
 	//查询school--在弹窗显示
 	@RequestMapping("selectSchoolByRegion.html")
 	@ResponseBody
@@ -54,8 +77,9 @@ public class Action {
 			//使用uuid创建schoolId
 			String schoolId = UUID.randomUUID().toString();
 			school.setSchoolId(schoolId);
-			
-			us.insertSchool(school);
+			synchronized(Action.class) {
+				us.insertSchool(school);
+			}
 			
 			//返回1表示插入成功
 			return 1;
@@ -70,8 +94,9 @@ public class Action {
 			String schoolId = UUID.randomUUID().toString();
 			school.setSchoolId(schoolId);
 			
-			us.insertSchool(school);
-			
+			synchronized(Action.class) {
+				us.insertSchool(school);
+			}
 			//返回1表示插入成功
 			return 1;
 		}
@@ -80,10 +105,14 @@ public class Action {
 	//插入class
 	@RequestMapping("insertClass.html")
 	@ResponseBody
-	public String addClass(@RequestParam(value="schoolId")String schoolId, 
+	public String addClass(@RequestParam(value="province")String province, 
+			@RequestParam(value="city")String city, 
+			@RequestParam(value="area")String area,
+			@RequestParam(value="chineseName")String chineseName, 
 			@RequestParam(value="year")String year, 
 			@RequestParam(value="className")String className, 
 			@RequestParam(value="times")String times) {
+		String schoolId = us.selectSchoolId(province, city, area, chineseName);
 		String aclassId = us.selectClassId(year, className, times, schoolId);
 		if(aclassId=="" || aclassId==null) {
 			ClassTable classTable = new ClassTable();
@@ -93,8 +122,9 @@ public class Action {
 			classTable.setYear(year);
 			String classId = UUID.randomUUID().toString();
 			classTable.setClassId(classId);
-			
-			us.insertClass(classTable);
+			synchronized(Action.class) {
+				us.insertClass(classTable);
+			}
 			
 			return findSeat(schoolId, classId);
 		}else {
@@ -115,16 +145,17 @@ public class Action {
 		seat.setName(name);
 		seat.setSchoolId(schoolId);
 		seat.setSeatId(seatId);
-		
 		String stId = us.selectOneSeat(seat);
-		
-		if(stId!=null) {
-			us.updateSeat(seat);
-			return 1;
-		}else {
-			us.insertSeat(seat);
-			return 1;
+		synchronized(Action.class) {
+			if(stId!=null) {
+				us.updateSeat(seat);
+				return 1;
+			}else {
+				us.insertSeat(seat);
+				return 1;
+			}
 		}
+		
 	}
 	
 	//查询以及分享seat

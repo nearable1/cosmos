@@ -1,13 +1,9 @@
-var order = ['red', 'yellow', 'blue', 'green', 'red']
+var app = getApp().data.seatList
 Page({
   data:{
     hiddenmodalput: true,
     list: [{ id: '310', name: 'gaoe'}, { id: '410', name: '刘熠庚'}, { id: '614', name: '刘熠庚'}, { id: 'aa', name: '刘熠庚'}],
     index: 0,
-    currentItem: ''
-  },
-  onLoad: function() {
-    //数据的遍历
   },
   //更改赋值
   bindchange: function(e) {
@@ -35,13 +31,6 @@ Page({
       list: this.data.list
     })
     //访问后台，update数据库，加锁访问
-  },
-  //点击变换样式
-  clickToChangeStyle:function(e) {
-    //console.log(e)
-    this.setData({
-      currentItem: e.currentTarget.id
-    })
   },
   //设置分享
   onShareAppMessage: function () {

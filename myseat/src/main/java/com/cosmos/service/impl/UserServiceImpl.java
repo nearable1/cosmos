@@ -23,9 +23,9 @@ public class UserServiceImpl implements UserService{
 		return ud.selectSchoolByRegion(province, city, area);
 	}
 
-	public String selectSchoolId(String province, String city, String area) {
+	public String selectSchoolId(String province, String city, String area, String chineseName) {
 		// TODO Auto-generated method stub
-		return ud.selectSchoolId(province, city, area);
+		return ud.selectSchoolId(province, city, area, chineseName);
 	}
 
 	public String selectClassId(String year, String className, String times, String schoolId) {
