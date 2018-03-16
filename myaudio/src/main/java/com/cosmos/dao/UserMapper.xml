@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.cosmos.dao.UserDao">
 	
 	<!-- 获取audio -->
-	<select id="getAudio" parameterType="int">
+	<select id="getAudio" parameterType="int" resultType="com.mysql.jdbc.Blob">
 		select file from myaudio where id=#{0}
 	</select>
 

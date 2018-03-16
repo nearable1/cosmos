@@ -1,6 +1,6 @@
 package com.cosmos.service.impl;
 
-import java.sql.Blob;
+import com.mysql.jdbc.Blob;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;

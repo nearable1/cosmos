@@ -1,6 +1,6 @@
 package com.cosmos.controller;
 
-import java.sql.Blob;
+import com.mysql.jdbc.Blob;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
 package com.cosmos.dao;
 
-import java.sql.Blob;
+import com.mysql.jdbc.Blob;
 
 public interface UserDao {
 	public Blob getAudio(int id);
