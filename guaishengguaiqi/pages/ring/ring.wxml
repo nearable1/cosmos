@@ -1,5 +1,6 @@
 <audio hidden='true' class="myAudio" src="{{src}}" id="myAudio" controls loop binderror="funerror"></audio>
 
+
 <view style="border:1rpx solid gray;height:500rpx">
 </view>
 

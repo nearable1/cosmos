@@ -1,6 +1,5 @@
 package com.cosmos.service.impl;
 
-import com.mysql.jdbc.Blob;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserDao ud;
 
-	public Blob getAudio(int id) {
+	public Object getAudio(int id) {
 		// TODO Auto-generated method stub
 		return ud.getAudio(id);
 	}
