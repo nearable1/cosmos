@@ -4,10 +4,23 @@ Page({
     this.audioCtx = wx.createAudioContext('myAudio')
   },
   data: {
-    src: '../file/glass.mp3',
-    flag: false
+    flag: false,
+    src: '',
+    currentId: 0,
+    isFirst: true,
+    srcs: ['http://www.4java.cn:8080/file/blackboard1.mp3', 'http://www.4java.cn:8080/file/blackboard2.mp3', 'http://www.4java.cn:8080/file/nighf.mp3', 'http://www.4java.cn:8080/file/writeblackboard.mp3', 'http://www.4java.cn:8080/file/docter.mp3', 'http://www.4java.cn:8080/file/pipe.mp3', 'http://www.4java.cn:8080/file/glass.mp3']
   },
-  audio1: function(e) {
+  audio: function(e) {
+    var id = e.target.id
+    this.setData({
+      src:this.data.srcs[id]
+    })
+    //判断是否点击另一个方块
+    if(this.data.currentId != id) {
+      this.setData({
+        flag: false
+      })
+    }
     if(!this.data.flag) {
       this.audioCtx.play()
       this.setData({
@@ -16,9 +29,12 @@ Page({
     }else {
       this.audioCtx.pause()
       this.setData({
-        flag: false
+        flag: false,
       })
     }
-    
+    this.setData({
+      currentId: id
+    })
+   
   }
 })

@@ -1,17 +1,16 @@
 <audio hidden='true' class="myAudio" src="{{src}}" id="myAudio" controls loop binderror="funerror"></audio>
 
-
 <view style="border:1rpx solid gray;height:500rpx">
 </view>
 
 <view style="margin-top:5%">
-  <view class="myaudio" style="border-left:1rpx solid gray;margin-left:5%" bindtap="audio1">1</view>
-  <view class="myaudio" bindtap="audio2">2</view>
-  <view class="myaudio" bindtap="audio3">3</view>
-  <view class="myaudio" bindtap="audio4" style="border-left:1rpx solid gray;margin-left:5%;border-top:0rpx">4</view>
-  <view class="myaudio" bindtap="audio5" style="border-top:0rpx">5</view>
-  <view class="myaudio" bindtap="audio6" style="border-top:0rpx">6</view>
-  <view class="myaudio" bindtap="audio7" style="border-left:1rpx solid gray;margin-left:5%;border-top:0rpx">7</view>
-  <view class="myaudio" bindtap="audio8" style="border-top:0rpx">8</view>
-  <view class="myaudio" bindtap="audio9" style="border-top:0rpx">9</view>
+  <view class="myaudio" style="border-left:1rpx solid gray;margin-left:5%" bindtap="audio" id="0">1</view>
+  <view class="myaudio" bindtap="audio" id="1">2</view>
+  <view class="myaudio" bindtap="audio" id="2">3</view>
+  <view class="myaudio" bindtap="audio" style="border-left:1rpx solid gray;margin-left:5%;border-top:0rpx" id="3">4</view>
+  <view class="myaudio" bindtap="audio" id="4" style="border-top:0rpx">5</view>
+  <view class="myaudio" bindtap="audio" id="5" style="border-top:0rpx">6</view>
+  <view class="myaudio" bindtap="audio" id="6" style="border-left:1rpx solid gray;margin-left:5%;border-top:0rpx">7</view>
+  <view class="myaudio" bindtap="audio" id="7" style="border-top:0rpx">8</view>
+  <view class="myaudio" bindtap="audio" id="8" style="border-top:0rpx">9</view>
 </view>

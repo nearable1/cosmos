@@ -38,7 +38,6 @@ Page({
   //地区事件
   bindRegionChange: function (e) {
     
-    console.log(e.detail.value)
     this.setData({
       region: e.detail.value
     })
@@ -52,6 +51,7 @@ Page({
       data: data,
       method: 'POST',
       success: function(e) {
+        console.log(e)
         this.setData({
           arraySchool: e.detail.value
         })
