@@ -1,8 +1,0 @@
-.myaudio {
-  float:left;
-  width:30%;
-  height:200rpx;
-  border-right:1rpx solid gray;
-  border-top:1rpx solid gray;
-  border-bottom:1rpx solid gray
-}

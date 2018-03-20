@@ -1,13 +1,12 @@
 {
-  "pages":[
-    
-    "pages/ring/ring",
-    "pages/index/index"
+  "pages": [
+    "pages/video/video",
+    "pages/logs/logs"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#000",
+    "navigationBarTitleText": "aymfx",
+    "navigationBarTextStyle": "white"
   }
 }
