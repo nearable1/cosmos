@@ -1,7 +1,6 @@
 {
   "pages": [
-    "pages/video/video",
-    "pages/logs/logs"
+    "pages/video/video"
   ],
   "window": {
     "backgroundTextStyle": "light",
