@@ -1,16 +1,16 @@
-<image src="{{imgUrls}}" style="width:100%;border-bottom:1rpx solid gray;background-color:azure"/> 
+<image src="{{imgUrls}}" style="width:100%;background-color:azure"></image> 
 
 <scroll-view scroll-y="true"  bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
-  <view style="margin-top:10%">
-  <view class="myaudio" style="margin-left:0.1%;background-image:url({{image1}})" bindtap="audio" id="0"></view>
-  <view style="background-image:url({{image2}})" class="myaudio" bindtap="audio" id="1"></view>
-  <view style="background-image:url({{image3}})" class="myaudio" bindtap="audio" id="2"></view>
-  <view class="myaudio" bindtap="audio" style="margin-left:0.1%;background-image:url({{image4}})" id="3"></view>
-  <view class="myaudio" bindtap="audio" id="4" style="background-image:url({{image5}})"></view>
-  <view class="myaudio" bindtap="audio" id="5" style="background-image:url({{image6}})"></view>
-  <view class="myaudio" bindtap="audio" id="6" style="margin-left:0.1%;background-image:url({{image7}})"></view>
-  <view class="myaudio" bindtap="audio" id="7" style="background-image:url({{image8}})"></view>
-  <view class="myaudio" bindtap="audio" id="8" style="background-image:url({{image9}})"></view>
+  <view style="margin-top:5%">
+  <view class="myaudio" style="margin-left:0.1%;background-image:url({{image1}})" bindtap="audio" id="0"><text class="word">抓黑板</text></view>
+  <view style="background-image:url({{image2}})" class="myaudio" bindtap="audio" id="1"><text class="word">抓黑板</text></view>
+  <view style="background-image:url({{image3}})" class="myaudio" bindtap="audio" id="2"><text class="word">刀</text></view>
+  <view class="myaudio" bindtap="audio" style="margin-left:0.1%;background-image:url({{image4}})" id="3"><text class="word">粉笔</text></view>
+  <view class="myaudio" bindtap="audio" id="4" style="background-image:url({{image5}})"><text class="word">牙医</text></view>
+  <view class="myaudio" bindtap="audio" id="5" style="background-image:url({{image6}})"><text class="word">破水管</text></view>
+  <view class="myaudio" bindtap="audio" id="6" style="margin-left:0.1%;background-image:url({{image7}})"><text class="word">擦玻璃</text></view>
+  <view class="myaudio" bindtap="audio" id="7" style="background-image:url({{image8}})"><text class="word">蚊子</text></view>
+  <view class="myaudio" bindtap="audio" id="8" style="background-image:url({{image9}})"><text class="word">苍蝇</text></view>
 </view>
 </scroll-view>
 

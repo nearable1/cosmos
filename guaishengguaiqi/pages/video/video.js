@@ -9,11 +9,13 @@ Page({
     image5: 'http://www.4java.cn:8080/file/image/drill.png',
     image6: 'http://www.4java.cn:8080/file/image/pipe.png',
     image7: 'http://www.4java.cn:8080/file/image/bottle1.png',
-    image8: 'http://www.4java.cn:8080/file/image/bottle3.png',
-    image9: 'http://www.4java.cn:8080/file/image/bottle2.png',
-    movielist: ['http://www.4java.cn:8080/file/blackboard1.mp3', 'http://www.4java.cn:8080/file/blackboard2.mp3', 'http://www.4java.cn:8080/file/nighf.mp3', 'http://www.4java.cn:8080/file/writeblackboard.mp3', 'http://www.4java.cn:8080/file/docter.mp3', 'http://www.4java.cn:8080/file/pipe.mp3', 'http://www.4java.cn:8080/file/glass.mp3'],
+    image8: 'http://www.4java.cn:8080/file/image/mosquito.png',
+    image9: 'http://www.4java.cn:8080/file/image/fly.png',
+    movielist: ['http://www.4java.cn:8080/file/blackboard1.mp3', 'http://www.4java.cn:8080/file/blackboard2.mp3', 'http://www.4java.cn:8080/file/nighf.mp3', 'http://www.4java.cn:8080/file/writeblackboard.mp3', 'http://www.4java.cn:8080/file/docter.mp3', 'http://www.4java.cn:8080/file/pipe.mp3', 'http://www.4java.cn:8080/file/glass.mp3',
+'http://www.4java.cn:8080/file/mosquito.mp3',
+'http://www.4java.cn:8080/file/fly.mp3'],
+    type: ['刮黑板','刮黑板','刀','粉笔','牙医','水管','擦玻璃','刮玻璃','苍蝇'],
     flag: false,
-    src: '',
     currentId: 0
   },
   onReady: function (e) {

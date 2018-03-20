@@ -23,3 +23,7 @@ scroll-view{
   text-align:center;
   line-height:230rpx
 }
+.word {
+  position:relative;
+  top:20%
+}
