@@ -25,5 +25,6 @@ scroll-view{
 }
 .word {
   position:relative;
-  top:20%
+  top:20%;
+  color:burlywood
 }
