@@ -82,7 +82,7 @@ Page({
         bstop: false
       })
       wx.request({
-        url: 'http://tingapi.ting.baidu.com/v1/restserver/ting?method=baidu.ting.billboard.billList',
+        url: 'https://www.4java.cn',
         data: {
           type: 1,
           size: that.data.musicSize,
@@ -144,7 +144,7 @@ Page({
       title: "歌曲加载中"
     })
     wx.request({
-      url: 'http://tingapi.ting.baidu.com/v1/restserver/ting?method=baidu.ting.song.play',
+      url: 'https://www.4java.cn',
       data: { songid: id },
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header

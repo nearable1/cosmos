@@ -11,7 +11,7 @@ Page({
     console.log(options.id)
     var that=this;
     wx.request({
-      url: 'https://m.maoyan.com/movie/'+options.id+'.json',
+      url: 'https://www.4java.cn',
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function(res){

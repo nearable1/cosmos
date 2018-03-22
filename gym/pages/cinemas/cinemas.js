@@ -57,7 +57,7 @@ Page({
           district: currentDistrict
         })
         wx.request({
-          url: 'https://m.maoyan.com/cinemas.json',
+          url: 'https://www.4java.cn',
           method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
           // header: {}, // 设置请求的 header
           success: function (res) {
@@ -96,7 +96,7 @@ Page({
 
     // 请求影院列表;
     wx.request({
-      url: 'https://m.maoyan.com/cinemas.json',
+      url: 'https://www.4java.cn',
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function (res) {

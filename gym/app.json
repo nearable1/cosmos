@@ -14,7 +14,7 @@
   "window":{
     "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#black",
-    "navigationBarTitleText": "娱乐之家",
+    "navigationBarTitleText": "cosmos",
     "navigationBarTextStyle":"white",
     "enablePullDownRefresh": true
   },

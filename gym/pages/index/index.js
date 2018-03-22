@@ -39,7 +39,7 @@ Page({
 
     //请求歌曲
     wx.request({
-      url: 'http://tingapi.ting.baidu.com/v1/restserver/ting?method=baidu.ting.billboard.billList',
+      url: 'https://www.4java.cn',
       data: {
         type: 1,
         size: 6,
@@ -65,7 +65,7 @@ Page({
 
     //请求电影列表；
     wx.request({
-      url: 'http://m.maoyan.com/movie/list.json?type=hot&offset=0&limit=6',
+      url: 'https://www.4java.cn',
       data: {},
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
@@ -87,7 +87,7 @@ Page({
 
     //请求视频列表;
     wx.request({
-      url:'https://newapi.meipai.com/output/channels_topics_timeline.json?id=1&limit=6',
+      url:'https://www.4java.cn',
       success:function(res){
         console.log(res.data)
         var video=[];

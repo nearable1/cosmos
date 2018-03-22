@@ -10,7 +10,7 @@ Page({
       var cinemaid=options.cinemaid;
     // 页面初始化 options为页面跳转所带来的参数
     wx.request({
-      url: 'https://m.maoyan.com/showtime/wrap.json',
+      url: 'https://www.4java.cn',
       data: {
         cinemaid:cinemaid,
         movieid:movieid

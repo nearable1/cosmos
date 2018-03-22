@@ -7,7 +7,7 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     var that=this;
     wx.request({
-      url:'https://newapi.meipai.com/output/channels_topics_timeline.json?id=1',
+      url:'https://www.4java.cn',
       success:function(res){
         console.log(res.data)
         that.setData({

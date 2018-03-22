@@ -8,7 +8,7 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     var that=this;
     wx.request({
-      url: 'http://m.maoyan.com/movie/list.json?type=hot&offset=0&limit=1000',
+      url: 'https://www.4java.cn',
       data: {},
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
