@@ -1,4 +1,5 @@
 var global = getApp().data
+
 Page({
 
   /**
@@ -42,14 +43,17 @@ Page({
       region: e.detail.value
     })
     //提取学校
-    var data={province:this.data.region[0],
-      city:this.data.region[1],
-      area:this.data.region[2]}
+    var data={'province':this.data.region[0],
+      'city':this.data.region[1],
+      'area':this.data.region[2]}
     wx.request({
       url: 'https://www.4java.cn/myseat/selectSchoolByRegion.html',
-      timeout: 5000,
-      data: data,
       method: 'POST',
+      timeout: 5000,
+      header: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      data: Util.json2Form(data),
       success: function(e) {
         console.log(e)
         this.setData({
@@ -237,3 +241,4 @@ Page({
     }
   }
 })
+var Util = require('../../utils/util.js')

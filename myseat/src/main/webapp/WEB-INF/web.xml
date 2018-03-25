@@ -6,10 +6,10 @@
  
  
  <display-name>myseat</display-name>
-<!-- 
+ 
 <welcome-file-list>
   	<welcome-file>login.jsp</welcome-file>
-  </welcome-file-list> -->
+  </welcome-file-list>
 
 <context-param>
   	<param-name>contextConfigLocation</param-name>

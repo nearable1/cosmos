@@ -50,7 +50,7 @@ public class Action {
 			@RequestParam(value="city")String city, 
 			@RequestParam(value="area")String area) {
 		ArrayList<String> schoolList = us.selectSchoolByRegion(province, city, area);
-	 
+		
 		return JSON.toJSONString(schoolList);
 	}
 	

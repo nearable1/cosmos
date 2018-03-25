@@ -1,50 +1,11 @@
 {
-  "pages":[
-    "pages/index/index",
-    "pages/movie/movie",
-    "pages/moviedetail/moviedetail",
-    "pages/cinemas/cinemas",
-    "pages/ticket/ticket",
-    "pages/music/music",
-    "pages/video/video",
-    "pages/logs/logs",
-    "pages/mine/mine"
-
+  "pages": [
+    "pages/index/index"
   ],
-  "window":{
-    "backgroundTextStyle":"dark",
-    "navigationBarBackgroundColor": "#black",
-    "navigationBarTitleText": "cosmos",
-    "navigationBarTextStyle":"white",
-    "enablePullDownRefresh": true
-  },
-  "tabBar": {
-    "selectedColor": "#3385ff;",
-    "list": [{
-      "pagePath": "pages/index/index",
-      "text": "首页",
-      "iconPath":"public/images/icons/home_light.png",
-      "selectedIconPath":"public/images/icons/home_fill_light.png"
-    }, {
-      "pagePath": "pages/music/music",
-      "text": "音乐",
-      "iconPath":"public/images/icons/music_light.png",
-      "selectedIconPath":"public/images/icons/music_fill_light.png"
-    }, {
-      "pagePath": "pages/video/video",
-      "text": "视频",
-      "iconPath":"public/images/icons/video_light.png",
-      "selectedIconPath":"public/images/icons/video_fill_light.png"
-    }, {
-      "pagePath": "pages/movie/movie",
-      "text": "电影",
-      "iconPath":"public/images/icons/record.png",
-      "selectedIconPath":"public/images/icons/record_fill.png"
-    }, {
-      "pagePath": "pages/mine/mine",
-      "text": "我",
-      "iconPath":"public/images/icons/my_light.png",
-      "selectedIconPath":"public/images/icons/my_fill_light.png"
-    }]
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#4abdcc",
+    "navigationBarTitleText": "面包旅行",
+    "navigationBarTextStyle": "white"
   }
 }

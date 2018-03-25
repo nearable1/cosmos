@@ -1,21 +1,30 @@
-function formatTime(date) {
-  var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var day = date.getDate()
-
-  var hour = date.getHours()
-  var minute = date.getMinutes()
-  var second = date.getSeconds()
-
-
-  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+function formatNumber(n) {
+  const num = n.toString();
+  return num[1] ? num : `0${num}`;
 }
 
-function formatNumber(n) {
-  n = n.toString()
-  return n[1] ? n : '0' + n
+function formatTime(date, type) {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const second = date.getSeconds();
+  let time = '';
+  switch (type) {
+    case 1:
+      time = `${[year, month, day].map(formatNumber).join('.')}`;
+      break;
+    case 2:
+      time = `${[year, month, day].map(formatNumber).join('.')} ${[hour, minute].map(formatNumber).join(':')}`;
+      break;
+    default:
+      time = `${[year, month, day].map(formatNumber).join('.')} ${[hour, minute, second].map(formatNumber).join(':')}`;
+  }
+  return time;
 }
 
 module.exports = {
-  formatTime: formatTime
-}
+  formatNumber,
+  formatTime,
+};

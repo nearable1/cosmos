@@ -10,13 +10,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 查询school-在弹窗显示 -->
-	<select id="selectSchoolByRegion" resultType="java.util.ArrayList">
-		select chineseName from school where province=#{0},city=#{1},area=#{2}
+	<select id="selectSchoolByRegion" resultType="java.lang.String">
+		select chineseName from school where province=#{0} and city=#{1} and area=#{2}
 	</select>
 	
 	<!-- 查询schoolId -->
 	<select id="selectSchoolId" resultType="java.lang.String">
-		select schoolId from school where province=#{0},city=#{1},area=#{2},chineseName=#{3}
+		select schoolId from school where province=#{0} and city=#{1} and area=#{2} and chineseName=#{3}
 	</select>
 	
 	<!-- 查询classId -->
@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 查询查询className -->
-	<select id="selectClass" resultType="java.util.ArrayList">
+	<select id="selectClass" resultType="java.lang.String">
 		select className from classTable where classId=#{0} and year=#{1} and and schoolId=#{2}
 	</select>
 	
