@@ -1,5 +1,4 @@
 var global = getApp().data
-
 Page({
 
   /**
@@ -38,7 +37,7 @@ Page({
   },
   //地区事件
   bindRegionChange: function (e) {
-    
+    var that = this
     this.setData({
       region: e.detail.value
     })
@@ -53,11 +52,11 @@ Page({
       header: {
         "content-type": "application/x-www-form-urlencoded"
       },
-      data: Util.json2Form(data),
+      data: data,
       success: function(e) {
         console.log(e)
-        this.setData({
-          arraySchool: e.detail.value
+        that.setData({
+          arraySchool: e.data
         })
       },
       fail: function(e){
@@ -241,4 +240,3 @@ Page({
     }
   }
 })
-var Util = require('../../utils/util.js')
