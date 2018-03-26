@@ -1,8 +1,7 @@
 // pages/movie/movie.js
 Page({
   data: {
-    imgUrls: 'http://www.4java.cn:8080/file/image/loading.gif',
-    imageUrls: ['http://www.4java.cn:8080/file/image/play1.gif', 'http://www.4java.cn:8080/file/image/play2.gif', 'http://www.4java.cn:8080/file/image/play3.gif', 'http://www.4java.cn:8080/file/image/play4.gif', 'http://www.4java.cn:8080/file/image/play5.gif', 'http://www.4java.cn:8080/file/image/play6.gif', 'http://www.4java.cn:8080/file/image/play7.gif', 'http://www.4java.cn:8080/file/image/play8.gif', 'http://www.4java.cn:8080/file/image/play9.gif'],
+    imgUrls: 'http://www.4java.cn:8080/file/image/loading.png',
     image1: 'http://www.4java.cn:8080/file/image/blackboard1.png',
     image2: 'http://www.4java.cn:8080/file/image/blackboard2.png',
     image3: 'http://www.4java.cn:8080/file/image/nighf.png',
@@ -43,13 +42,13 @@ Page({
       this.audioCtx.play()
       this.setData({
         flag: true,
-        imgUrls: this.data.imageUrls[id]
+        imgUrls: 'http://www.4java.cn:8080/file/image/play3.gif'
       })
     } else if(flag){
       this.audioCtx.stop()
       this.setData({
         flag: false,
-        imgUrls: 'http://www.4java.cn:8080/file/image/loading.gif'
+        imgUrls: 'http://www.4java.cn:8080/file/image/loading.png'
       })
     }
   },
@@ -60,7 +59,7 @@ Page({
     }
     return {
       title: '那一天，人类想起被声音支配的恐惧',
-      path: '/page/video',
+      path: '/pages/video/video',
       imageUrl: 'http://www.4java.cn:8080/file/image/share.png',
       success: function (res) {
         // 转发成功
