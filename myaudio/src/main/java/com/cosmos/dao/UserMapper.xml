@@ -6,12 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 根据种类获取音乐文件 -->	
 	<select id="getAudio" parameterType="String" resultType="String">
-		select file from myaudio where id=#{0}
+		select path from myaudio where type=#{0}
 	</select>
 	
 	<!-- 获取种类的个数 -->	
 	<select id="getTypes" resultType="String">
-		select file from myaudio where id=#{0}
+		select distinct type from myaudio
 	</select>
 
 </mapper>
