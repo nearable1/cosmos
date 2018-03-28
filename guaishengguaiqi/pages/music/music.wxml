@@ -6,3 +6,4 @@
     </swiper-item>
   </block>
 </swiper>
+<audio controls loop name="wuwukai" author="wuwukai" src='http://www.4java.cn:8080/file/myaudio/wuwu/cishan5geyi.mp3'></audio>
