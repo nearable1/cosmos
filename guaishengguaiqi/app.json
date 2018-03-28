@@ -1,11 +1,26 @@
 {
   "pages": [
+    "pages/music/music",
     "pages/video/video"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "aymfx",
     "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/video/video",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/music/music",
+        "text": "声音"
+      }
+    ],
+    "position": "top"
   }
 }

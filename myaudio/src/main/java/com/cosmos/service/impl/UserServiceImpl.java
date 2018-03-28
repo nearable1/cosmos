@@ -15,9 +15,15 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserDao ud;
 
-	public Object getAudio(int id) {
+	public ArrayList<String> getTypes() {
 		// TODO Auto-generated method stub
-		return ud.getAudio(id);
+		return ud.getTypes();
 	}
+
+	public ArrayList<String> getAudio(String type) {
+		// TODO Auto-generated method stub
+		return ud.getAudio(type);
+	}
+
 
 }
