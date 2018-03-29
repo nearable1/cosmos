@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>你好
-	<audio src="upload/glass.mp3"></audio>
+<body>
+	<a href="getTypes.html">click</a>
 </body>
 </html>

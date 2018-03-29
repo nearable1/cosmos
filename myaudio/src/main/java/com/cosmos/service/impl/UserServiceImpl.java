@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.cosmos.dao.UserDao;
+import com.cosmos.entity.Sound;
 import com.cosmos.service.UserService;
 
 @Service
@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService{
 		return ud.getTypes();
 	}
 
-	public ArrayList<String> getAudio(String type) {
+	public ArrayList<Sound> getAudio(String type) {
 		// TODO Auto-generated method stub
 		return ud.getAudio(type);
 	}

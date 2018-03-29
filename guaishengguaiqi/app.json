@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/music/music",
-    "pages/video/video"
-    
+    "pages/video/video",
+    "pages/typelist/typelist"
   ],
   "window": {
     "backgroundTextStyle": "light",

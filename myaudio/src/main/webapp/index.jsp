@@ -8,6 +8,5 @@
 </head>
 <body>
 	<button><a href="getAudio.html">click</a></button>
-	<audio src="upload/glass.mp3"></audio>
 </body>
 </html>

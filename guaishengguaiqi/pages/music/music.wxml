@@ -1,3 +1,4 @@
+<!--推荐-->
 <swiper indicator-dots="{{indicatorDots}}"
   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
   <block wx:for="{{imgUrls}}">
@@ -6,4 +7,5 @@
     </swiper-item>
   </block>
 </swiper>
-<audio controls loop name="wuwukai" author="wuwukai" src='http://www.4java.cn:8080/file/myaudio/wuwu/cishan5geyi.mp3'></audio>
+
+<view wx:key="{{index}}" wx:for="{{types}}" class="mytype" bindtap="getMyaudio" id="{{item}}">{{item}}</view>

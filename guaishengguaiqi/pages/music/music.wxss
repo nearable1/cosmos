@@ -1,0 +1,10 @@
+.mytype {
+  float:left;
+  width:32.8%;
+  height:230rpx;
+  background-size:60% 60%;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  text-align:center;
+  line-height:230rpx;
+}

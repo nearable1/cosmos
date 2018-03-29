@@ -1,0 +1,3 @@
+<image src="{{imgUrls}}" style="width:100%;height:500rpx"></image> 
+
+<audio wx:key="{{index}}" wx:for="{{list}}" poster="{{item.post}}" name="{{item.name}}" author="" src="{{item.path}}" id="myAudio" controls loop></audio>
