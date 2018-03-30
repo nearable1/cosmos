@@ -1,0 +1,6 @@
+.myaudio {
+  width:100%;
+  height:100rpx;
+  border-bottom: 1rpx solid ghostwhite;
+  background-color: gray
+}

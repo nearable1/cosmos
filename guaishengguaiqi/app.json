@@ -2,8 +2,7 @@
   "pages": [
     "pages/music/music",
     "pages/video/video",
-    "pages/typelist/typelist",
-    "pages/musiclist/music"
+    "pages/music/typelist/typelist"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -20,10 +19,6 @@
       {
         "pagePath": "pages/music/music",
         "text": "声音"
-      },
-      {
-        "pagePath": "pages/musiclist/music",
-        "text": "music"
       }
     ],
     "position": "top"

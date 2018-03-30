@@ -43,7 +43,7 @@ Page({
     var res = e.currentTarget.id
     
     wx.navigateTo({
-      url: '../typelist/typelist?type=' + res,
+      url: './typelist/typelist?type=' + res,
     })
   }
 })
