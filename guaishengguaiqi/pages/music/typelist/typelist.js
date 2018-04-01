@@ -5,15 +5,18 @@ Page({
    */
   data: {
     list: [],
-    name: '',
+    baks: ['http://www.4java.cn:8080/file/music/play.png'],
     imgUrls: '',
     flag: false,
-    currentId: 0
+    currentId: 0,
+    bakImg: 'http://www.4java.cn:8080/file/music/play.png'
   },
   onLoad: function(e) {
     var that = this
-    this.setData({
-      name: e.type
+
+    //设置tarbar的title
+    wx.setNavigationBarTitle({
+      title: e.type//页面标题为路由参数
     })
     var name = { 'type': e.type}
     wx.request({
@@ -25,42 +28,66 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       success: function (res) {
+        for (var i = 0; i < res.data.length; i++) {
+          that.data.baks.push('http://www.4java.cn:8080/file/music/play.png')
+        }
         that.setData({
           list:res.data,
-          imgUrls: res.data[0].post
+          imgUrls: res.data[0].post,
+          baks: that.data.baks
         })
+        that.audioCtx = wx.createInnerAudioContext()
       },
       fail: function () {
         console.log(e)
       }
     })
   },
+  //左上角返回
+  onUnload: function() {
+    this.audioCtx.destroy()
+  },
   click: function(e) {
-    console.log(e.currentTarget.id)
     var id = e.currentTarget.id
-    var music = this.data.list[id]
-    this.audioCtx = wx.createInnerAudioContext() 
+    var music = this.data.list[id].path
     //audio对象属性
     this.audioCtx.src = music
     this.audioCtx.loop = true
     //判断是否点击另一个方块
     if (this.data.currentId != id) {
+      this.data.baks[this.data.currentId] = 'http://www.4java.cn:8080/file/music/play.png'
       this.setData({
         flag: false,
-        currentId: id
+        currentId: id,
+        baks: this.data.baks
       })
     }
     var flag = this.data.flag
     if (!flag) {
+      //wx.playBackgroundAudio({
+      //  dataUrl: music,
+      //})
       this.audioCtx.play()
+      this.data.baks[id] = 'http://www.4java.cn:8080/file/music/pause.png'
       this.setData({
-        flag: true
+        flag: true,
+        baks: this.data.baks
       })
     } else if (flag) {
+      //wx.pauseBackgroundAudio()
       this.audioCtx.stop()
+      this.data.baks[id] = 'http://www.4java.cn:8080/file/music/play.png'
       this.setData({
-        flag: false
-      })
+        flag: false,
+        baks: this.data.baks
+      })  
     }
+    wx.getBackgroundAudioPlayerState({
+      success: function (res) {
+        //调用需要更新的
+        //self._onUpdate(res);
+        console.log(res)
+      }
+    })
   }
 })

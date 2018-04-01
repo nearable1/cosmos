@@ -1,6 +1,15 @@
 .myaudio {
   width:100%;
   height:100rpx;
-  border-bottom: 1rpx solid ghostwhite;
-  background-color: gray
+  border-bottom: 2rpx solid ghostwhite;
+  background-repeat: no-repeat;
+  background-size: 8%;
+  background-position-x:90%;
+  background-position-y:center;
+  line-height: 100rpx
+}
+
+.text {
+  padding-left: 5%;
+  font-size: 35rpx
 }

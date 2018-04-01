@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "面包旅行",
-  "enablePullDownRefresh": true
+  "backgroundColor": "#fafafa",
+  "navigationBarBackgroundColor": "#0290c0",
+  "navigationBarTextStyle": "white",
+  "backgroundTextStyle": "dark"
 }

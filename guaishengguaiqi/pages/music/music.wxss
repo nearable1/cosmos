@@ -1,4 +1,5 @@
 .mytype {
+  margin-left: 0.4%;
   float:left;
   width:32.8%;
   height:230rpx;
@@ -7,4 +8,14 @@
   background-position-x: center;
   text-align:center;
   line-height:230rpx;
+  color:burlywood;
+  border-bottom: 1rpx solid gainsboro
+}
+
+swiper{
+  height: 375rpx;
+  background-size: 10%;
+}
+image {
+  width:100%
 }

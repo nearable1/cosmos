@@ -11,4 +11,7 @@ public interface UserDao {
 	
 	//根据种类获取音乐文件
 	public ArrayList<Sound> getAudio(String type);
+	
+	//推荐音乐
+	public ArrayList<Sound> getHot();
 }

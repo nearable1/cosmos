@@ -13,5 +13,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getTypes" resultType="String">
 		select distinct type from myaudio
 	</select>
+	
+	<!-- 获取推荐 -->	
+	<select id="getHot" resultType="com.cosmos.entity.Sound">
+		select id,type,path,name,post,author from hot
+	</select>
 
 </mapper>

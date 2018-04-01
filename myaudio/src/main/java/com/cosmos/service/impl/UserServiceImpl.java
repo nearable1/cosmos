@@ -25,5 +25,10 @@ public class UserServiceImpl implements UserService{
 		return ud.getAudio(type);
 	}
 
+	public ArrayList<Sound> getHot() {
+		// TODO Auto-generated method stub
+		return ud.getHot();
+	}
+
 
 }

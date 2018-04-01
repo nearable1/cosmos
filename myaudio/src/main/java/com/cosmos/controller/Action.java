@@ -26,11 +26,19 @@ public class Action {
 		return JSON.toJSONString(audioList);
 	}
 	
-	////获取种类的个数
+	//获取种类的个数
 	@RequestMapping(value="getTypes.html",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String getTypes() {
 		ArrayList<String> typesList = us.getTypes();
+		return JSON.toJSONString(typesList);
+	}
+	
+	//获取种类的个数
+	@RequestMapping(value="getHots.html",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getHots() {
+		ArrayList<Sound> typesList = us.getHot();
 		return JSON.toJSONString(typesList);
 	}
 

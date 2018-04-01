@@ -5,6 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-	<a href="getTypes.html">click</a>
+	<a href="getHots.html">click</a>
 </body>
 </html>
