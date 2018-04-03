@@ -20,8 +20,8 @@ Page({
             header: {
               'content-type': 'application/x-www-form-urlencoded'
             },
-            success: function (res) {
-              var session_key = res.data.session_key;
+            success: function (e) {
+              var session_key = e.data.session_key;
               console.log(session_key);
               that.getData(appid, session_key);
             },
@@ -38,7 +38,6 @@ Page({
   getData: function (appid, session_key) {
     wx.getSetting({
       success: function (res) {
-        console.log(res);
         if (!res.authSetting['scope.werun']) {
           wx.showModal({
             title: '提示',
@@ -59,7 +58,6 @@ Page({
         } else {
           wx.getWeRunData({
             success: function (res) {
-              console.log(res);
               console.log("appid:" + appid + "session_key:" + session_key + "encryptedData:" + res.encryptedData + "iv:" + res.iv);
               var encryptedData = res.encryptedData;
               var iv = res.iv;
