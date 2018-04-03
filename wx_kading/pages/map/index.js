@@ -1,21 +1,32 @@
 
 Page({
+  data: {
+
+  },
+  //"0134laeL17H5V41eWagL1xkbeL14laem"
   onLoad: function (options) {
     var that = this;
     wx.login({
       success: function (res) {
+        console.log(res)
         var appid = "wx33800aa282ed651b";
         var secret = "30ffc49f6f2765faec431f2ed88b2a6a";
+        data = {'js_code': res.code}
+        
         if (res.code) {
           wx.request({
-            url: 'https://www.4java.cn?appid=' + appid + '&secret=' + secret + '&js_code=' + res.code,
+            url: 'https://www.4java.cn/kading/getRunData.html', 
+            method: "POST",
             header: {
-              'content-type': 'json'
+              'content-type': 'application/x-www-form-urlencoded'
             },
             success: function (res) {
               var session_key = res.data.session_key;
               console.log(session_key);
               that.getData(appid, session_key);
+            },
+            fail: function(e) {
+              console.log(res.code)
             }
           })
         }

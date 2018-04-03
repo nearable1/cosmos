@@ -27,4 +27,13 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.cosmos.dao"></property>
 	</bean>
+	<bean id="viewResolver"    
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">    
+        <property name="prefix">    
+            <value>/</value>    
+        </property>    
+        <property name="suffix">    
+            <value>.jsp</value>    
+        </property>    
+</bean> 
 </beans>
