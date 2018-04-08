@@ -1,4 +1,4 @@
-
+var WXBizDataCrypt = require('../WXBizDataCrypt.js')
 Page({
   data: {
 
@@ -11,7 +11,7 @@ Page({
         console.log(res)
         var appid = "wx33800aa282ed651b";
         var secret = "30ffc49f6f2765faec431f2ed88b2a6a";
-        data = {'js_code': res.code}
+        //data = {'js_code': res.code}
         
         if (res.code) {
           wx.request({
@@ -20,7 +20,9 @@ Page({
             header: {
               'content-type': 'application/x-www-form-urlencoded'
             },
+            data: '',
             success: function (e) {
+              console.log(e)
               var session_key = e.data.session_key;
               console.log(session_key);
               that.getData(appid, session_key);
