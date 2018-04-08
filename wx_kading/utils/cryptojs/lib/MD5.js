@@ -1,158 +1,248 @@
-(function(){
+(function (Math) {
+    // Shortcuts
+    var C = CryptoJS;
+    var C_lib = C.lib;
+    var WordArray = C_lib.WordArray;
+    var Hasher = C_lib.Hasher;
+    var C_algo = C.algo;
 
-var C = (typeof window === 'undefined') ? require('./Crypto').Crypto : window.Crypto;
+    // Constants table
+    var T = [];
 
-// Shortcuts
-var util = C.util,
-    charenc = C.charenc,
-    UTF8 = charenc.UTF8,
-    Binary = charenc.Binary;
+    // Compute constants
+    (function () {
+        for (var i = 0; i < 64; i++) {
+            T[i] = (Math.abs(Math.sin(i + 1)) * 0x100000000) | 0;
+        }
+    }());
 
-// Public API
-var MD5 = C.MD5 = function (message, options) {
-	var digestbytes = util.wordsToBytes(MD5._md5(message));
-	return options && options.asBytes ? digestbytes :
-	       options && options.asString ? Binary.bytesToString(digestbytes) :
-	       util.bytesToHex(digestbytes);
-};
+    /**
+     * MD5 hash algorithm.
+     */
+    var MD5 = C_algo.MD5 = Hasher.extend({
+        _doReset: function () {
+            this._hash = new WordArray.init([
+                0x67452301, 0xefcdab89,
+                0x98badcfe, 0x10325476
+            ]);
+        },
 
-// The core
-MD5._md5 = function (message) {
+        _doProcessBlock: function (M, offset) {
+            // Swap endian
+            for (var i = 0; i < 16; i++) {
+                // Shortcuts
+                var offset_i = offset + i;
+                var M_offset_i = M[offset_i];
 
-	// Convert to byte array
-	if (message.constructor == String) message = UTF8.stringToBytes(message);
-	/* else, assume byte array already */
+                M[offset_i] = (
+                    (((M_offset_i << 8)  | (M_offset_i >>> 24)) & 0x00ff00ff) |
+                    (((M_offset_i << 24) | (M_offset_i >>> 8))  & 0xff00ff00)
+                );
+            }
 
-	var m = util.bytesToWords(message),
-	    l = message.length * 8,
-	    a =  1732584193,
-	    b = -271733879,
-	    c = -1732584194,
-	    d =  271733878;
+            // Shortcuts
+            var H = this._hash.words;
 
-	// Swap endian
-	for (var i = 0; i < m.length; i++) {
-		m[i] = ((m[i] <<  8) | (m[i] >>> 24)) & 0x00FF00FF |
-		       ((m[i] << 24) | (m[i] >>>  8)) & 0xFF00FF00;
-	}
+            var M_offset_0  = M[offset + 0];
+            var M_offset_1  = M[offset + 1];
+            var M_offset_2  = M[offset + 2];
+            var M_offset_3  = M[offset + 3];
+            var M_offset_4  = M[offset + 4];
+            var M_offset_5  = M[offset + 5];
+            var M_offset_6  = M[offset + 6];
+            var M_offset_7  = M[offset + 7];
+            var M_offset_8  = M[offset + 8];
+            var M_offset_9  = M[offset + 9];
+            var M_offset_10 = M[offset + 10];
+            var M_offset_11 = M[offset + 11];
+            var M_offset_12 = M[offset + 12];
+            var M_offset_13 = M[offset + 13];
+            var M_offset_14 = M[offset + 14];
+            var M_offset_15 = M[offset + 15];
 
-	// Padding
-	m[l >>> 5] |= 0x80 << (l % 32);
-	m[(((l + 64) >>> 9) << 4) + 14] = l;
+            // Working varialbes
+            var a = H[0];
+            var b = H[1];
+            var c = H[2];
+            var d = H[3];
 
-	// Method shortcuts
-	var FF = MD5._ff,
-	    GG = MD5._gg,
-	    HH = MD5._hh,
-	    II = MD5._ii;
+            // Computation
+            a = FF(a, b, c, d, M_offset_0,  7,  T[0]);
+            d = FF(d, a, b, c, M_offset_1,  12, T[1]);
+            c = FF(c, d, a, b, M_offset_2,  17, T[2]);
+            b = FF(b, c, d, a, M_offset_3,  22, T[3]);
+            a = FF(a, b, c, d, M_offset_4,  7,  T[4]);
+            d = FF(d, a, b, c, M_offset_5,  12, T[5]);
+            c = FF(c, d, a, b, M_offset_6,  17, T[6]);
+            b = FF(b, c, d, a, M_offset_7,  22, T[7]);
+            a = FF(a, b, c, d, M_offset_8,  7,  T[8]);
+            d = FF(d, a, b, c, M_offset_9,  12, T[9]);
+            c = FF(c, d, a, b, M_offset_10, 17, T[10]);
+            b = FF(b, c, d, a, M_offset_11, 22, T[11]);
+            a = FF(a, b, c, d, M_offset_12, 7,  T[12]);
+            d = FF(d, a, b, c, M_offset_13, 12, T[13]);
+            c = FF(c, d, a, b, M_offset_14, 17, T[14]);
+            b = FF(b, c, d, a, M_offset_15, 22, T[15]);
 
-	for (var i = 0; i < m.length; i += 16) {
+            a = GG(a, b, c, d, M_offset_1,  5,  T[16]);
+            d = GG(d, a, b, c, M_offset_6,  9,  T[17]);
+            c = GG(c, d, a, b, M_offset_11, 14, T[18]);
+            b = GG(b, c, d, a, M_offset_0,  20, T[19]);
+            a = GG(a, b, c, d, M_offset_5,  5,  T[20]);
+            d = GG(d, a, b, c, M_offset_10, 9,  T[21]);
+            c = GG(c, d, a, b, M_offset_15, 14, T[22]);
+            b = GG(b, c, d, a, M_offset_4,  20, T[23]);
+            a = GG(a, b, c, d, M_offset_9,  5,  T[24]);
+            d = GG(d, a, b, c, M_offset_14, 9,  T[25]);
+            c = GG(c, d, a, b, M_offset_3,  14, T[26]);
+            b = GG(b, c, d, a, M_offset_8,  20, T[27]);
+            a = GG(a, b, c, d, M_offset_13, 5,  T[28]);
+            d = GG(d, a, b, c, M_offset_2,  9,  T[29]);
+            c = GG(c, d, a, b, M_offset_7,  14, T[30]);
+            b = GG(b, c, d, a, M_offset_12, 20, T[31]);
 
-		var aa = a,
-		    bb = b,
-		    cc = c,
-		    dd = d;
+            a = HH(a, b, c, d, M_offset_5,  4,  T[32]);
+            d = HH(d, a, b, c, M_offset_8,  11, T[33]);
+            c = HH(c, d, a, b, M_offset_11, 16, T[34]);
+            b = HH(b, c, d, a, M_offset_14, 23, T[35]);
+            a = HH(a, b, c, d, M_offset_1,  4,  T[36]);
+            d = HH(d, a, b, c, M_offset_4,  11, T[37]);
+            c = HH(c, d, a, b, M_offset_7,  16, T[38]);
+            b = HH(b, c, d, a, M_offset_10, 23, T[39]);
+            a = HH(a, b, c, d, M_offset_13, 4,  T[40]);
+            d = HH(d, a, b, c, M_offset_0,  11, T[41]);
+            c = HH(c, d, a, b, M_offset_3,  16, T[42]);
+            b = HH(b, c, d, a, M_offset_6,  23, T[43]);
+            a = HH(a, b, c, d, M_offset_9,  4,  T[44]);
+            d = HH(d, a, b, c, M_offset_12, 11, T[45]);
+            c = HH(c, d, a, b, M_offset_15, 16, T[46]);
+            b = HH(b, c, d, a, M_offset_2,  23, T[47]);
 
-		a = FF(a, b, c, d, m[i+ 0],  7, -680876936);
-		d = FF(d, a, b, c, m[i+ 1], 12, -389564586);
-		c = FF(c, d, a, b, m[i+ 2], 17,  606105819);
-		b = FF(b, c, d, a, m[i+ 3], 22, -1044525330);
-		a = FF(a, b, c, d, m[i+ 4],  7, -176418897);
-		d = FF(d, a, b, c, m[i+ 5], 12,  1200080426);
-		c = FF(c, d, a, b, m[i+ 6], 17, -1473231341);
-		b = FF(b, c, d, a, m[i+ 7], 22, -45705983);
-		a = FF(a, b, c, d, m[i+ 8],  7,  1770035416);
-		d = FF(d, a, b, c, m[i+ 9], 12, -1958414417);
-		c = FF(c, d, a, b, m[i+10], 17, -42063);
-		b = FF(b, c, d, a, m[i+11], 22, -1990404162);
-		a = FF(a, b, c, d, m[i+12],  7,  1804603682);
-		d = FF(d, a, b, c, m[i+13], 12, -40341101);
-		c = FF(c, d, a, b, m[i+14], 17, -1502002290);
-		b = FF(b, c, d, a, m[i+15], 22,  1236535329);
+            a = II(a, b, c, d, M_offset_0,  6,  T[48]);
+            d = II(d, a, b, c, M_offset_7,  10, T[49]);
+            c = II(c, d, a, b, M_offset_14, 15, T[50]);
+            b = II(b, c, d, a, M_offset_5,  21, T[51]);
+            a = II(a, b, c, d, M_offset_12, 6,  T[52]);
+            d = II(d, a, b, c, M_offset_3,  10, T[53]);
+            c = II(c, d, a, b, M_offset_10, 15, T[54]);
+            b = II(b, c, d, a, M_offset_1,  21, T[55]);
+            a = II(a, b, c, d, M_offset_8,  6,  T[56]);
+            d = II(d, a, b, c, M_offset_15, 10, T[57]);
+            c = II(c, d, a, b, M_offset_6,  15, T[58]);
+            b = II(b, c, d, a, M_offset_13, 21, T[59]);
+            a = II(a, b, c, d, M_offset_4,  6,  T[60]);
+            d = II(d, a, b, c, M_offset_11, 10, T[61]);
+            c = II(c, d, a, b, M_offset_2,  15, T[62]);
+            b = II(b, c, d, a, M_offset_9,  21, T[63]);
 
-		a = GG(a, b, c, d, m[i+ 1],  5, -165796510);
-		d = GG(d, a, b, c, m[i+ 6],  9, -1069501632);
-		c = GG(c, d, a, b, m[i+11], 14,  643717713);
-		b = GG(b, c, d, a, m[i+ 0], 20, -373897302);
-		a = GG(a, b, c, d, m[i+ 5],  5, -701558691);
-		d = GG(d, a, b, c, m[i+10],  9,  38016083);
-		c = GG(c, d, a, b, m[i+15], 14, -660478335);
-		b = GG(b, c, d, a, m[i+ 4], 20, -405537848);
-		a = GG(a, b, c, d, m[i+ 9],  5,  568446438);
-		d = GG(d, a, b, c, m[i+14],  9, -1019803690);
-		c = GG(c, d, a, b, m[i+ 3], 14, -187363961);
-		b = GG(b, c, d, a, m[i+ 8], 20,  1163531501);
-		a = GG(a, b, c, d, m[i+13],  5, -1444681467);
-		d = GG(d, a, b, c, m[i+ 2],  9, -51403784);
-		c = GG(c, d, a, b, m[i+ 7], 14,  1735328473);
-		b = GG(b, c, d, a, m[i+12], 20, -1926607734);
+            // Intermediate hash value
+            H[0] = (H[0] + a) | 0;
+            H[1] = (H[1] + b) | 0;
+            H[2] = (H[2] + c) | 0;
+            H[3] = (H[3] + d) | 0;
+        },
 
-		a = HH(a, b, c, d, m[i+ 5],  4, -378558);
-		d = HH(d, a, b, c, m[i+ 8], 11, -2022574463);
-		c = HH(c, d, a, b, m[i+11], 16,  1839030562);
-		b = HH(b, c, d, a, m[i+14], 23, -35309556);
-		a = HH(a, b, c, d, m[i+ 1],  4, -1530992060);
-		d = HH(d, a, b, c, m[i+ 4], 11,  1272893353);
-		c = HH(c, d, a, b, m[i+ 7], 16, -155497632);
-		b = HH(b, c, d, a, m[i+10], 23, -1094730640);
-		a = HH(a, b, c, d, m[i+13],  4,  681279174);
-		d = HH(d, a, b, c, m[i+ 0], 11, -358537222);
-		c = HH(c, d, a, b, m[i+ 3], 16, -722521979);
-		b = HH(b, c, d, a, m[i+ 6], 23,  76029189);
-		a = HH(a, b, c, d, m[i+ 9],  4, -640364487);
-		d = HH(d, a, b, c, m[i+12], 11, -421815835);
-		c = HH(c, d, a, b, m[i+15], 16,  530742520);
-		b = HH(b, c, d, a, m[i+ 2], 23, -995338651);
+        _doFinalize: function () {
+            // Shortcuts
+            var data = this._data;
+            var dataWords = data.words;
 
-		a = II(a, b, c, d, m[i+ 0],  6, -198630844);
-		d = II(d, a, b, c, m[i+ 7], 10,  1126891415);
-		c = II(c, d, a, b, m[i+14], 15, -1416354905);
-		b = II(b, c, d, a, m[i+ 5], 21, -57434055);
-		a = II(a, b, c, d, m[i+12],  6,  1700485571);
-		d = II(d, a, b, c, m[i+ 3], 10, -1894986606);
-		c = II(c, d, a, b, m[i+10], 15, -1051523);
-		b = II(b, c, d, a, m[i+ 1], 21, -2054922799);
-		a = II(a, b, c, d, m[i+ 8],  6,  1873313359);
-		d = II(d, a, b, c, m[i+15], 10, -30611744);
-		c = II(c, d, a, b, m[i+ 6], 15, -1560198380);
-		b = II(b, c, d, a, m[i+13], 21,  1309151649);
-		a = II(a, b, c, d, m[i+ 4],  6, -145523070);
-		d = II(d, a, b, c, m[i+11], 10, -1120210379);
-		c = II(c, d, a, b, m[i+ 2], 15,  718787259);
-		b = II(b, c, d, a, m[i+ 9], 21, -343485551);
+            var nBitsTotal = this._nDataBytes * 8;
+            var nBitsLeft = data.sigBytes * 8;
 
-		a = (a + aa) >>> 0;
-		b = (b + bb) >>> 0;
-		c = (c + cc) >>> 0;
-		d = (d + dd) >>> 0;
+            // Add padding
+            dataWords[nBitsLeft >>> 5] |= 0x80 << (24 - nBitsLeft % 32);
 
-	}
+            var nBitsTotalH = Math.floor(nBitsTotal / 0x100000000);
+            var nBitsTotalL = nBitsTotal;
+            dataWords[(((nBitsLeft + 64) >>> 9) << 4) + 15] = (
+                (((nBitsTotalH << 8)  | (nBitsTotalH >>> 24)) & 0x00ff00ff) |
+                (((nBitsTotalH << 24) | (nBitsTotalH >>> 8))  & 0xff00ff00)
+            );
+            dataWords[(((nBitsLeft + 64) >>> 9) << 4) + 14] = (
+                (((nBitsTotalL << 8)  | (nBitsTotalL >>> 24)) & 0x00ff00ff) |
+                (((nBitsTotalL << 24) | (nBitsTotalL >>> 8))  & 0xff00ff00)
+            );
 
-	return util.endian([a, b, c, d]);
+            data.sigBytes = (dataWords.length + 1) * 4;
 
-};
+            // Hash final blocks
+            this._process();
 
-// Auxiliary functions
-MD5._ff  = function (a, b, c, d, x, s, t) {
-	var n = a + (b & c | ~b & d) + (x >>> 0) + t;
-	return ((n << s) | (n >>> (32 - s))) + b;
-};
-MD5._gg  = function (a, b, c, d, x, s, t) {
-	var n = a + (b & d | c & ~d) + (x >>> 0) + t;
-	return ((n << s) | (n >>> (32 - s))) + b;
-};
-MD5._hh  = function (a, b, c, d, x, s, t) {
-	var n = a + (b ^ c ^ d) + (x >>> 0) + t;
-	return ((n << s) | (n >>> (32 - s))) + b;
-};
-MD5._ii  = function (a, b, c, d, x, s, t) {
-	var n = a + (c ^ (b | ~d)) + (x >>> 0) + t;
-	return ((n << s) | (n >>> (32 - s))) + b;
-};
+            // Shortcuts
+            var hash = this._hash;
+            var H = hash.words;
 
-// Package private blocksize
-MD5._blocksize = 16;
+            // Swap endian
+            for (var i = 0; i < 4; i++) {
+                // Shortcut
+                var H_i = H[i];
 
-MD5._digestsize = 16;
+                H[i] = (((H_i << 8)  | (H_i >>> 24)) & 0x00ff00ff) |
+                       (((H_i << 24) | (H_i >>> 8))  & 0xff00ff00);
+            }
 
-})();
+            // Return final computed hash
+            return hash;
+        },
+
+        clone: function () {
+            var clone = Hasher.clone.call(this);
+            clone._hash = this._hash.clone();
+
+            return clone;
+        }
+    });
+
+    function FF(a, b, c, d, x, s, t) {
+        var n = a + ((b & c) | (~b & d)) + x + t;
+        return ((n << s) | (n >>> (32 - s))) + b;
+    }
+
+    function GG(a, b, c, d, x, s, t) {
+        var n = a + ((b & d) | (c & ~d)) + x + t;
+        return ((n << s) | (n >>> (32 - s))) + b;
+    }
+
+    function HH(a, b, c, d, x, s, t) {
+        var n = a + (b ^ c ^ d) + x + t;
+        return ((n << s) | (n >>> (32 - s))) + b;
+    }
+
+    function II(a, b, c, d, x, s, t) {
+        var n = a + (c ^ (b | ~d)) + x + t;
+        return ((n << s) | (n >>> (32 - s))) + b;
+    }
+
+    /**
+     * Shortcut function to the hasher's object interface.
+     *
+     * @param {WordArray|string} message The message to hash.
+     *
+     * @return {WordArray} The hash.
+     *
+     * @static
+     *
+     * @example
+     *
+     *     var hash = CryptoJS.MD5('message');
+     *     var hash = CryptoJS.MD5(wordArray);
+     */
+    C.MD5 = Hasher._createHelper(MD5);
+
+    /**
+     * Shortcut function to the HMAC's object interface.
+     *
+     * @param {WordArray|string} message The message to hash.
+     * @param {WordArray|string} key The secret key.
+     *
+     * @return {WordArray} The HMAC.
+     *
+     * @static
+     *
+     * @example
+     *
+     *     var hmac = CryptoJS.HmacMD5(message, key);
+     */
+    C.HmacMD5 = Hasher._createHmacHelper(MD5);
+}(Math));
