@@ -1,3 +1,2 @@
-<map id="myMap" show-location />
 
 <button bindtap="click">myrundata</button>

@@ -1,7 +1,29 @@
 
 Page({
   data: {
-
+  },
+  onLoad: function() {
+    var latitude = 0
+    var longitude = 0
+    wx.getLocation({
+      type: 'wgs84',
+      altitude: true,
+      success: function (res) {
+        
+        //latitude = res.latitude,
+        //longitude = res.longitude,
+        //accuracy = res.accuracy
+        console.log(res.accuracy)
+        wx.openLocation({
+          latitude: res.latitude,
+          longitude: res.longitude
+        })
+      },
+      fail: function(e) {
+        
+      }
+    })
+   
   },
   //"0134laeL17H5V41eWagL1xkbeL14laem"
   click: function (options) {
