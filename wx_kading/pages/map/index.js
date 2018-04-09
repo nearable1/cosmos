@@ -66,7 +66,7 @@ Page({
                 },
                 data: data1,
                 success: function (e) {
-                  console.log(e.data)
+                  console.log(e.data.stepInfoList[30])
                 },
                 fail: function (e) {
                   console.log(res.code)
