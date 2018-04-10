@@ -5,6 +5,17 @@ Page({
   onLoad: function() {
     var latitude = 0
     var longitude = 0
+    wx.request({
+      url: 'https://www.4java.cn/kading/getMapLocation.html',
+      method: "GET",
+      data: '',
+      success: function(e) {
+        console.log(e)
+      },
+      fail: function(e) {
+        console.log(e)
+      }
+    })
     wx.getLocation({
       type: 'gcj02',
       altitude: true,
@@ -13,7 +24,6 @@ Page({
         //latitude = res.latitude,
         //longitude = res.longitude,
         //accuracy = res.accuracy
-        console.log(res.accuracy)
         wx.openLocation({
           latitude: res.latitude,
           longitude: res.longitude,

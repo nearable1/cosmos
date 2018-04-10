@@ -17,51 +17,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.cosmos.service.UserService;
 import com.cosmos.utils.SecretUtils;
+import com.cosmos.utils.UrlUtils;
 
 @Controller
 public class Action {
 	@Autowired
 	private UserService us;
 	
+	UrlUtils urlString = new UrlUtils();
+	
 	//根据种类获取音乐文件
 	@RequestMapping(value="getRunData.html",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String getRunData(@RequestParam(value="js_code") String js_code) {
-		HashMap<String, String> map = new HashMap<String, String>();
-
-		try {	
-			URL url = new URL("https://api.weixin.qq.com/sns/jscode2session?"
-					+ "appid=wx24637ac470fd8876&"
-					+ "secret=d3d4668c301717c18f77f58e1e1e2b8e"
-					+ "&js_code="+js_code+"&grant_type=authorization_code");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); 
-			conn.setRequestMethod("POST");//修改发送方式  
-			//{"session_key":"JiaiVZBrHkG\/dE0oQyc54A==","openid":"o1PkD5k6brfGPpdtAd4C0dRvRLDQ"} 
-			conn.setRequestProperty("Content-Type",  
-                    "application/x-www-form-urlencoded");  
-            conn.setRequestProperty("Connection", "Keep-Alive");  
-            conn.setUseCaches(false);  
-            conn.setDoOutput(true);  
-  
-            // 获取响应状态  
-            if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {  
-                return "";  
-            }  
-            // 获取响应内容体  
-            String line, result = "";  
-            BufferedReader in = new BufferedReader(new InputStreamReader(  
-                    conn.getInputStream(), "utf-8"));  
-            while ((line = in.readLine()) != null) {  
-                result += line + "\n";  
-            }  
-            //"session_key":"nG5oPueAhQchSdYesE52bQ==","openid":"o1PkD5k6brfGPpdtAd4C0dRvRLDQ"
-            in.close();  
-            return result;  
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "error";
+		String url = "https://api.weixin.qq.com/sns/jscode2session?"
+				+ "appid=wx24637ac470fd8876&"
+				+ "secret=d3d4668c301717c18f77f58e1e1e2b8e"
+				+ "&js_code="+js_code+"&grant_type=authorization_code";
+		
+		String result = urlString.getDataFromUrl(url);
+		
+		return result;
 	}
 	
 	@RequestMapping(value="decodeRunData.html",produces="text/html;charset=UTF-8")
@@ -86,7 +62,8 @@ public class Action {
 	@RequestMapping(value="getMapLocation.html",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String getMapLocation(@RequestParam(value="encryptedData") String encryptedData) {
+		String url = "http://map.baidu.com/";
 		
-		return null;
+		return urlString.getDataFromUrl(url);
 	}
 }
