@@ -6,7 +6,7 @@ Page({
     var latitude = 0
     var longitude = 0
     wx.getLocation({
-      type: 'wgs84',
+      type: 'gcj02',
       altitude: true,
       success: function (res) {
         
@@ -16,7 +16,8 @@ Page({
         console.log(res.accuracy)
         wx.openLocation({
           latitude: res.latitude,
-          longitude: res.longitude
+          longitude: res.longitude,
+          scale: 28
         })
       },
       fail: function(e) {
