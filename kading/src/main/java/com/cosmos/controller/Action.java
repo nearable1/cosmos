@@ -57,13 +57,4 @@ public class Action {
 		}
 		return result;
 	}
-	
-	//77BBZ-IVJCV-D4PPF-UHWEU-RG552-V2BBO
-	@RequestMapping(value="getMapLocation.html",produces="text/html;charset=UTF-8")
-	@ResponseBody
-	public String getMapLocation(@RequestParam(value="encryptedData") String encryptedData) {
-		String url = "http://map.baidu.com/";
-		
-		return urlString.getDataFromUrl(url);
-	}
 }

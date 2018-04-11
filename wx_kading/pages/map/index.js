@@ -5,35 +5,25 @@ Page({
   onLoad: function() {
     var latitude = 0
     var longitude = 0
-    wx.request({
-      url: 'https://www.4java.cn/kading/getMapLocation.html',
-      method: "GET",
-      data: '',
-      success: function(e) {
-        console.log(e)
-      },
-      fail: function(e) {
-        console.log(e)
-      }
-    })
-    wx.getLocation({
-      type: 'gcj02',
-      altitude: true,
-      success: function (res) {
+    
+    // wx.getLocation({
+    //   type: 'gcj02',
+    //   altitude: true,
+    //   success: function (res) {
         
-        //latitude = res.latitude,
-        //longitude = res.longitude,
-        //accuracy = res.accuracy
-        wx.openLocation({
-          latitude: res.latitude,
-          longitude: res.longitude,
-          scale: 28
-        })
-      },
-      fail: function(e) {
+    //     //latitude = res.latitude,
+    //     //longitude = res.longitude,
+    //     //accuracy = res.accuracy
+    //     wx.openLocation({
+    //       latitude: res.latitude,
+    //       longitude: res.longitude,
+    //       scale: 28
+    //     })
+    //   },
+    //   fail: function(e) {
         
-      }
-    })
+    //   }
+    // })
    
   },
   //"0134laeL17H5V41eWagL1xkbeL14laem"
