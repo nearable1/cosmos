@@ -1,11 +1,49 @@
+var coordtransform = require('../../utils/mapLocation.js');
 
 Page({
   data: {
+    latitude:'',
+    longitude: ''
+  },
+  onReady: function (e) {
+    // 使用 wx.createMapContext 获取 map 上下文
+    this.mapCtx = wx.createMapContext('myMap')
+  },
+  moveToLocation: function () {
+    this.mapCtx.moveToLocation()
+  },
+  getCenterLocation: function () {
+    this.mapCtx.getCenterLocation({
+      success: function (res) {
+        console.log(res.longitude)
+        console.log(res.latitude)
+      }
+    })
   },
   onLoad: function() {
-    var latitude = 0
-    var longitude = 0
-    
+    var that = this
+    wx.chooseLocation({
+      success: function (res) {
+        // success
+        console.log(res)
+        var wgs84togcj02 = coordtransform.wgs84togcj02(res.longitude, res.latitude);
+        that.setData({
+          longitude: wgs84togcj02[0],
+          latitude: wgs84togcj02[1]
+        })
+        wx.openLocation({
+          latitude: that.data.latitude,
+          longitude: that.data.longitude,
+        })
+        
+      },
+      fail: function () {
+        // fail
+      },
+      complete: function () {
+        // complete
+      }
+    })
     // wx.getLocation({
     //   type: 'gcj02',
     //   altitude: true,
