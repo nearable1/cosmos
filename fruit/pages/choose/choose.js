@@ -1,4 +1,4 @@
-var global = getApp().data
+var globalData = getApp().data
 Page({
 
   /**
@@ -54,9 +54,7 @@ Page({
       },
       data: data,
       success: function(e) {
-        console.log(e.data)
         var array = that.data.arraySchool.concat(e.data)
-        console.log(array)
         that.setData({
           arraySchool: array
         })
@@ -68,7 +66,6 @@ Page({
   },
   //入学年份事件
   bindDateChange: function (e) {
-    console.log(e.detail.value)
     this.setData({
       date: e.detail.value
     })
@@ -82,7 +79,6 @@ Page({
   },
   //年级事件
   bindGradeChange: function (e) {
-    console.log(e)
     this.setData({
       grade: this.data.arrayGrade[e.detail.value]
     })
@@ -117,7 +113,6 @@ Page({
         city:this.data.region[1],
         area:this.data.region[2],
         chineseName: this.data.inputSchool}
-        console.log(data)
       wx.request({
         url: 'https://www.4java.cn/myseat/insertSchool.do',
         method: 'POST',
@@ -126,7 +121,7 @@ Page({
           "content-type": "application/x-www-form-urlencoded"
         },
         success: function() {
-          console.log("success")
+          console.log("success") 
         },
         fail: function() {
           console.log("fail")
@@ -152,7 +147,6 @@ Page({
   bindSchoolInputChange: function(e) {
     if(e.detail.value.length>=4) {
       this.setData({
-        //school: e.detail.value
         newSchool: true,
         inputSchool: e.detail.value
       })
@@ -164,6 +158,7 @@ Page({
   },
   //点击跳转到seat.wxml
   clickToGoSeat: function() {
+    var that = this
     var grade = this.data.grade
     var inc = this.data.className
     var school = this.data.school
@@ -193,62 +188,66 @@ Page({
       },
       success: function (e) {
         //给每个班的座位赋值-全局变量
-        console.log(e.data)
-        global.schoolId = e.data
+        globalData.schoolId = e.data
+
+        //获得classId的参数
+        var data2 = {
+          className: inc,
+          year: date,
+          times: grade,
+          schoolId: globalData.schoolId
+        }
+        if (grade == '' || inc == '' || school == '' || date == '' || region.length == 0) {
+          wx.showToast({
+            title: '请输入空白部分',
+            icon: 'loading',
+            mask: true,
+            duration: 1000
+          })
+        } else {
+          wx.request({
+            url: 'https://www.4java.cn/myseat/insertClass.do',
+            data: data,
+            method: 'POST',
+            header: {
+              "content-type": "application/x-www-form-urlencoded"
+            },
+            success: function (e) {
+              //给每个班的座位赋值-全局变量
+              globalData.seatList = e.data
+
+            },
+            fail: function (e) {
+              console.log(e)
+            }
+          })
+          //给classId赋值
+          wx.request({
+            url: 'https://www.4java.cn/myseat/getClassId.do',
+            data: data2,
+            method: 'POST',
+            header: {
+              "content-type": "application/x-www-form-urlencoded"
+            },
+            success: function (e) {
+              //给每个班的座位赋值-全局变量
+              globalData.classId = e.data
+
+            },
+            fail: function (e) {
+              console.log(e)
+            }
+          })
+          wx.navigateTo({
+            url: 'seat/seat'
+          })
+        }
+
       },
       fail: function (e) {
         console.log(e)
       }
     })
-    //获得classId的参数
-    var data2 = {
-      className: inc,
-      year: date,
-      times: grade,
-      schoolId: global.schoolId
-    }
-    if (grade==''||inc==''||school==''||date==''||region.length==0) {
-      wx.showToast({
-        title:'请输入空白部分',
-        icon: 'loading',
-        mask:true,
-        duration:1000
-      })
-    }else {
-      wx.request({
-        url: 'https://www.4java.cn/myseat/insertClass.do',
-        data: data,
-        method: 'POST',
-        header: {
-          "content-type": "application/x-www-form-urlencoded"
-        },
-        success: function(e) {
-          //给每个班的座位赋值-全局变量
-          global.seatList = e.data
-        },
-        fail: function(e) {
-          console.log(e)
-        }
-      })
-      //给classId赋值
-      wx.request({
-        url: 'https://www.4java.cn/myseat/getClassId.do',
-        data: data2,
-        method: 'POST',
-        header: {
-          "content-type": "application/x-www-form-urlencoded"
-        },
-        success: function (e) {
-          //给每个班的座位赋值-全局变量
-          global.classId = e.data
-        },
-        fail: function (e) {
-          console.log(e)
-        }
-      })
-      wx.navigateTo({
-        url: 'seat/seat'
-      })
-    }
+    
   }
 })

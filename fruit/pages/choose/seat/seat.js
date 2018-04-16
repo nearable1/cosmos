@@ -1,4 +1,4 @@
-var app = getApp().data.seatList
+var app = getApp().data
 Page({
   data:{
     hiddenmodalput: true,
@@ -6,17 +6,20 @@ Page({
     index: 0,
   },
   onLoad: function() {
-    
+    var data = {
+      'schoolId': app.schoolId,
+      'classId': app.classId
+    }
     wx.request({
       url: 'https://www.4java.cn/myseat/selectSeat.do',
-      data: data2,
+      data: data,
       method: 'POST',
       header: {
         "content-type": "application/x-www-form-urlencoded"
       },
       success: function (e) {
         //给每个班的座位赋值-全局变量
-        global.classId = e.data
+        console.log("get,"+data)
       },
       fail: function (e) {
         console.log(e)
