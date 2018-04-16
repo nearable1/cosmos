@@ -17,7 +17,7 @@ Page({
       '71班', '72班', '73班', '74班', '75班', '76班', '77班', '78班', '79班', '80班',
       '81班', '82班', '83班', '84班', '85班', '86班', '87班', '88班', '89班', '90班',
       '91班', '92班', '93班', '94班', '95班', '96班', '97班', '98班', '99班'],
-    arraySchool: ['','学校1', '学校2', '学校3', '学校4'],
+    arraySchool: [''],
     arrayGrade: ['初一第一次座位', '初三最后一次座位', '高一第一次座位', '高三最后一次座位'],
     indexClass: 0,
     indexSchool: 0,
@@ -46,7 +46,7 @@ Page({
       'city':this.data.region[1],
       'area':this.data.region[2]}
     wx.request({
-      url: 'https://www.4java.cn/myseat/selectSchoolByRegion.html',
+      url: 'https://www.4java.cn/myseat/selectSchoolByRegion.do',
       method: 'POST',
       timeout: 5000,
       header: {
@@ -54,9 +54,11 @@ Page({
       },
       data: data,
       success: function(e) {
-        console.log(e)
+        console.log(e.data)
+        var array = that.data.arraySchool.concat(e.data)
+        console.log(array)
         that.setData({
-          arraySchool: e.data
+          arraySchool: array
         })
       },
       fail: function(e){
@@ -115,19 +117,19 @@ Page({
         city:this.data.region[1],
         area:this.data.region[2],
         chineseName: this.data.inputSchool}
+        console.log(data)
       wx.request({
-        url: 'https://www.4java.cn/myseat/insertSchool.html',
+        url: 'https://www.4java.cn/myseat/insertSchool.do',
+        method: 'POST',
         data: data,
-        method: 'GET',
-        success: function(e) {
-          if(e.detail.value==1) {
-            console.log('success')
-          }else if(e.detail.value==0) {
-            console.log(e)
-          }
+        header: {
+          "content-type": "application/x-www-form-urlencoded"
         },
-        fail: function(e) {
-          console.log(e)
+        success: function() {
+          console.log("success")
+        },
+        fail: function() {
+          console.log("fail")
         }
       })
       this.setData({
@@ -171,7 +173,7 @@ Page({
       province: this.data.region[0],
       city: this.data.region[1],
       area: this.data.region[2],
-      ChineseName: school,
+      chineseName: school,
       className: inc,
       year: date,
       times: grade}
@@ -179,16 +181,20 @@ Page({
       province: this.data.region[0],
       city: this.data.region[1],
       area: this.data.region[2],
-      ChineseName: school
+      chineseName: school
     }
     //给schoolId赋值
     wx.request({
-      url: 'https://www.4java.cn/myseat/getSchoolId.html',
-      data: data1,
+      url: 'https://www.4java.cn/myseat/getSchoolId.do',
       method: 'POST',
+      data: data1,
+      header: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
       success: function (e) {
         //给每个班的座位赋值-全局变量
-        global.schoolId = e.detail.value
+        console.log(e.data)
+        global.schoolId = e.data
       },
       fail: function (e) {
         console.log(e)
@@ -210,12 +216,15 @@ Page({
       })
     }else {
       wx.request({
-        url: 'https://www.4java.cn/myseat/insertClass.html',
+        url: 'https://www.4java.cn/myseat/insertClass.do',
         data: data,
         method: 'POST',
+        header: {
+          "content-type": "application/x-www-form-urlencoded"
+        },
         success: function(e) {
           //给每个班的座位赋值-全局变量
-          global.seatList = e.detail.value
+          global.seatList = e.data
         },
         fail: function(e) {
           console.log(e)
@@ -223,12 +232,15 @@ Page({
       })
       //给classId赋值
       wx.request({
-        url: 'https://www.4java.cn/myseat/getClassId.html',
+        url: 'https://www.4java.cn/myseat/getClassId.do',
         data: data2,
         method: 'POST',
+        header: {
+          "content-type": "application/x-www-form-urlencoded"
+        },
         success: function (e) {
           //给每个班的座位赋值-全局变量
-          global.classId = e.detail.value
+          global.classId = e.data
         },
         fail: function (e) {
           console.log(e)

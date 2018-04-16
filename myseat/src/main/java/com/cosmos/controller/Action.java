@@ -21,9 +21,9 @@ public class Action {
 	private UserService us;
 	
 	//查询schoolId
-	@RequestMapping("getSchoolId.html")
+	@RequestMapping(value="getSchoolId.do",produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public String getSchoolId(@RequestParam(value="province")String province, 
+	public String findSchoolId(@RequestParam(value="province")String province, 
 			@RequestParam(value="city")String city, 
 			@RequestParam(value="area")String area,
 			@RequestParam(value="chineseName")String chineseName) {
@@ -33,9 +33,9 @@ public class Action {
 	}
 	
 	//查询classId
-	@RequestMapping("getClassId.html")
+	@RequestMapping(value="getClassId.do",produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public String getClassId(@RequestParam(value="year")String year, 
+	public String findClassId(@RequestParam(value="year")String year, 
 			@RequestParam(value="className")String className, 
 			@RequestParam(value="times")String times,
 			@RequestParam(value="schoolId")String schoolId) {
@@ -44,7 +44,7 @@ public class Action {
 	}
 	
 	//查询school--在弹窗显示
-	@RequestMapping("selectSchoolByRegion.html")
+	@RequestMapping(value="selectSchoolByRegion.do",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String showSchoolByRegion(@RequestParam(value="province")String province, 
 			@RequestParam(value="city")String city, 
@@ -55,9 +55,9 @@ public class Action {
 	}
 	
 	//插入school
-	@RequestMapping("insertSchool.html")
+	@RequestMapping(value="insertSchool.do",produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public int addSchool(@RequestParam(value="province")String province, 
+	public String addSchool(@RequestParam(value="province")String province, 
 			@RequestParam(value="city")String city, 
 			@RequestParam(value="area")String area,
 			@RequestParam(value="chineseName")String chineseName) {
@@ -65,14 +65,15 @@ public class Action {
 		ArrayList<String> schoolList = us.selectSchoolByRegion(province, city, area);
 		if(schoolList.size()>0) {
 			for(int i=0; i<schoolList.size(); i++) {
-				if(schoolList.get(i)==chineseName) {
-					return 0;
+				if(schoolList.get(i).equals(chineseName)) {
+					return "0";
 				}
 			}
 			School school = new School();
 			school.setProvince(province);
 			school.setCity(city);
 			school.setArea(area);
+			school.setChineseName(chineseName);
 			
 			//使用uuid创建schoolId
 			String schoolId = UUID.randomUUID().toString();
@@ -82,13 +83,14 @@ public class Action {
 			}
 			
 			//返回1表示插入成功
-			return 1;
+			return "1";
 			
 		}else {
 			School school = new School();
 			school.setProvince(province);
 			school.setCity(city);
 			school.setArea(area);
+			school.setChineseName(chineseName);
 			
 			//使用uuid创建schoolId
 			String schoolId = UUID.randomUUID().toString();
@@ -98,12 +100,12 @@ public class Action {
 				us.insertSchool(school);
 			}
 			//返回1表示插入成功
-			return 1;
+			return "1";
 		}
 	}
 	
 	//插入class
-	@RequestMapping("insertClass.html")
+	@RequestMapping(value="insertClass.do",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String addClass(@RequestParam(value="province")String province, 
 			@RequestParam(value="city")String city, 
@@ -134,9 +136,9 @@ public class Action {
 	}
 	
 	//插入seat
-	@RequestMapping("insertSeat.html")
+	@RequestMapping(value="insertSeat.do",produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public int addSeat(@RequestParam(value="schoolId")String schoolId,
+	public String addSeat(@RequestParam(value="schoolId")String schoolId,
 			@RequestParam(value="classId")String classId,
 			@RequestParam(value="name")String name,
 			@RequestParam(value="seatId")String seatId) {
@@ -149,17 +151,17 @@ public class Action {
 		synchronized(Action.class) {
 			if(stId!=null) {
 				us.updateSeat(seat);
-				return 1;
+				return "1";
 			}else {
 				us.insertSeat(seat);
-				return 1;
+				return "1";
 			}
 		}
 		
 	}
 	
 	//查询以及分享seat
-	@RequestMapping("selectSeat.html")
+	@RequestMapping(value="selectSeat.do",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String findSeat(@RequestParam(value="schoolId")String schoolId, 
 			@RequestParam(value="classId")String classId) {

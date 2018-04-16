@@ -5,6 +5,24 @@ Page({
     list: [{ id: '310', name: 'gaoe'}, { id: '410', name: '刘熠庚'}, { id: '614', name: '刘熠庚'}, { id: 'aa', name: '刘熠庚'}],
     index: 0,
   },
+  onLoad: function() {
+    
+    wx.request({
+      url: 'https://www.4java.cn/myseat/selectSeat.do',
+      data: data2,
+      method: 'POST',
+      header: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      success: function (e) {
+        //给每个班的座位赋值-全局变量
+        global.classId = e.data
+      },
+      fail: function (e) {
+        console.log(e)
+      }
+    })
+  },
   //更改赋值
   bindchange: function(e) {
     this.data.list[this.data.index].name = e.detail.value

@@ -40,7 +40,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>dispatcherServlet</servlet-name>
-  	<url-pattern>*.html</url-pattern>
+  	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
   
  <!-- 配置编码格式（utf-8） -->
