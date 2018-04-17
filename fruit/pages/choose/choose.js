@@ -19,7 +19,6 @@ Page({
       '91班', '92班', '93班', '94班', '95班', '96班', '97班', '98班', '99班'],
     arraySchool: [''],
     arrayGrade: ['初一第一次座位', '初三最后一次座位', '高一第一次座位', '高三最后一次座位'],
-    indexClass: 0,
     indexSchool: 0,
     hiddenmodalput: true,
     hiddenClass: true,
@@ -33,13 +32,18 @@ Page({
     //界面显示班级
     className: '',
     //中间值
-    inputSchool:''
+    inputSchool:'',
+    schoolHide: true,
+    yearHide: true,
+    seatHide: true,
+    classHide: true
   },
   //地区事件
   bindRegionChange: function (e) {
     var that = this
     this.setData({
-      region: e.detail.value
+      region: e.detail.value,
+      schoolHide: false
     })
     //提取学校
     var data={'province':this.data.region[0],
@@ -48,7 +52,6 @@ Page({
     wx.request({
       url: 'https://www.4java.cn/myseat/selectSchoolByRegion.do',
       method: 'POST',
-      timeout: 5000,
       header: {
         "content-type": "application/x-www-form-urlencoded"
       },
@@ -67,20 +70,15 @@ Page({
   //入学年份事件
   bindDateChange: function (e) {
     this.setData({
-      date: e.detail.value
-    })
-  },
-  //picker-view班级选择事件
-  bindClassChange: function(e) {
-    const val = e.detail.value
-    this.setData({
-      indexClass: val[0],
+      date: e.detail.value,
+      seatHide: false
     })
   },
   //年级事件
   bindGradeChange: function (e) {
     this.setData({
-      grade: this.data.arrayGrade[e.detail.value]
+      grade: this.data.arrayGrade[e.detail.value],
+      classHide: false
     })
   }, 
   //班级事件
@@ -106,6 +104,7 @@ Page({
   schoolConfirm: function(e) {
     this.setData({
       hiddenmodalput: true,
+      yearHide: false
     })
     if (this.data.newSchool) {
       //插入学校

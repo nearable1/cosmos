@@ -6,11 +6,11 @@
   </picker>
 </view>
 
-<view  class="section" bindtap="clickToChooseSchool">
+<view hidden="{{schoolHide}}" class="section" bindtap="clickToChooseSchool">
       学校：{{school}}
 </view>
 
-<view class="section">
+<view hidden="{{yearHide}}" class="section">
   <picker mode="date" value="{{date}}" fields="year" start="1970" end="2018" bindchange="bindDateChange">
     <view class="picker">
       入学年份 : {{date}}
@@ -18,14 +18,14 @@
   </picker>
 </view>
 
-<view class="section">
+<view hidden="{{seatHide}}" class="section">
   <picker bindchange="bindGradeChange" value="{{indexGrade}}" range="{{arrayGrade}}">
     <view class="picker">
       年级座次：{{grade}}
     </view>
   </picker>
 </view>
-<view class="section">
+<view hidden="{{classHide}}" class="section">
   <picker bindchange="bindClassChange" value="{{indexClass}}" range="{{arrayClass}}">
     <view class="picker">
       班级：{{className}}

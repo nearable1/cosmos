@@ -2,7 +2,7 @@ var app = getApp().data
 Page({
   data:{
     hiddenmodalput: true,
-    list: [{ id: '310', name: 'gaoe'}, { id: '410', name: '刘熠庚'}, { id: '614', name: '刘熠庚'}, { id: 'aa', name: '刘熠庚'}],
+    list: [],
     index: 0,
     name:''
   },
