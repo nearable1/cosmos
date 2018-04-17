@@ -46,12 +46,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 查询seat -->
 	<select id="selectOneSeat" parameterType="com.cosmos.entity.Seat" resultType="String">
-		select seatId from seat where seatId=#{seatId} and classId=#{classId} and schoolId=#{schoolId})
+		select seatId from seat where seatId=#{seatId} and classId=#{classId} and schoolId=#{schoolId}
 	</select>
 	
 	<!-- 查询以及分享seat -->
 	<select id="selectSeat" resultType="com.cosmos.entity.Seat">
-		select seatId,name,classId,schoolId from seat where classId=#{0} and schoolId=#{1}
+		select seatId,name,classId,schoolId from seat where classId=#{1} and schoolId=#{0}
 	</select>
 
 </mapper>

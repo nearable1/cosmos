@@ -37,7 +37,6 @@ Page({
   },
   //显示弹窗，指定选中的index
   modalinput: function (e) {
-    console.log(e)
     this.setData({
       hiddenmodalput: !this.data.hiddenmodalput,
       index: e.currentTarget.id
@@ -76,7 +75,6 @@ Page({
       },
       success: function (e) {
         //给每个班的座位赋值-全局变量
-        console.log(e)
         wx.request({
           url: 'https://www.4java.cn/myseat/selectSeat.do',
           data: data1,
@@ -86,6 +84,7 @@ Page({
           },
           success: function (e) {
             //给每个班的座位赋值-全局变量
+            console.log(e)
             that.setData({
               list: e.data
             })

@@ -8,20 +8,20 @@
     <view class="seatSide"></view>
     <view class="seatSide"></view>
     <view class="seatNext" bindtap="modalinput" id="aa" style="border-left:1rpx solid gray">
-      <view style="width:100rpx;height:40rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.id=='aa'}}">
+      <view style="width:100rpx;height:40rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.seatId=='aa'}}">
         {{item.name}}</view>
     </view>
     <view class="seatNext" id="bb" bindtap="modalinput" style="border-left:1rpx solid gray">
-      <view style="width:100rpx;height:40rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.id=='bb'}}">
+      <view style="width:100rpx;height:40rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.seatId=='bb'}}">
         {{item.name}}</view>
     </view>
     <view class="platform">讲台</view>
     <view class="seatNext" id="cc" bindtap="modalinput" style="border-right:1rpx solid gray">
-      <view style="width:100rpx;height:40rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.id=='cc'}}">
+      <view style="width:100rpx;height:40rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.seatId=='cc'}}">
         {{item.name}}</view>
     </view>
     <view class="seatNext" id="dd" bindtap="modalinput" style="border-right:1rpx solid gray;">
-      <view style="width:100rpx;height:40rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.id=='dd'}}">
+      <view style="width:100rpx;height:40rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.seatId=='dd'}}">
         {{item.name}}</view>
     </view>
     <view class="seatSide"></view>
@@ -35,11 +35,11 @@
     <view wx:key="{{index}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14]}}" wx:for-index="i">
       <!--列数-->
       <view class="seat" wx:if="{{j<14}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}}" id="{{i}}{{j}}" bindtap="modalinput" wx:for-index="j" wx:key="{{index}}">
-        <view style="width:100rpx;height:40rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.id==i+''+j && item.name!=''}}">
+        <view style="width:100rpx;height:40rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.seatId==i+''+j && item.name!=''}}">
         {{item.name}}</view>
       </view>
       <view class="seat" wx:if="{{j==14}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}}" id="{{i}}{{j}}" style="border:1rpx solid gray" bindtap="modalinput" wx:for-index="j" wx:key="{{index}}">
-        <view style="width:100rpx;height:40rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.id==i+''+j}}">
+        <view style="width:100rpx;height:40rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.seatId==i+''+j}}">
         {{item.name}}</view>
       </view>
     </view>
