@@ -84,7 +84,6 @@ Page({
           },
           success: function (e) {
             //给每个班的座位赋值-全局变量
-            console.log(e)
             that.setData({
               list: e.data
             })
@@ -99,12 +98,13 @@ Page({
         console.log(e)
       }
     })
-  },
+  }, 
   //设置分享
   onShareAppMessage: function () {
     return {
-      title: '学校+班级+年级',
-      path: '/page/choose/seat?schoolId=***&seatId=***',
+      title: '来寻找曾经的同桌吧',
+      path: '/pages/choose/choose',
+      imageUrl: 'http://www.4java.cn:8080/file/music/share.png',
       success: function(){
         wx.showToast({
           title:'转发成功',

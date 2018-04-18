@@ -15,7 +15,7 @@
 }
 /*讲台*/
 .platform {
-  width: 200rpx;
+  width: 250rpx;
   height: 70rpx;
   text-align: center;
   display: inline-block;
@@ -23,35 +23,35 @@
   border:1rpx solid gray;
 }
 .seatNext {
-  width: 100rpx;
-  height: 40rpx;
-  font-size: 20rpx;
+  width: 125rpx;
+  height: 60rpx;
+  font-size: 30rpx;
   border-top:1rpx solid gray;
   border-bottom:1rpx solid gray;
   text-align: center;
   margin-top: 60rpx;
   display: inline-block;
-  line-height: 40rpx;
+  line-height: 60rpx;
   vertical-align: bottom;
 }
 
 .seatSide {
-  width: 100rpx;
-  height: 40rpx;
+  width: 125rpx;
+  height: 60rpx;
   display: inline-block;
   vertical-align: bottom;
 }
 
 .seat {
   float:left;
-  width: 100rpx;
-  height: 40rpx;
-  font-size: 20rpx;
+  width: 125rpx;
+  height: 60rpx;
+  font-size: 30rpx;
   border-top:1rpx solid gray;
   border-bottom:1rpx solid gray;
   border-left:1rpx solid gray;
   text-align: center;
-  line-height:40rpx;
-  margin-top: 20rpx;
+  line-height:60rpx;
+  margin-top: 30rpx;
   z-index: -1;
 }

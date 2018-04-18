@@ -6,14 +6,10 @@
   </picker>
 </view>
 
-<view hidden="{{schoolHide}}" class="section" bindtap="clickToChooseSchool">
-      学校：{{school}}
-</view>
-
-<view hidden="{{yearHide}}" class="section">
-  <picker mode="date" value="{{date}}" fields="year" start="1970" end="2018" bindchange="bindDateChange">
+<view hidden="{{schoolHide}}" class="section">
+  <picker bindchange="clickToChooseSchool" value="{{indexGrade}}" range="{{arraySchool}}">
     <view class="picker">
-      入学年份 : {{date}}
+      学校：{{school}}
     </view>
   </picker>
 </view>
@@ -21,10 +17,19 @@
 <view hidden="{{seatHide}}" class="section">
   <picker bindchange="bindGradeChange" value="{{indexGrade}}" range="{{arrayGrade}}">
     <view class="picker">
-      年级座次：{{grade}}
+      座次：{{grade}}
     </view>
   </picker>
 </view>
+
+<view hidden="{{yearHide}}" class="section">
+  <picker mode="date" value="{{date}}" fields="year" start="1970" end="2018" bindchange="bindDateChange">
+    <view class="picker">
+      时间 : {{date}}
+    </view>
+  </picker>
+</view>
+
 <view hidden="{{classHide}}" class="section">
   <picker bindchange="bindClassChange" value="{{indexClass}}" range="{{arrayClass}}">
     <view class="picker">
@@ -37,12 +42,6 @@
 
 <!--学校选择的弹窗-->
 <modal hidden="{{hiddenmodalput}}" confirm-text="提交" cancel-text="取消" bindcancel="schoolCancel" bindconfirm="schoolConfirm">  
-    <input confirm-type="search" bindchange="bindSchoolInputChange" type='text' placeholder="若在下方没找到学校，请在此处新建" auto-focus value="{{school}}" style="border:1rpx solid gray;height:50rpx;font-size:30rpx"/>
-    <view>
-  <picker-view indicator-style="height: 50px;" style="width: 100%; height: 150px;" value="{{value}}" bindchange="bindSchoolChange">
-    <picker-view-column>
-      <view wx:for="{{arraySchool}}" wx:key="*this" style="text-align:center;line-height: 50px">{{item}}</view>
-    </picker-view-column>
-  </picker-view>
-</view>
+    <input confirm-type="search" bindchange="bindSchoolInputChange" type='text' placeholder="至少输入四位" auto-focus/>
+
 </modal>

@@ -17,18 +17,16 @@ Page({
       '71班', '72班', '73班', '74班', '75班', '76班', '77班', '78班', '79班', '80班',
       '81班', '82班', '83班', '84班', '85班', '86班', '87班', '88班', '89班', '90班',
       '91班', '92班', '93班', '94班', '95班', '96班', '97班', '98班', '99班'],
-    arraySchool: [''],
+    arraySchool: ['new'],
     arrayGrade: ['初一第一次座位', '初三最后一次座位', '高一第一次座位', '高三最后一次座位'],
-    indexSchool: 0,
     hiddenmodalput: true,
-    hiddenClass: true,
     //数组中的数字依次表示 picker-view 内的 picker-view-colume 选择的第几项（下标从 0 开始）
     value: [0],
     grade: '',
     //界面显示的学校
     school: '',
     //是否需要新建学校
-    newSchcool: false,
+    newSchool: false,
     //界面显示班级
     className: '',
     //中间值
@@ -36,14 +34,35 @@ Page({
     schoolHide: true,
     yearHide: true,
     seatHide: true,
-    classHide: true
+    classHide: true,
+  },
+  onHide: function () {
+    if(this.data.region==null) {
+      this.setData({
+        schoolHide: true,
+      })
+    }
+    this.setData({
+      
+      yearHide: true,
+      seatHide: true,
+      classHide: true,
+      grade: '',
+      //界面显示的学校
+      school: '',
+      className: '',
+      date: '',
+    })
   },
   //地区事件
   bindRegionChange: function (e) {
     var that = this
     this.setData({
       region: e.detail.value,
-      schoolHide: false
+      schoolHide: false,
+      arraySchool: ['new'],
+      inputSchool: '',
+      school: '',
     })
     //提取学校
     var data={'province':this.data.region[0],
@@ -58,6 +77,7 @@ Page({
       data: data,
       success: function(e) {
         var array = that.data.arraySchool.concat(e.data)
+        
         that.setData({
           arraySchool: array
         })
@@ -71,27 +91,20 @@ Page({
   bindDateChange: function (e) {
     this.setData({
       date: e.detail.value,
-      seatHide: false
+      classHide: false
     })
   },
   //年级事件
   bindGradeChange: function (e) {
     this.setData({
       grade: this.data.arrayGrade[e.detail.value],
-      classHide: false
+      yearHide: false
     })
   }, 
   //班级事件
   bindClassChange: function(e) {
     this.setData({
       className: this.data.arrayClass[e.detail.value]
-    })
-  },
-  //picker-view学校选择事件
-  bindSchoolChange: function (e) {
-    const val = e.detail.value
-    this.setData({
-      indexSchool: val[0],
     })
   },
   //弹窗左下角取消
@@ -104,7 +117,7 @@ Page({
   schoolConfirm: function(e) {
     this.setData({
       hiddenmodalput: true,
-      yearHide: false
+      seatHide: false
     })
     if (this.data.newSchool) {
       //插入学校
@@ -129,18 +142,23 @@ Page({
       this.setData({
         school: this.data.inputSchool
       })
-    }else {
-      this.setData({
-        school: this.data.arraySchool[this.data.indexSchool]
-      })
     }
   },
   //点击显示选择学校的弹窗
-  clickToChooseSchool: function() {
+  clickToChooseSchool: function(e) {
     //需要根据地区select出学校
-    this.setData({
-      hiddenmodalput: !this.data.hiddenmodalput
-    })
+    var id = e.detail.value
+    if(id==0) {
+      this.setData({
+        hiddenmodalput: !this.data.hiddenmodalput
+      })
+    }else {
+      this.setData({
+        school: this.data.arraySchool[id],
+        seatHide: false
+      })
+    }
+    
   },
   //弹窗中输入框值改变事件
   bindSchoolInputChange: function(e) {
@@ -247,6 +265,20 @@ Page({
         console.log(e)
       }
     })
-    
+  },
+  //设置分享
+  onShareAppMessage: function () {
+    return {
+      title: '来寻找曾经的同桌吧',
+      path: '/pages/choose/choose',
+      imageUrl: 'http://www.4java.cn:8080/file/music/share.png',
+      success: function () {
+        wx.showToast({
+          title: '转发成功',
+          icon: 'success',
+          duration: 2000
+        })
+      }
+    }
   }
 })
