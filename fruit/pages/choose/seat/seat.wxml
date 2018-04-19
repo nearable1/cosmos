@@ -5,8 +5,6 @@
 
 <!--讲台-->
 <scroll-view class="platview" scroll-x scroll-left="120">
-    <view class="seatSide"></view>
-    <view class="seatSide"></view>
     <view class="seatNext" bindtap="modalinput" id="aa" style="border-left:1rpx solid gray">
       <view style="width:125rpx;height:60rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.seatId=='aa'}}">
         {{item.name}}</view>
@@ -24,14 +22,15 @@
       <view style="width:125rpx;height:60rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.seatId=='dd'}}">
         {{item.name}}</view>
     </view>
-    <view class="seatSide"></view>
-    <view class="seatSide"></view>
 </scroll-view>
 
-<!--座次表-->
-<movable-area style="left:34rpx;height: 200px;width: 100%;background: white;">
-    <movable-view style="left:-110%;height: 300px; width: 345%; background: white;" direction="all">
-    <!--行数-->
+<scroll-view scroll-x style="height: 700px">
+    <view class="scroll-view-item">
+    <!--排号-->
+    <view wx:key="*this" wx:if="{{index<19}}" style="border-left:1rpx solid gray;margin-top:10rpx;font-size:20rpx;float:left; width:125rpx;text-align:center;line-height: 20rpx" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}}">{{item}}</view>
+      <view wx:key="*this" style="border-right:1rpx solid gray;border-left:1rpx solid gray;margin-top:10rpx;font-size:20rpx;float:left; width:125rpx;text-align:center;line-height: 20rpx" wx:if="{{index==19}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}}">{{item}}</view>
+    
+      <!--行数-->
     <view wx:key="{{index}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14]}}" wx:for-index="i">
       <!--列数-->
       <view class="seat" wx:if="{{j<19}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}}" id="{{i}}{{j}}" bindtap="modalinput" wx:for-index="j" wx:key="{{index}}">
@@ -43,8 +42,26 @@
         {{item.name}}</view>
       </view>
     </view>
+    </view>
+  </scroll-view>
+
+<!--座次表-->
+<!-- <movable-area style="left:34rpx;height: 200px;width: 100%;background: white;">
+    <movable-view style="left:-110%;height: 300px; width: 345%; background: white;" direction="all"> -->
+    <!--行数-->
+    <!-- <view wx:key="{{index}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14]}}" wx:for-index="i"> -->
+      <!--列数-->
+      <!-- <view class="seat" wx:if="{{j<19}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}}" id="{{i}}{{j}}" bindtap="modalinput" wx:for-index="j" wx:key="{{index}}">
+        <view style="width:125rpx;height:60rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.seatId==i+''+j && item.name!=''}}">
+        {{item.name}}</view>
+      </view>
+      <view class="seat" wx:if="{{j==19}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}}" id="{{i}}{{j}}" style="border:1rpx solid gray" bindtap="modalinput" wx:for-index="j" wx:key="{{index}}">
+        <view style="width:125rpx;height:60rpx;background-color:bisque;" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{item.seatId==i+''+j}}">
+        {{item.name}}</view>
+      </view>
+    </view>
     </movable-view>
-  </movable-area>
+  </movable-area> -->
 
 <!--更改名字的弹窗-->
 <modal hidden="{{hiddenmodalput}}" title="请输入" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">  

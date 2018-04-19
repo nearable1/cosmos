@@ -115,6 +115,7 @@ Page({
   },
   //弹窗右下角确定
   schoolConfirm: function(e) {
+    var that = this
     this.setData({
       hiddenmodalput: true,
       seatHide: false
@@ -133,7 +134,35 @@ Page({
           "content-type": "application/x-www-form-urlencoded"
         },
         success: function() {
-          console.log("success") 
+          console.log("success")
+          //提取学校
+          var data = {
+            'province': that.data.region[0],
+            'city': that.data.region[1],
+            'area': that.data.region[2]
+          }
+          //学校arraySchool重新赋值
+          wx.request({
+            url: 'https://www.4java.cn/myseat/selectSchoolByRegion.do',
+            method: 'POST',
+            header: {
+              "content-type": "application/x-www-form-urlencoded"
+            },
+            data: data,
+            success: function (e) {
+              that.setData({
+                arraySchool: ['new']
+              })
+              var array = that.data.arraySchool.concat(e.data)
+
+              that.setData({
+                arraySchool: array
+              })
+            },
+            fail: function (e) {
+              console.log(e)
+            }
+          }) 
         },
         fail: function() {
           console.log("fail")

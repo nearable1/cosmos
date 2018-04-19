@@ -52,6 +52,11 @@
   border-left:1rpx solid gray;
   text-align: center;
   line-height:60rpx;
-  margin-top: 30rpx;
+  margin-top: 10rpx;
   z-index: -1;
 }
+
+.scroll-view-item{
+  width:340%;
+}
+

@@ -42,6 +42,6 @@
 
 <!--学校选择的弹窗-->
 <modal hidden="{{hiddenmodalput}}" confirm-text="提交" cancel-text="取消" bindcancel="schoolCancel" bindconfirm="schoolConfirm">  
-    <input confirm-type="search" bindchange="bindSchoolInputChange" type='text' placeholder="至少输入四位" auto-focus/>
+    <input confirm-type="search" bindinput="bindSchoolInputChange" type='text' placeholder="至少输入四位" auto-focus/>
 
 </modal>
