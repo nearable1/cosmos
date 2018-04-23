@@ -3,24 +3,27 @@ var coordtransform = require('../../utils/mapLocation.js');
 Page({
   data: {
     latitude:'',
-    longitude: ''
+    longitude: '',
+    markers: [],
+    polyline: [{
+      points: [{
+        longitude: 121.41075,
+        latitude: 31.16697
+      }, {
+        longitude: 121.46379,
+        latitude: 31.21831
+      }],
+      color: "#FF0000DD",
+      width: 2,
+      dottedLine: true
+    }],
   },
   onReady: function (e) {
     // 使用 wx.createMapContext 获取 map 上下文
     this.mapCtx = wx.createMapContext('myMap')
   },
-  moveToLocation: function () {
-    this.mapCtx.moveToLocation()
-  },
-  getCenterLocation: function () {
-    this.mapCtx.getCenterLocation({
-      success: function (res) {
-        console.log(res.longitude)
-        console.log(res.latitude)
-      }
-    })
-  },
   onLoad: function() {
+    
     var that = this
     wx.chooseLocation({
       success: function (res) {
@@ -28,12 +31,16 @@ Page({
         console.log(res)
         var wgs84togcj02 = coordtransform.wgs84togcj02(res.longitude, res.latitude);
         that.setData({
-          longitude: wgs84togcj02[0],
-          latitude: wgs84togcj02[1]
-        })
-        wx.openLocation({
-          latitude: that.data.latitude,
-          longitude: that.data.longitude,
+          longitude: res.longitude,//wgs84togcj02[0],
+          latitude: res.latitude,//wgs84togcj02[1],
+          markers: [{
+            iconPath: "/images/start.png",
+            latitude: res.latitude,
+            longitude: res.longitude,
+            name: '',
+            width: 33,
+            height: 43
+          }]
         })
         
       },
@@ -44,6 +51,7 @@ Page({
         // complete
       }
     })
+    console.log(this.data.markers)
     // wx.getLocation({
     //   type: 'gcj02',
     //   altitude: true,
