@@ -1,8 +1,12 @@
 {
   "pages":[
-    "pages/map/index",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/routes/routes",
+    "pages/info/info",
+    "pages/weather/weather",
+    "pages/inputtip/inputtip",
+    "pages/map/index",
+    "pages/user/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -12,18 +16,28 @@
   },
   "tabBar": {
     "position": "top",
+    "color": "#000000",
+    "selectedColor": "#4D8AD7",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/user/index",
         "text": "首页"
-      },
-      {
-        "pagePath": "pages/logs/logs",
-        "text": "日志"
       },
       {
         "pagePath": "pages/map/index",
         "text": "map"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "地图",
+        "iconPath": "/images/map2.png",
+        "selectedIconPath": "/images/map1.png"
+      },
+      {
+        "pagePath": "pages/weather/weather",
+        "text": "天气",
+        "iconPath": "/images/weather2.png",
+        "selectedIconPath": "/images/weather1.png"
       }
     ]
   }
