@@ -89,32 +89,32 @@ public class Action {
 	@RequestMapping(value="/v3/weather/weatherInfo",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String getWeatherInfo(@RequestParam(value="key") String key,
-			@RequestParam(value="city") String city,
-			@RequestParam(value="extensions") String extensions,
-			@RequestParam(value="s") String s,
-			@RequestParam(value="platform") String platform,
-			@RequestParam(value="appname") String appname,
-			@RequestParam(value="sdkversion") String sdkversion,
-			@RequestParam(value="logversion") String logversion) {
+			@RequestParam(value="city") Object city,
+			@RequestParam(value="extensions") Object extensions,
+			@RequestParam(value="s") Object s,
+			@RequestParam(value="platform") Object platform,
+			@RequestParam(value="appname") Object appname,
+			@RequestParam(value="sdkversion") Object sdkversion,
+			@RequestParam(value="logversion") Object logversion) {
 		
 		String result = null;
 		
 		String url = "https://restapi.amap.com/v3/weather/weatherInfo?"
 				+ "key="+key
-				+ "&city="+city
-				+ "&extensions="+extensions
-				+ "&s="+s
-				+ "&platform="+platform
-				+ "&appname="+appname
-				+ "&sdkversion="+sdkversion
-				+ "&logversion="+logversion;
+				+ "&city="+JSON.toJSONString(city)
+				+ "&extensions="+JSON.toJSONString(extensions)
+				+ "&s="+JSON.toJSONString(s)
+				+ "&platform="+JSON.toJSONString(platform)
+				+ "&appname="+JSON.toJSONString(appname)
+				+ "&sdkversion="+JSON.toJSONString(sdkversion)
+				+ "&logversion="+JSON.toJSONString(logversion);
 		
 		result = urlString.getDataFromUrl(url);
 		
 		return result;
 	}
 	
-	@RequestMapping(value="v3/place/around",produces="text/html;charset=UTF-8")
+	@RequestMapping(value="/v3/place/around",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String getAround(@RequestParam(value="key") String key,
 			@RequestParam(value="location") String location,
@@ -126,7 +126,7 @@ public class Action {
 		
 		String result = null;
 		
-		String url = "https://restapi.amap.com/v3/weather/weatherInfo?"
+		String url = "https://restapi.amap.com/v3/place/around?"
 				+ "key="+key
 				+ "&location="+location
 				+ "&s="+s
