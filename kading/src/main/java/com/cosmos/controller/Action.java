@@ -26,7 +26,7 @@ public class Action {
 	
 	UrlUtils urlString = new UrlUtils();
 	
-	//根据种类获取音乐文件
+	//获取rundata
 	@RequestMapping(value="getRunData.html",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String getRunData(@RequestParam(value="js_code") String js_code) {
@@ -55,6 +55,232 @@ public class Action {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return result;
+	}
+	
+	@RequestMapping(value="/v3/geocode/regeo",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getRegeo(@RequestParam(value="key") String key,
+			@RequestParam(value="location") String location,
+			@RequestParam(value="extensions") String extensions,
+			@RequestParam(value="s") String s,
+			@RequestParam(value="platform") String platform,
+			@RequestParam(value="appname") String appname,
+			@RequestParam(value="sdkversion") String sdkversion,
+			@RequestParam(value="logversion") String logversion) {
+		
+		String result = null;
+		
+		String url = "https://restapi.amap.com/v3/geocode/regeo?"
+				+ "key="+key
+				+ "&location="+location
+				+ "&extensions="+extensions
+				+ "&s="+s
+				+ "&platform="+platform
+				+ "&appname="+appname
+				+ "&sdkversion="+sdkversion
+				+ "&logversion="+logversion;
+		
+		result = urlString.getDataFromUrl(url);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/v3/weather/weatherInfo",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getWeatherInfo(@RequestParam(value="key") String key,
+			@RequestParam(value="city") String city,
+			@RequestParam(value="extensions") String extensions,
+			@RequestParam(value="s") String s,
+			@RequestParam(value="platform") String platform,
+			@RequestParam(value="appname") String appname,
+			@RequestParam(value="sdkversion") String sdkversion,
+			@RequestParam(value="logversion") String logversion) {
+		
+		String result = null;
+		
+		String url = "https://restapi.amap.com/v3/weather/weatherInfo?"
+				+ "key="+key
+				+ "&city="+city
+				+ "&extensions="+extensions
+				+ "&s="+s
+				+ "&platform="+platform
+				+ "&appname="+appname
+				+ "&sdkversion="+sdkversion
+				+ "&logversion="+logversion;
+		
+		result = urlString.getDataFromUrl(url);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="v3/place/around",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getAround(@RequestParam(value="key") String key,
+			@RequestParam(value="location") String location,
+			@RequestParam(value="s") String s,
+			@RequestParam(value="platform") String platform,
+			@RequestParam(value="appname") String appname,
+			@RequestParam(value="sdkversion") String sdkversion,
+			@RequestParam(value="logversion") String logversion) {
+		
+		String result = null;
+		
+		String url = "https://restapi.amap.com/v3/weather/weatherInfo?"
+				+ "key="+key
+				+ "&location="+location
+				+ "&s="+s
+				+ "&platform="+platform
+				+ "&appname="+appname
+				+ "&sdkversion="+sdkversion
+				+ "&logversion="+logversion;
+		
+		result = urlString.getDataFromUrl(url);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/v3/staticmap",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getStaticmap(@RequestParam(value="key") String key,
+			@RequestParam(value="s") String s,
+			@RequestParam(value="platform") String platform,
+			@RequestParam(value="appname") String appname,
+			@RequestParam(value="sdkversion") String sdkversion,
+			@RequestParam(value="logversion") String logversion) {
+		
+		String result = null;
+		
+		String url = "https://restapi.amap.com/v3/staticmap?"
+				+ "key="+key
+				+ "&s="+s
+				+ "&platform="+platform
+				+ "&appname="+appname
+				+ "&sdkversion="+sdkversion
+				+ "&logversion="+logversion;
+		
+		result = urlString.getDataFromUrl(url);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/v3/assistant/inputtips",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getInputtips(@RequestParam(value="key") String key,
+			@RequestParam(value="s") String s,
+			@RequestParam(value="platform") String platform,
+			@RequestParam(value="appname") String appname,
+			@RequestParam(value="sdkversion") String sdkversion,
+			@RequestParam(value="logversion") String logversion) {
+		
+		String result = null;
+		
+		String url = "https://restapi.amap.com/v3/assistant/inputtips?"
+				+ "key="+key
+				+ "&s="+s
+				+ "&platform="+platform
+				+ "&appname="+appname
+				+ "&sdkversion="+sdkversion
+				+ "&logversion="+logversion;
+		
+		result = urlString.getDataFromUrl(url);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/v3/direction/driving",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getDriving(@RequestParam(value="key") String key,
+			@RequestParam(value="s") String s,
+			@RequestParam(value="platform") String platform,
+			@RequestParam(value="appname") String appname,
+			@RequestParam(value="sdkversion") String sdkversion,
+			@RequestParam(value="logversion") String logversion) {
+		
+		String result = null;
+		
+		String url = "https://restapi.amap.com/v3/direction/driving?"
+				+ "key="+key
+				+ "&s="+s
+				+ "&platform="+platform
+				+ "&appname="+appname
+				+ "&sdkversion="+sdkversion
+				+ "&logversion="+logversion;
+		
+		result = urlString.getDataFromUrl(url);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/v3/direction/walking",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getWalking(@RequestParam(value="key") String key,
+			@RequestParam(value="s") String s,
+			@RequestParam(value="platform") String platform,
+			@RequestParam(value="appname") String appname,
+			@RequestParam(value="sdkversion") String sdkversion,
+			@RequestParam(value="logversion") String logversion) {
+		
+		String result = null;
+		
+		String url = "https://restapi.amap.com/v3/direction/walking?"
+				+ "key="+key
+				+ "&s="+s
+				+ "&platform="+platform
+				+ "&appname="+appname
+				+ "&sdkversion="+sdkversion
+				+ "&logversion="+logversion;
+		
+		result = urlString.getDataFromUrl(url);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/v3/direction/transit/integrated",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getIntegrated(@RequestParam(value="key") String key,
+			@RequestParam(value="s") String s,
+			@RequestParam(value="platform") String platform,
+			@RequestParam(value="appname") String appname,
+			@RequestParam(value="sdkversion") String sdkversion,
+			@RequestParam(value="logversion") String logversion) {
+		
+		String result = null;
+		
+		String url = "https://restapi.amap.com/v3/direction/transit/integrated?"
+				+ "key="+key
+				+ "&s="+s
+				+ "&platform="+platform
+				+ "&appname="+appname
+				+ "&sdkversion="+sdkversion
+				+ "&logversion="+logversion;
+		
+		result = urlString.getDataFromUrl(url);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/v4/direction/bicycling",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getBicycling(@RequestParam(value="key") String key,
+			@RequestParam(value="s") String s,
+			@RequestParam(value="platform") String platform,
+			@RequestParam(value="appname") String appname,
+			@RequestParam(value="sdkversion") String sdkversion,
+			@RequestParam(value="logversion") String logversion) {
+		
+		String result = null;
+		
+		String url = "https://restapi.amap.com/v4/direction/bicycling?"
+				+ "key="+key
+				+ "&s="+s
+				+ "&platform="+platform
+				+ "&appname="+appname
+				+ "&sdkversion="+sdkversion
+				+ "&logversion="+logversion;
+		
+		result = urlString.getDataFromUrl(url);
+		
 		return result;
 	}
 }
