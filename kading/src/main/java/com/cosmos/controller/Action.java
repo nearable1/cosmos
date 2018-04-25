@@ -124,35 +124,39 @@ public class Action {
 				+ "&appname="+appname
 				+ "&sdkversion="+sdkversion
 				+ "&logversion="+logversion;
-		
+		System.out.println("around:"+url);
 		result = urlString.getDataFromUrl(url);
 		
 		return result;
 	}
 	
-	@RequestMapping(value="/v3/staticmap",produces="text/html;charset=UTF-8")
-	@ResponseBody
-	public String getStaticmap(@RequestParam(value="key") String key,
-			@RequestParam(value="s") String s,
-			@RequestParam(value="platform") String platform,
-			@RequestParam(value="appname") String appname,
-			@RequestParam(value="sdkversion") String sdkversion,
-			@RequestParam(value="logversion") String logversion) {
-		
-		String result = null;
-		
-		String url = "https://restapi.amap.com/v3/staticmap?"
-				+ "key="+key
-				+ "&s="+s
-				+ "&platform="+platform
-				+ "&appname="+appname
-				+ "&sdkversion="+sdkversion
-				+ "&logversion="+logversion;
-		
-		result = urlString.getDataFromUrl(url);
-		
-		return result;
-	}
+//	@RequestMapping(value="/v3/staticmap",produces="text/html;charset=UTF-8")
+//	@ResponseBody
+//	public String getStaticmap(@RequestParam(value="location") String location,
+//			@RequestParam(value="zoom") String zoom,
+//			@RequestParam(value="size") String size,
+//			@RequestParam(value="scale") String scale,
+//			@RequestParam(value="markers") String markers,
+//			@RequestParam(value="labels") String labels,
+//			@RequestParam(value="paths") String paths,
+//			@RequestParam(value="traffic") String traffic) {
+//		
+//		String result = null;
+//		
+//		String url = "https://restapi.amap.com/v3/staticmap?"
+//				+ "location="+location
+//				+ "&zoom="+zoom
+//				+ "&size="+size
+//				+ "&scale="+scale
+//				+ "&markers="+markers
+//				+ "&labels="+labels
+//				+ "&paths="+paths
+//				+ "&traffic="+traffic;
+//		
+//		result = urlString.getDataFromUrl(url);
+//		
+//		return result;
+//	}
 	
 	@RequestMapping(value="/v3/assistant/inputtips",produces="text/html;charset=UTF-8")
 	@ResponseBody
@@ -172,7 +176,7 @@ public class Action {
 				+ "&appname="+appname
 				+ "&sdkversion="+sdkversion
 				+ "&logversion="+logversion;
-		
+		System.out.println("url:"+url);
 		result = urlString.getDataFromUrl(url);
 		
 		return result;
