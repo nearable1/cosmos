@@ -1,20 +1,11 @@
 package com.cosmos.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.cosmos.service.UserService;
 import com.cosmos.utils.SecretUtils;
 import com.cosmos.utils.UrlUtils;
@@ -35,7 +26,7 @@ public class Action {
 				+ "secret=d3d4668c301717c18f77f58e1e1e2b8e"
 				+ "&js_code="+js_code+"&grant_type=authorization_code";
 		
-		String result = urlString.getDataFromUrl(url);
+		String result = urlString.postDataFromUrl(url);
 		
 		return result;
 	}
@@ -88,7 +79,7 @@ public class Action {
 	
 	@RequestMapping(value="/v3/weather/weatherInfo",produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public String getWeatherInfo(@RequestParam(value="key") String key,
+	public String getWeatherInfo(@RequestParam(value="key") Object key,
 			@RequestParam(value="city") Object city,
 			@RequestParam(value="extensions") Object extensions,
 			@RequestParam(value="s") Object s,
@@ -101,14 +92,13 @@ public class Action {
 		
 		String url = "https://restapi.amap.com/v3/weather/weatherInfo?"
 				+ "key="+key
-				+ "&city="+JSON.toJSONString(city)
-				+ "&extensions="+JSON.toJSONString(extensions)
-				+ "&s="+JSON.toJSONString(s)
-				+ "&platform="+JSON.toJSONString(platform)
-				+ "&appname="+JSON.toJSONString(appname)
-				+ "&sdkversion="+JSON.toJSONString(sdkversion)
-				+ "&logversion="+JSON.toJSONString(logversion);
-		
+				+ "&city="+city
+				+ "&extensions="+extensions
+				+ "&s="+s
+				+ "&platform="+platform
+				+ "&appname="+appname
+				+ "&sdkversion="+sdkversion
+				+ "&logversion="+logversion;
 		result = urlString.getDataFromUrl(url);
 		
 		return result;
