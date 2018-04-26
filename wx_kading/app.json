@@ -1,12 +1,10 @@
 {
   "pages":[
-    "pages/index/index",
-    "pages/routes/routes",
-    "pages/info/info",
-    "pages/weather/weather",
-    "pages/inputtip/inputtip",
     "pages/map/index",
-    "pages/user/index"
+    "pages/user/index",
+    "pages/search/search",
+    "pages/suggestion/suggestion",
+    "pages/regeocoding/regeocoding"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -28,16 +26,16 @@
         "text": "map"
       },
       {
-        "pagePath": "pages/index/index",
-        "text": "地图",
-        "iconPath": "/images/map2.png",
-        "selectedIconPath": "/images/map1.png"
+        "pagePath": "pages/search/search",
+        "text": "search"
       },
       {
-        "pagePath": "pages/weather/weather",
-        "text": "天气",
-        "iconPath": "/images/weather2.png",
-        "selectedIconPath": "/images/weather1.png"
+        "pagePath": "pages/suggestion/suggestion",
+        "text": "suggestion"
+      },
+      {
+        "pagePath": "pages/regeocoding/regeocoding",
+        "text": "regeocoding"
       }
     ]
   }
