@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.sm.tm.dao.TmTestingDtlDao">
+    
+	<sql id="tmTestingDtlColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.testing_no AS "testingNo",
+		a.line_no AS "lineNo",
+		a.material_no AS "materialNo",
+		a.sn_no AS "snNo",
+		a.if_packing_good AS "ifPackingGood",
+		a.if_outlook_good AS "ifOutlookGood",
+		a.additional_instructions AS "additionalInstructions",
+		a.new_remarks AS "newRemarks"
+	</sql>
+	
+	<sql id="tmTestingDtlJoinColumns">
+		c.production_date AS "productionDate",
+		c.status AS "status",
+		c.machine_type AS "machineType",
+		c.sn_version AS "snVersion",
+	</sql>
+	
+	<sql id="tmTestingDtlJoins">
+		LEFT JOIN tm_testing b ON b.id = a.testing_no
+		inner join sm_sn_info c
+        ON a.sn_no = c.sn_no
+	</sql>
+    
+	<select id="get" resultType="TmTestingDtl">
+		SELECT 
+			<include refid="tmTestingDtlJoinColumns"/>
+			<include refid="tmTestingDtlColumns"/>
+		FROM tm_testing_dtl a
+		<include refid="tmTestingDtlJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TmTestingDtl">
+		SELECT 
+			<include refid="tmTestingDtlJoinColumns"/>
+			<include refid="tmTestingDtlColumns"/>
+		FROM tm_testing_dtl a
+		<include refid="tmTestingDtlJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="testingNo != null and testingNo != ''">
+				AND a.testing_no = #{testingNo}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.testing_no,a.line_no
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TmTestingDtl">
+		SELECT 
+			<include refid="tmTestingDtlJoinColumns"/>
+			<include refid="tmTestingDtlColumns"/>
+		FROM tm_testing_dtl a
+		<include refid="tmTestingDtlJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tm_testing_dtl(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			testing_no,
+			line_no,
+			material_no,
+			sn_no,
+			if_packing_good,
+			if_outlook_good,
+			additional_instructions,
+			new_remarks
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{testingNo},
+			#{lineNo},
+			#{materialNo},
+			#{snNo},
+			#{ifPackingGood},
+			#{ifOutlookGood},
+			#{additionalInstructions},
+			#{newRemarks}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tm_testing_dtl SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			testing_no = #{testingNo},
+			line_no = #{lineNo},
+			material_no = #{materialNo},
+			sn_no = #{snNo},
+			if_packing_good = #{ifPackingGood},
+			if_outlook_good = #{ifOutlookGood},
+			additional_instructions = #{additionalInstructions},
+			new_remarks = #{newRemarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE tm_testing_dtl SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE testing_no = #{testingNo}
+			</otherwise>
+		</choose>
+	</update>
+	
+	<delete id="deleteByTestingNo">
+		delete from tm_testing_dtl 
+			WHERE testing_no = #{testingNo}
+	</delete>
+	
+</mapper>

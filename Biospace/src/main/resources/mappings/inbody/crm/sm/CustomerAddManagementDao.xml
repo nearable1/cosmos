@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.cm.dao.CustomerAddManagementDao">
+	<sql id="customerInfoColumns">
+		a.id as id,
+		a.proc_ins_id,
+		a.create_by,
+		a.create_date,
+		a.update_by,
+		a.update_date,
+		a.customer_id,
+		a.customer_ch_name as customerChName,
+		a.customer_parent_co as customerParentCo,
+		a.customer_type as customerType,
+		a.ax_cus_no,
+		a.develop_date as developDate,
+		a.last_visit_date as lastVisitDate,
+		a.if_agreement,
+		a.responsible_person_id as responsiblePersonId,
+		a.if_important as ifImportant,
+		a.if_effective as ifEffective,
+		a.industry as industry,
+		a.customer_diff,
+		a.region as region,
+		a.province as province,
+		a.city as city,
+		a.address as address,
+		a.invoice_type,
+		a.invoice_title,
+		a.taxpayer_ident_no,
+		a.deposit_bank,
+		a.bank_account,
+		a.invoice_address,
+		a.telephone,
+		a.zip_code
+		
+	</sql>
+
+	<insert id="addByCustomerAddManagement">
+		INSERT INTO cm_customer_info(
+			id,
+			create_by,
+			create_date,
+			del_flag,
+			customer_id,
+			customer_ch_name,
+			customer_parent_co,
+			customer_type,
+			ax_cus_no,
+			develop_date,
+			if_agreement,
+			responsible_person_id,
+			if_important,
+			if_effective,
+			industry,
+			customer_diff,
+			region,
+			province,
+			city,
+			address,
+			invoice_type,
+			invoice_title,
+			taxpayer_ident_no,
+			deposit_bank,
+			bank_account,
+			invoice_address,
+			telephone,
+			zip_code
+		) VALUES (
+			#{customerAddManagement.id},
+			#{customerAddManagement.updateBy.id},
+			#{customerAddManagement.createDate},
+			#{customerAddManagement.delFlag},
+			#{customerAddManagement.customerId},
+			#{customerAddManagement.customerChName},
+			#{customerAddManagement.customerParentCo},
+			#{customerAddManagement.customerType},
+			#{customerAddManagement.axCusNo},
+			#{customerAddManagement.developDate},
+			#{customerAddManagement.ifAgreement},
+			#{customerAddManagement.responsiblePersonId},
+			#{customerAddManagement.ifImportant},
+			#{customerAddManagement.ifEffective},
+			#{customerAddManagement.industry},
+			#{customerAddManagement.customerDiff},
+			#{customerAddManagement.region},
+			#{customerAddManagement.province},
+			#{customerAddManagement.city},
+			#{customerAddManagement.address},
+			#{customerAddManagement.invoiceType},
+			#{customerAddManagement.invoiceTitle},
+			#{customerAddManagement.taxpayerIdentNo},
+			#{customerAddManagement.depositBank},
+			#{customerAddManagement.bankAccount},
+			#{customerAddManagement.invoiceAddress},
+			#{customerAddManagement.telephone},
+			#{customerAddManagement.zipCode}
+		)
+	</insert>
+	<select id="getList" resultType="java.util.Map" >
+		SELECT customer_id,customer_ch_name
+		FROM CM_CUSTOMER_INFO where customer_type = 1
+	</select>
+
+</mapper>

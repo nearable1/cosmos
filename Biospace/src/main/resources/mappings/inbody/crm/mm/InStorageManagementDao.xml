@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.mm.dao.InStorageManagementDao">
+    
+	<sql id="smStorageAppColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.storage_type AS "storageType",
+		a.workflow_status AS "workflowStatus",
+		a.responsible_person_id AS "responsiblePersonId",
+		a.lending_type AS "lendingType",
+		a.customer_name AS "customerName",
+		a.industry AS "industry",
+		a.lending_date_from AS "lendingDateFrom",
+		a.process_date AS "processDate",
+		a.new_remarks AS "newRemarks"
+	</sql>
+
+	<sql id="smSendBackJoins">
+		SELECT
+			slm.id AS id,
+			slm.MATERIAL_NO AS MATERIAL_NO,
+			CONCAT(smi.MATERIAL_NAME, " ", smi.model) AS MATERIAL_NAME,
+			slm.SN_NO AS SN_NO,
+			ssni.PRODUCTION_DATE AS PRODUCTION_DATE,
+			slm.NUM AS NUM,
+			slm.LENDER_NAME AS LENDER_NAME,
+			slm.LENDING_DATE_FROM AS LENDING_DATE_FROM,
+			slm.LENDING_DATE_TO AS LENDING_DATE_TO,
+			ssi.LENDING_TYPE AS LENDING_TYPE,
+			ssi.INDUSTRY AS INDUSTRY,
+			ssi.NEW_REMARKS AS NEW_REMARKS,
+			ssi.ACCESSORIES_REMARKS AS ACCESSORIES_REMARKS
+		FROM
+			sm_lending_mat slm
+		INNER JOIN sm_storage_info ssi ON slm.storage_id = ssi.STORAGE_ID AND ssi.STORAGE_TYPE = '22'
+		LEFT JOIN sm_mat_info smi ON slm.MATERIAL_NO = smi.MATERIAL_NO
+		LEFT JOIN sm_sn_info ssni ON ssni.SN_NO = slm.SN_NO AND ssni.MATERIAL_NO = slm.MATERIAL_NO
+		<where>
+			<if test="delFlag != null and delFlag != ''">
+				AND slm.DEL_FLAG = #{delFlag}
+			</if>
+			<if test="responsiblePersonId != null and responsiblePersonId != ''">
+				AND ssi.RESPONSIBLE_PERSON_ID = #{responsiblePersonId}
+			</if>
+		</where>
+		ORDER BY slm.MATERIAL_NO, slm.LENDING_DATE_TO
+	</sql>
+
+	<sql id="smSendBackColumns">
+		temp.id AS "smLendingMat.id",
+		temp.MATERIAL_NO AS "smLendingMat.materialNo",
+		temp.MATERIAL_NAME AS "smLendingMat.materialName",
+		temp.SN_NO AS "smLendingMat.snNo",
+		temp.PRODUCTION_DATE AS "smLendingMat.productionDate",
+		temp.NUM AS "smLendingMat.num",
+		temp.LENDER_NAME AS "smLendingMat.lenderName",
+		temp.LENDING_DATE_FROM AS "smLendingMat.lendingDateFrom",
+		temp.LENDING_DATE_TO AS "smLendingMat.lendingDateTo",
+		temp.LENDING_TYPE AS "smStorageInfo.lendingType",
+		temp.INDUSTRY AS "smStorageInfo.industry",
+		temp.NEW_REMARKS AS "smStorageInfo.newRemarks",
+		temp.ACCESSORIES_REMARKS AS "smStorageInfo.accessoriesRemarks"
+	</sql>
+
+	<!-- 其它入库申请(归还)申请画面初始化 -->
+	<select id="getSmStorageAppInfoById" resultType="InSmStorageApp">
+		SELECT
+			su.name AS "responsiblePersonName",
+			<include refid="smStorageAppColumns"/>
+		FROM sm_storage_app a
+		LEFT JOIN sys_user su ON su.id = a.RESPONSIBLE_PERSON_ID
+		WHERE a.id = #{id}
+	</select>
+
+	<!-- 其它入库申请(归还)申请画面初始化 -->
+	<select id="initSendBackSmStorageApp" resultType="InSmStorageAppDtl">
+		SELECT
+			<include refid="smSendBackColumns"/>
+		FROM (<include refid="smSendBackJoins"/>) temp
+		WHERE NOT EXISTS ( SELECT DISTINCT ssad.LENDING_ID
+			FROM SM_STORAGE_APP_DTL ssad
+			INNER JOIN SM_STORAGE_APP ssa ON ssa.id = ssad.app_id
+			AND ssa.DEL_FLAG = '0' AND ssa.WORKFLOW_STATUS != '50'
+			AND ssa.STORAGE_TYPE = '13'
+			WHERE ssad.LENDING_ID = temp.id)
+	</select>
+
+	<!-- 其它入库申请(归还)申请画面显示 -->
+	<select id="getSendBackSmStorageAppDtl" resultType="InSmStorageAppDtl">
+		SELECT
+			ssad.id AS "id",
+			ssad.num AS "num",
+			ssad.lending_date_to AS "lendingDateTo",
+			ssad.warehouse AS "warehouse",
+			<include refid="smSendBackColumns"/>,
+			<include refid="smStorageAppColumns"/>
+		FROM
+			SM_STORAGE_APP_DTL ssad
+		INNER JOIN SM_STORAGE_APP a ON a.id = ssad.app_id AND a.DEL_FLAG = '0'
+		INNER JOIN (<include refid="smSendBackJoins"/>) temp ON ssad.lending_id = temp.id
+		<where>
+			<if test="id != null and id != ''">
+				AND ssad.app_id = #{id}
+			</if>
+		</where>
+		ORDER BY ssad.update_date
+	</select>
+	<!-- 其它入库申请(其他)申请画面查询显示 -->
+	<select id="searchOtherSmStorageAppDtl" resultType="InSmStorageAppDtl">
+		SELECT
+		    a.material_no AS "materialNo",
+		    CONCAT(a.material_name, " ", a.model) AS "materialName",
+		    a.if_sn AS "ifSn"
+		FROM sm_mat_info a
+		WHERE a.material_no = #{materialNo}
+	</select>
+	<!-- 其它入库申请(其他)申请画面显示 -->
+	<select id="getOtherSmStorageAppDtl" resultType="InSmStorageAppDtl">
+		SELECT
+		    ssad.material_no AS "materialNo",
+		    ssad.sn_no AS "snNo",
+		    ssad.num AS "num",
+		    ssad.warehouse AS "warehouse",
+		    ssad.production_date AS "productionDate",
+		    CONCAT(smi.material_name, " ", smi.model) AS "materialName",
+		    smi.if_sn AS "ifSn",
+			<include refid="smStorageAppColumns"/>
+		FROM SM_STORAGE_APP_DTL ssad
+		LEFT JOIN sm_mat_info smi ON smi.material_no = ssad.material_no
+		INNER JOIN SM_STORAGE_APP a ON a.id = ssad.app_id AND a.DEL_FLAG = '0'
+		<where>
+			<if test="id != null and id != ''">
+				AND ssad.app_id = #{id}
+			</if>
+		</where>
+		ORDER BY ssad.update_date
+	</select>
+	
+	<sql id="smRefundJoins">
+		SELECT
+			so.ORDER_NO AS ORDER_NO,
+			sod.LINE_NO AS LINE_NO,
+			so.CUSTOMER_CH_NAME AS CUSTOMER_CH_NAME,
+			cci.CUSTOMER_CH_NAME AS END_CUSTOMER_CH_NAME,
+			sod.MATERIAL_NO AS MATERIAL_NO,
+			CONCAT(smi.MATERIAL_NAME, " ", smi.MODEL) AS MATERIAL_NAME,
+			CASE WHEN LENGTH(trim(IFNULL(ssi.SN_NO, ''))) > 0 THEN '1' ELSE sod.DELIVER_NUM END AS DELIVER_NUM,
+			ssi.SN_NO AS SN_NO,
+			ssi.PRODUCTION_DATE AS PRODUCTION_DATE
+		FROM so_order_dtl sod
+		INNER JOIN so_order so ON so.ID = sod.ORDER_ID
+			AND so.DEL_FLAG = '0'
+			AND so.WORKFLOW_STATUS = '50'
+			AND so.DELIVER_STATUS IN ('20', '30')
+			AND sod.DELIVER_NUM > 0
+			AND NOT EXISTS (
+				SELECT so.order_no
+				FROM so_order a
+				WHERE so.order_no = a.order_no
+				AND a.del_flag = '2'
+				AND a.workflow_status != '50'
+			)
+		LEFT JOIN cm_customer_info cci ON sod.END_CUSTOMER_ID = cci.CUSTOMER_ID
+		LEFT JOIN sm_mat_info smi ON smi.MATERIAL_NO = sod.MATERIAL_NO
+		LEFT JOIN sm_sn_info ssi ON ssi.ORDER_NO = so.ORDER_NO AND ssi.LINE_NO = sod.LINE_NO
+		<where>
+			<!-- (sod.PACKAGE_MERTIRAL_NO IS NULL OR (sod.PACKAGE_MERTIRAL_NO IS NOT NULL AND sod.TOTAL_AMOUNT > 0)) -->
+			<if test="orderNo != null and orderNo != ''">
+				AND so.ORDER_NO = #{orderNo}
+			</if>
+			<if test="snNo != null and snNo != ''">
+				AND ssi.SN_NO = #{snNo}
+			</if>
+		</where>
+		ORDER BY so.ORDER_NO, sod.LINE_NO
+	</sql>
+	
+	<sql id="smRefundAppJoins">
+		SELECT
+			so.ORDER_NO AS ORDER_NO,
+			sod.LINE_NO AS LINE_NO,
+			so.CUSTOMER_CH_NAME AS CUSTOMER_CH_NAME,
+			cci.CUSTOMER_CH_NAME AS END_CUSTOMER_CH_NAME
+		FROM so_order_dtl sod
+		INNER JOIN so_order so ON so.ID = sod.ORDER_ID
+		LEFT JOIN cm_customer_info cci ON sod.END_CUSTOMER_ID = cci.CUSTOMER_ID
+		ORDER BY so.ORDER_NO, sod.LINE_NO
+	</sql>
+
+	<sql id="smRefundColumns">
+		temp.ORDER_NO AS "soOrderDtl.orderNo",
+		temp.LINE_NO AS "soOrderDtl.lineNo",
+		temp.CUSTOMER_CH_NAME AS "soOrderDtl.customerChName",
+		temp.END_CUSTOMER_CH_NAME AS "soOrderDtl.endCustomerChName",
+		temp.MATERIAL_NO AS "soOrderDtl.materialNo",
+		temp.MATERIAL_NAME AS "soOrderDtl.materialName",
+		temp.SN_NO AS "soOrderDtl.snNo",
+		temp.PRODUCTION_DATE AS "soOrderDtl.productionDate"
+	</sql>
+	<sql id="smRefundDeliverNumColumn">
+		temp.DELIVER_NUM AS "soOrderDtl.deliverNum"
+	</sql>
+	<!-- 其它入库申请(退货)申请画面查询显示 -->
+	<select id="searchRefundSmStorageAppDtl" resultType="InSmStorageAppDtl">
+		SELECT
+			<include refid="smRefundDeliverNumColumn"/>,
+			<include refid="smRefundColumns"/>
+		FROM (<include refid="smRefundJoins"/>) temp
+		WHERE NOT EXISTS (
+			SELECT
+				ssad.ORDER_NO AS ORDER_NO,
+				ssad.LINE_NO AS LINE_NO,
+				ssad.MATERIAL_NO AS MATERIAL_NO,
+				ssad.SN_NO AS SN_NO
+			FROM SM_STORAGE_APP_DTL ssad
+			INNER JOIN SM_STORAGE_APP ssa ON ssa.id = ssad.app_id
+				AND ssa.DEL_FLAG = '0'
+				AND ssa.WORKFLOW_STATUS != '50'
+				AND ssa.STORAGE_TYPE = '14'
+			WHERE ssad.ORDER_NO = temp.ORDER_NO
+				AND ssad.LINE_NO = temp.LINE_NO
+				AND ssad.MATERIAL_NO = temp.MATERIAL_NO
+				AND trim(IFNULL(ssad.SN_NO, '')) = trim(IFNULL(temp.SN_NO, '')))
+	</select>
+
+	<!-- 其它入库申请(退货)申请画面显示 -->
+	<select id="getRefundSmStorageAppDtl" resultType="InSmStorageAppDtl">
+		SELECT
+			ssad.id AS "id",
+			ssad.num AS "soOrderDtl.deliverNum",
+			ssad.warehouse AS "warehouse",
+			ssad.ORDER_NO AS "soOrderDtl.orderNo",
+			ssad.LINE_NO AS "soOrderDtl.lineNo",
+			temp.CUSTOMER_CH_NAME AS "soOrderDtl.customerChName",
+			temp.END_CUSTOMER_CH_NAME AS "soOrderDtl.endCustomerChName",
+			ssad.MATERIAL_NO AS "soOrderDtl.materialNo",
+			smi.MATERIAL_NAME AS "soOrderDtl.materialName",
+			ssad.SN_NO AS "soOrderDtl.snNo",
+			ssi.PRODUCTION_DATE AS "soOrderDtl.productionDate",
+			<include refid="smStorageAppColumns"/>
+		FROM
+			SM_STORAGE_APP_DTL ssad
+		INNER JOIN SM_STORAGE_APP a ON a.id = ssad.app_id AND a.DEL_FLAG = '0'
+		INNER JOIN (<include refid="smRefundAppJoins"/>) temp ON ssad.ORDER_NO = temp.ORDER_NO
+			AND ssad.LINE_NO = temp.LINE_NO
+		LEFT JOIN sm_mat_info smi ON smi.MATERIAL_NO = ssad.MATERIAL_NO
+		LEFT JOIN sm_sn_info ssi ON trim(IFNULL(ssad.SN_NO, '')) = trim(IFNULL(ssi.SN_NO, ''))
+		<where>
+			<if test="id != null and id != ''">
+				AND ssad.app_id = #{id}
+			</if>
+		</where>
+		ORDER BY ssad.update_date
+	</select>
+	
+	<sql id="smExchangeJoins">
+		SELECT
+			so.ORDER_NO AS ORDER_NO,
+			sod.LINE_NO AS LINE_NO,
+			so.CUSTOMER_CH_NAME AS CUSTOMER_CH_NAME,
+			cci.CUSTOMER_CH_NAME AS END_CUSTOMER_CH_NAME,
+			sod.MATERIAL_NO AS MATERIAL_NO,
+			CONCAT(smi.MATERIAL_NAME, " ", smi.MODEL) AS MATERIAL_NAME,
+			'1' AS DELIVER_NUM,
+			ssi.SN_NO AS SN_NO,
+			ssi.PRODUCTION_DATE AS PRODUCTION_DATE,
+			ssi.WARRANTY_DATE_TO AS WARRANTY_DATE_TO,
+			ssti.PROCESS_DATE AS PROCESS_DATE
+		FROM
+			so_order_dtl sod
+		INNER JOIN so_order so ON so.ID = sod.ORDER_ID
+			AND so.DEL_FLAG = '0'
+			AND so.WORKFLOW_STATUS = '50'
+			AND so.DELIVER_STATUS IN ('20', '30')
+			AND LENGTH(trim(IFNULL(sod.DELIVER_NUM, ''))) > 0
+			AND NOT EXISTS (
+				SELECT
+					so.order_no
+				FROM
+					so_order a
+				WHERE so.order_no = a.order_no
+					AND a.del_flag = '2'
+					AND a.workflow_status != '50'
+			)
+		LEFT JOIN cm_customer_info cci ON sod.END_CUSTOMER_ID = cci.CUSTOMER_ID
+		LEFT JOIN sm_mat_info smi ON smi.MATERIAL_NO = sod.MATERIAL_NO
+		INNER JOIN sm_sn_info ssi ON ssi.ORDER_NO = so.ORDER_NO AND ssi.LINE_NO = sod.LINE_NO
+		INNER JOIN sm_storage_info ssti ON so.ORDER_NO = ssti.ORDER_NO
+			AND ssti.LINE_NO = sod.LINE_NO
+			AND ssi.SN_NO = ssti.SN_NO
+			AND ssti.MATERIAL_NO = sod.MATERIAL_NO
+		<where>
+			<if test="orderNo != null and orderNo != ''">
+				AND so.ORDER_NO = #{orderNo}
+			</if>
+		</where>
+		ORDER BY so.ORDER_NO, sod.LINE_NO
+	</sql>
+
+	<sql id="smExchangeColumns">
+		temp.ORDER_NO AS "soOrderDtl.orderNo",
+		temp.LINE_NO AS "soOrderDtl.lineNo",
+		temp.CUSTOMER_CH_NAME AS "soOrderDtl.customerChName",
+		temp.END_CUSTOMER_CH_NAME AS "soOrderDtl.endCustomerChName",
+		temp.MATERIAL_NO AS "soOrderDtl.materialNo",
+		temp.MATERIAL_NAME AS "soOrderDtl.materialName",
+		temp.DELIVER_NUM AS "soOrderDtl.deliverNum",
+		temp.SN_NO AS "soOrderDtl.snNo",
+		temp.PRODUCTION_DATE AS "soOrderDtl.productionDate",
+		temp.WARRANTY_DATE_TO AS "soOrderDtl.warrantyDateTo",
+		temp.PROCESS_DATE AS "soOrderDtl.processDate"
+	</sql>
+	<!-- 其它入库申请(换货)申请画面查询显示 -->
+	<select id="searchExchangeSmStorageAppDtl" resultType="InSmStorageAppDtl">
+		SELECT
+			<include refid="smExchangeColumns"/>
+		FROM (<include refid="smExchangeJoins"/>) temp
+		WHERE NOT EXISTS (
+			SELECT
+				ssad.ORDER_NO AS ORDER_NO,
+				ssad.LINE_NO AS LINE_NO,
+				ssad.MATERIAL_NO AS MATERIAL_NO,
+				ssad.SN_NO AS SN_NO
+			FROM SM_STORAGE_APP_DTL ssad
+			INNER JOIN SM_STORAGE_APP ssa ON ssa.id = ssad.app_id
+				AND ssa.DEL_FLAG = '0'
+				AND ssa.WORKFLOW_STATUS != '50'
+				AND ssa.STORAGE_TYPE = '12'
+			WHERE ssad.ORDER_NO = temp.ORDER_NO
+				AND ssad.LINE_NO = temp.LINE_NO
+				AND ssad.MATERIAL_NO = temp.MATERIAL_NO
+				AND ssad.SN_NO = temp.SN_NO)
+	</select>
+
+	<!-- 其它入库申请(换货)申请画面显示 -->
+	<select id="getExchangeSmStorageAppDtl" resultType="InSmStorageAppDtl">
+		SELECT
+			ssad.id AS "id",
+			ssad.warehouse AS "warehouse",
+			ssad.production_date AS "productionDate",
+			ssad.sn_no AS "snNo",
+			<include refid="smExchangeColumns"/>,
+			<include refid="smStorageAppColumns"/>
+		FROM
+			SM_STORAGE_APP_DTL ssad
+		INNER JOIN SM_STORAGE_APP a ON a.id = ssad.app_id AND a.DEL_FLAG = '0'
+		INNER JOIN (<include refid="smExchangeJoins"/>) temp ON ssad.ORDER_NO = temp.ORDER_NO
+			AND ssad.LINE_NO = temp.LINE_NO
+			AND (ssad.SN_NO = temp.SN_NO OR ssad.NEW_SN_NO = temp.SN_NO)
+			AND ssad.MATERIAL_NO = temp.MATERIAL_NO
+		<where>
+			<if test="id != null and id != ''">
+				AND ssad.app_id = #{id}
+			</if>
+		</where>
+		ORDER BY ssad.update_date
+	</select>
+	
+	<insert id="insertSmStorageApp">
+		INSERT INTO sm_storage_app(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			storage_type,
+			workflow_status,
+			responsible_person_id,
+			lending_type,
+			customer_name,
+			industry,
+			lending_date_from,
+			process_date,
+			new_remarks
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{storageType},
+			#{workflowStatus},
+			#{responsiblePersonId},
+			#{lendingType},
+			#{customerName},
+			#{industry},
+			#{lendingDateFrom},
+			#{processDate},
+			#{newRemarks}
+		)
+	</insert>
+	
+	<update id="updateSmStorageApp">
+		UPDATE sm_storage_app SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			storage_type = #{storageType},
+			workflow_status = #{workflowStatus},
+			responsible_person_id = #{responsiblePersonId},
+			lending_type = #{lendingType},
+			customer_name = #{customerName},
+			industry = #{industry},
+			lending_date_from = #{lendingDateFrom},
+			process_date = #{processDate},
+			new_remarks = #{newRemarks},
+			del_flag = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<insert id="insertSmStorageAppDtl">
+		INSERT INTO sm_storage_app_dtl(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			lending_id,
+            production_date,
+			app_id,
+			purchase_no,
+			order_no,
+			line_no,
+			sn_no,
+			material_no,
+			new_sn_no,
+			num,
+			warehouse,
+			address,
+			contacts_name,
+			telephone,
+			accessories_remarks,
+			lending_date_to,
+			extend_date_to,
+			extend_reason
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{lendingId},
+            #{productionDate},
+			#{appId},
+			#{purchaseNo},
+			#{orderNo},
+			#{lineNo},
+			#{snNo},
+			#{materialNo},
+			#{newSnNo},
+			#{num},
+			#{warehouse},
+			#{address},
+			#{contactsName},
+			#{telephone},
+			#{accessoriesRemarks},
+			#{lendingDateTo},
+			#{extendDateTo},
+			#{extendReason}
+		)
+	</insert>
+	
+	<delete id="deleteSmStorageAppDtlByAppId">
+		DELETE FROM sm_storage_app_dtl WHERE app_id = #{appId}
+	</delete>
+	
+	<insert id="insertSmStorageInfo">
+		INSERT INTO sm_storage_info(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			storage_id,
+			storage_apply_id,
+			storage_type,
+			purchase_no,
+			order_no,
+			line_no,
+			sn_no,
+			material_no,
+			num,
+			warehouse,
+			process_date,
+			responsible_person_id,
+			new_remarks,
+			lending_type,
+			industry,
+			express_no,
+			address,
+			contacts_name,
+			express_company,
+			telephone,
+			accessories_remarks,
+			lending_date_from,
+			lending_date_to,
+			customer_name,
+			if_install,
+			install_person_id,
+			latest_install_date,
+			actual_install_date
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{storageId},
+			#{storageApplyId},
+			#{storageType},
+			#{purchaseNo},
+			#{orderNo},
+			#{lineNo},
+			#{snNo},
+			#{materialNo},
+			#{num},
+			#{warehouse},
+			#{processDate},
+			#{responsiblePersonId},
+			#{newRemarks},
+			#{lendingType},
+			#{industry},
+			#{expressNo},
+			#{address},
+			#{contactsName},
+			#{expressCompany},
+			#{telephone},
+			#{accessoriesRemarks},
+			#{lendingDateFrom},
+			#{lendingDateTo},
+			#{customerName},
+			#{ifInstall},
+			#{installPersonId},
+			#{latestInstallDate},
+			#{actualInstallDate}
+		)
+	</insert>
+    
+	<sql id="smLendingMatColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.sn_no AS "snNo",
+		a.material_no AS "materialNo",
+		a.warehouse AS "warehouse",
+		a.num AS "num",
+		a.storage_id AS "storageId",
+		a.workflow_status AS "workflowStatus",
+		a.lender_name AS "lenderName",
+		a.lending_date_from AS "lendingDateFrom",
+		a.lending_date_to AS "lendingDateTo"
+	</sql>
+    
+	<select id="getSmLendingMatById" resultType="InSmLendingMat">
+		SELECT 
+			<include refid="smLendingMatColumns"/>
+		FROM sm_lending_mat a
+		WHERE a.id = #{id}
+	</select>
+	
+	<update id="updateSmLendingMat">
+		UPDATE sm_lending_mat SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			sn_no = #{snNo},
+			material_no = #{materialNo},
+			warehouse = #{warehouse},
+			num = #{num},
+			storage_id = #{storageId},
+			workflow_status = #{workflowStatus},
+			lender_name = #{lenderName},
+			lending_date_from = #{lendingDateFrom},
+			lending_date_to = #{lendingDateTo}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="deleteSmLendingMat">
+		UPDATE sm_lending_mat SET 
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	<!-- <delete id="deleteSmLendingMat">
+		delete from sm_lending_mat where id = #{id}
+	</delete> -->
+
+	<sql id="smSnInfoColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.sn_no AS "snNo",
+		a.material_no AS "materialNo",
+		a.storage_id AS "storageId",
+		a.warehouse AS "warehouse",
+		a.production_date AS "productionDate",
+		a.entry_date AS "entryDate",
+		a.machine_type AS "machineType",
+		a.status AS "status",
+		a.warranty_date_from AS "warrantyDateFrom",
+		a.warranty_date_to AS "warrantyDateTo",
+		a.if_install AS "ifInstall",
+		a.if_locked AS "ifLocked",
+		a.install_person_id AS "installPersonId",
+		a.latest_install_date AS "latestInstallDate",
+		a.actual_install_date AS "actualInstallDate",
+		a.purchase_no AS "purchaseNo",
+		a.order_no AS "orderNo",
+		a.line_no AS "lineNo",
+		a.old_order_no AS "oldOrderNo",
+		a.old_line_no AS "oldLineNo"
+	</sql>
+    
+	<select id="getSmSnInfo" resultType="InSmSnInfo">
+		SELECT 
+			<include refid="smSnInfoColumns"/>
+		FROM sm_sn_info a
+		WHERE a.del_flag = '0'
+		<if test="materialNo != null and materialNo != ''">
+			AND a.material_no = #{materialNo}
+		</if>
+		<if test="snNo != null and snNo != ''">
+			AND a.sn_no = #{snNo}
+		</if>
+	</select>
+
+	<insert id="insertSmSnInfo">
+		INSERT INTO sm_sn_info(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			sn_no,
+			material_no,
+			storage_id,
+			warehouse,
+			production_date,
+			entry_date,
+			machine_type,
+			status,
+			warranty_date_from,
+			warranty_date_to,
+			if_install,
+			if_locked,
+			install_person_id,
+			latest_install_date,
+			actual_install_date,
+			purchase_no,
+			order_no,
+			line_no,
+			old_order_no,
+			old_line_no
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{snNo},
+			#{materialNo},
+			#{storageId},
+			#{warehouse},
+			#{productionDate},
+			#{entryDate},
+			#{machineType},
+			#{status},
+			#{warrantyDateFrom},
+			#{warrantyDateTo},
+			#{ifInstall},
+			#{ifLocked},
+			#{installPersonId},
+			#{latestInstallDate},
+			#{actualInstallDate},
+			#{purchaseNo},
+			#{orderNo},
+			#{lineNo},
+			#{oldOrderNo},
+			#{oldLineNo}
+		)
+	</insert>
+	
+	<update id="updateSmSnInfo">
+		UPDATE sm_sn_info SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			sn_no = #{snNo},
+			material_no = #{materialNo},
+			storage_id = #{storageId},
+			warehouse = #{warehouse},
+			production_date = #{productionDate},
+			entry_date = #{entryDate},
+			machine_type = #{machineType},
+			status = #{status},
+			warranty_date_from = #{warrantyDateFrom},
+			warranty_date_to = #{warrantyDateTo},
+			if_install = #{ifInstall},
+			if_locked = #{ifLocked},
+			install_person_id = #{installPersonId},
+			latest_install_date = #{latestInstallDate},
+			actual_install_date = #{actualInstallDate},
+			purchase_no = #{purchaseNo},
+			order_no = #{orderNo},
+			line_no = #{lineNo},
+			old_order_no = #{oldOrderNo},
+			old_line_no = #{oldLineNo}
+		WHERE id = #{id}
+	</update>
+    
+	<sql id="smWarehouseInfoColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.sn_no AS "snNo",
+		a.material_no AS "materialNo",
+		a.warehouse AS "warehouse",
+		a.storage_id AS "storageId",
+		a.in_stock_status AS "inStockStatus",
+		a.num AS "num",
+		a.occupation_no AS "occupationNo"
+	</sql>
+    
+	<select id="getSmWarehouseInfo" resultType="InSmWarehouseInfo">
+		SELECT 
+			<include refid="smWarehouseInfoColumns"/>
+		FROM sm_warehouse_info a
+		WHERE a.del_flag = '0'
+		<if test="materialNo != null and materialNo != ''">
+			AND a.material_no = #{materialNo}
+		</if>
+		<if test="snNo != null and snNo != ''">
+			AND a.sn_no = #{snNo}
+		</if>
+		<if test="warehouse != null and warehouse != ''">
+			AND a.warehouse = #{warehouse}
+		</if>
+		<if test="inStockStatus != null and inStockStatus != ''">
+			AND a.in_stock_status = #{inStockStatus}
+		</if>
+		<if test="storageId != null and storageId != ''">
+			AND a.storage_id = #{storageId}
+		</if>
+	</select>
+	
+	<insert id="insertSmWarehouseInfo">
+		INSERT INTO sm_warehouse_info(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			sn_no,
+			material_no,
+			warehouse,
+			storage_id,
+			in_stock_status,
+			num,
+			occupation_no
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{snNo},
+			#{materialNo},
+			#{warehouse},
+			#{storageId},
+			#{inStockStatus},
+			#{num},
+			#{occupationNo}
+		)
+	</insert>
+	
+	<update id="updateSmWarehouseInfo">
+		UPDATE sm_warehouse_info SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			sn_no = #{snNo},
+			material_no = #{materialNo},
+			warehouse = #{warehouse},
+			storage_id = #{storageId},
+			in_stock_status = #{inStockStatus},
+			num = #{num},
+			occupation_no = #{occupationNo}
+		WHERE id = #{id}
+	</update>
+</mapper>

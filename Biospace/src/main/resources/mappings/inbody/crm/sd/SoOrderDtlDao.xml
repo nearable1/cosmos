@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.sd.dao.SoOrderDtlDao">
+    
+	<sql id="soOrderDtlColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.order_id AS "orderId",
+		a.line_no AS "lineNo",
+		a.responsible_person_id AS "responsiblePersonId",
+		a.commission_peison_id AS "commissionPeisonId",
+		a.organize AS "organize",
+		a.material_no AS "materialNo",
+		a.package_mertiral_no AS "packageMertiralNo",
+		a.num AS "num",
+		a.deliver_num AS "deliverNum",
+		a.standard_price AS "standardPrice",
+		a.unit_price AS "unitPrice",
+		a.total_amount AS "totalAmount",
+		a.end_customer_id AS "endCustomerId",
+		a.customer_segmentation AS "customerSegmentation",
+		a.warranty_period AS "warrantyPeriod",
+		a.extended_warr_period AS "extendedWarrPeriod",
+		a.if_effective AS "ifEffective",
+		a.if_return AS "ifReturn",
+		a.invoice_num AS "invoiceNum"
+	</sql>
+    
+	<select id="getSoOrderDtlList" resultType="SoOrderDtl">
+		SELECT 
+			sur.name AS "responsiblePersonName",
+			suc.name AS "commissionPeisonName",
+			sof.name AS "organizeName",
+			CONCAT(smi.material_name, " ", smi.model) AS "materialName",
+			CONCAT(psmi.material_name, " ", psmi.model) AS "packageMertiralName",
+			smi.model AS "model",
+			smi.material_type AS "materialType",
+			temp.customer_ch_name AS "customerChName",
+			temp.industry AS "industry",
+			temp.customer_diff AS "customerDiff",
+			temp.region AS "region",
+			temp.province_name AS "provinceName",
+			temp.city_name AS "cityName",
+			<include refid="soOrderDtlColumns"/>
+		FROM so_order_dtl a
+		LEFT JOIN sys_user sur ON sur.id=a.responsible_person_id
+		LEFT JOIN sys_user suc ON suc.id=a.commission_peison_id
+		LEFT JOIN sys_office sof ON sof.id=a.organize
+		LEFT JOIN sm_mat_info smi ON smi.material_no=a.material_no
+		LEFT JOIN sm_mat_info psmi ON psmi.material_no=a.package_mertiral_no
+		LEFT JOIN
+			(SELECT
+				cci.id AS id,
+				cci.customer_id AS customer_id,
+				cci.customer_ch_name AS customer_ch_name,
+				cci.customer_type AS customer_type,
+				cci.industry AS industry,
+				cci.customer_diff AS customer_diff,
+				cci.region AS region,
+				sap.name AS province_name,
+				sac.name AS city_name
+			FROM CM_CUSTOMER_INFO cci
+			LEFT JOIN sys_area sap ON sap.code=cci.province
+			LEFT JOIN sys_area sac ON sac.code=cci.city) temp
+		ON a.end_customer_id=temp.customer_id
+		WHERE a.order_id = #{orderId}
+		ORDER BY a.line_no
+	</select>
+    
+	<select id="getSoOrderDtlExList" resultType="SoOrderDtl">
+		SELECT 
+			sur.name AS "responsiblePersonName",
+			suc.name AS "commissionPeisonName",
+			sof.name AS "organizeName",
+			CONCAT(smi.material_name, " ", smi.model) AS "materialName",
+			smi.model AS "model",
+			smi.material_type AS "materialType",
+			temp.customer_ch_name AS "customerChName",
+			temp.industry AS "industry",
+			temp.customer_diff AS "customerDiff",
+			temp.region AS "region",
+			temp.province_name AS "provinceName",
+			temp.city_name AS "cityName",
+			iid.INVOICE_DATE AS "invoiceDate",
+			<include refid="soOrderDtlColumns"/>
+		FROM so_order_dtl a
+		LEFT JOIN sys_user sur ON sur.id=a.responsible_person_id
+		LEFT JOIN sys_user suc ON suc.id=a.commission_peison_id
+		LEFT JOIN sys_office sof ON sof.id=a.organize
+		LEFT JOIN sm_mat_info smi ON smi.material_no=a.material_no
+		LEFT JOIN
+			(SELECT
+				cci.id AS id,
+				cci.customer_id AS customer_id,
+				cci.customer_ch_name AS customer_ch_name,
+				cci.customer_type AS customer_type,
+				cci.industry AS industry,
+				cci.customer_diff AS customer_diff,
+				cci.region AS region,
+				sap.name AS province_name,
+				sac.name AS city_name
+			FROM CM_CUSTOMER_INFO cci
+			LEFT JOIN sys_area sap ON sap.code=cci.province
+			LEFT JOIN sys_area sac ON sac.code=cci.city) temp
+		ON a.end_customer_id=temp.customer_id
+		LEFT JOIN
+			(SELECT LINE_NO, MAX(INVOICE_DATE) AS INVOICE_DATE FROM im_invoice_dtl WHERE order_no = #{orderNo} GROUP BY LINE_NO) iid
+		ON iid.LINE_NO = a.LINE_NO
+		WHERE a.order_id = #{id}
+		ORDER BY a.line_no
+	</select>
+    
+	<select id="getSoOrderDtlInfo" resultType="SoOrderDtl">
+		SELECT 
+			<include refid="soOrderDtlColumns"/>
+		FROM so_order_dtl a
+		WHERE a.order_id = #{orderId}
+		<if test="lineNo != null and lineNo != ''">
+			AND a.line_no = #{lineNo}
+		</if>
+		<if test="materialNo != null and materialNo != ''">
+			AND a.material_no = #{materialNo}
+		</if>
+		<if test="packageMertiralNo != null and packageMertiralNo != ''">
+			AND a.package_mertiral_no = #{packageMertiralNo}
+		</if>
+	</select>
+	
+	<delete id="deleteSoOrderDtlByOrderId">
+		delete from so_order_dtl where order_id = #{orderId}
+	</delete>
+	
+	<sql id="soOrderDtlJoins">
+		LEFT JOIN so_order b ON b.id = a.order_id
+	</sql>
+    
+	<select id="get" resultType="SoOrderDtl">
+		SELECT 
+			<include refid="soOrderDtlColumns"/>
+		FROM so_order_dtl a
+		<include refid="soOrderDtlJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SoOrderDtl">
+		SELECT 
+			<include refid="soOrderDtlColumns"/>
+		FROM so_order_dtl a
+		<include refid="soOrderDtlJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="orderId != null and orderId != ''">
+				AND a.order_id = #{orderId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SoOrderDtl">
+		SELECT 
+			<include refid="soOrderDtlColumns"/>
+		FROM so_order_dtl a
+		<include refid="soOrderDtlJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO so_order_dtl(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			order_id,
+			line_no,
+			responsible_person_id,
+			commission_peison_id,
+			organize,
+			material_no,
+			package_mertiral_no,
+			num,
+			deliver_num,
+			standard_price,
+			unit_price,
+			total_amount,
+			end_customer_id,
+			customer_segmentation,
+			warranty_period,
+			extended_warr_period,
+			if_effective,
+			if_return,
+			invoice_num
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{orderId},
+			#{lineNo},
+			#{responsiblePersonId},
+			#{commissionPeisonId},
+			#{organize},
+			#{materialNo},
+			#{packageMertiralNo},
+			#{num},
+			#{deliverNum},
+			#{standardPrice},
+			#{unitPrice},
+			#{totalAmount},
+			#{endCustomerId},
+			#{customerSegmentation},
+			#{warrantyPeriod},
+			#{extendedWarrPeriod},
+			#{ifEffective},
+			#{ifReturn},
+			#{invoiceNum}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE so_order_dtl SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			order_id = #{orderId},
+			line_no = #{lineNo},
+			responsible_person_id = #{responsiblePersonId},
+			commission_peison_id = #{commissionPeisonId},
+			organize = #{organize},
+			material_no = #{materialNo},
+			package_mertiral_no = #{packageMertiralNo},
+			num = #{num},
+			deliver_num = #{deliverNum},
+			standard_price = #{standardPrice},
+			unit_price = #{unitPrice},
+			total_amount = #{totalAmount},
+			end_customer_id = #{endCustomerId},
+			customer_segmentation = #{customerSegmentation},
+			warranty_period = #{warrantyPeriod},
+			extended_warr_period = #{extendedWarrPeriod},
+			if_effective = #{ifEffective},
+			if_return = #{ifReturn},
+			invoice_num = #{invoiceNum}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE so_order_dtl SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE order_id = #{orderId}
+			</otherwise>
+		</choose>
+	</update>
+	
+	<select id="getMaxLineNo" resultType="java.lang.String">
+		SELECT MAX(line_no) FROM so_order_dtl WHERE order_id = #{orderId}
+	</select>
+	
+	<select id="getDeliverNumMax" resultType="java.lang.String">
+		SELECT MAX(DELIVER_NUM) FROM so_order_dtl WHERE PACKAGE_MERTIRAL_NO = #{packageMertiralNo} AND END_CUSTOMER_ID = #{endCustomerId}
+	</select>
+	
+	<select id="getInvoiceNumMax" resultType="java.lang.String">
+		SELECT MAX(INVOICE_NUM) FROM so_order_dtl WHERE PACKAGE_MERTIRAL_NO = #{packageMertiralNo} AND END_CUSTOMER_ID = #{endCustomerId}
+	</select>
+</mapper>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.1.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd"
+	default-lazy-init="true">
+
+	<description>Spring Configuration</description>
+	
+    <!-- 加载配置属性文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:jeesite.properties" />
+	
+	<!-- 加载应用属性实例，可通过  @Value("#{APP_PROP['jdbc.driver']}") String jdbcDriver 方式引用 -->
+    <util:properties id="APP_PROP" location="classpath:jeesite.properties" local-override="true"/>
+	
+	<!-- 使用Annotation自动注册Bean，解决事物失效问题：在主容器中不扫描@Controller注解，在SpringMvc中只扫描@Controller注解。  -->
+	<context:component-scan base-package="com.inbody.crm"><!-- base-package 如果多个，用“,”分隔 -->
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+ 	<!-- MyBatis begin -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="com.inbody.crm"/>
+        <property name="typeAliasesSuperType" value="com.inbody.crm.common.persistence.BaseEntity"/>
+        <property name="mapperLocations" value="classpath:/mappings/**/*.xml"/>
+		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+    </bean>
+    
+    <!-- 扫描basePackage下所有以@MyBatisDao注解的接口 -->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+        <property name="basePackage" value="com.inbody.crm"/>
+        <property name="annotationClass" value="com.inbody.crm.common.persistence.annotation.MyBatisDao"/>
+    </bean>
+    
+    <!-- 定义事务 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 配置 Annotation 驱动，扫描@Transactional注解的类定义事务  -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+    <!-- MyBatis end -->
+    
+	<!-- 配置 JSR303 Bean Validator 定义 -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+	<!-- 缓存配置 -->
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:${ehcache.configFile}" />
+	</bean>
+	
+	<!-- 计划任务配置，用 @Service @Lazy(false)标注类，用@Scheduled(cron = "0 0 2 * * ?")标注方法 -->
+    <task:executor id="executor" pool-size="10"/> <task:scheduler id="scheduler" pool-size="10"/>
+    <task:annotation-driven scheduler="scheduler" executor="executor" proxy-target-class="true"/>
+    
+    <!-- task demo -->
+    <!-- 
+    <context:component-scan base-package="com.nssol.sh.sysjob.test" />
+    <task:scheduled-tasks>   
+        <task:scheduled ref="demoTaskJob" method="demoJob" cron="0 * * * * ?"/>   
+	</task:scheduled-tasks>
+	-->
+	<!-- 
+cronExpression的配置说明，具体使用以及参数请百度google
+字段   允许值   允许的特殊字符
+秒    0-59    , - * /
+分    0-59    , - * /
+小时    0-23    , - * /
+日期    1-31    , - * ? / L W C
+月份    1-12 或者 JAN-DEC    , - * /
+星期    1-7 或者 SUN-SAT    , - * ? / L C #
+年（可选）    留空, 1970-2099    , - * / 
+- 区间  
+* 通配符  
+? 你不想设置那个字段
+下面只例出几个式子
+ 
+CRON表达式    含义 
+"0 0 12 * * ?"    每天中午十二点触发 
+"0 15 10 ? * *"    每天早上10：15触发 
+"0 15 10 * * ?"    每天早上10：15触发 
+"0 15 10 * * ? *"    每天早上10：15触发 
+"0 15 10 * * ? 2005"    2005年的每天早上10：15触发 
+"0 * 14 * * ?"    每天从下午2点开始到2点59分每分钟一次触发 
+"0 0/5 14 * * ?"    每天从下午2点开始到2：55分结束每5分钟一次触发 
+"0 0/5 14,18 * * ?"    每天的下午2点至2：55和6点至6点55分两个时间段内每5分钟一次触发 
+"0 0-5 14 * * ?"    每天14:00至14:05每分钟一次触发 
+"0 10,44 14 ? 3 WED"    三月的每周三的14：10和14：44触发 
+"0 15 10 ? * MON-FRI"    每个周一、周二、周三、周四、周五的10：15触发
+	-->
+
+    <!-- 销售计划履历任务 -->
+    <bean id="salesResumeTask" class="com.inbody.crm.sp.task.SpSalesResumeTask"/>
+    <bean id="salesResumeJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="salesResumeTask"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!-- 销售计划履历任务定时(按月) -->
+    <bean id="salesResumeMhTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="salesResumeJob"/>
+        <!-- 每月最后一天23:00触发 -->
+        <property name="cronExpression" value="0 0 23 L * ?"/>
+    </bean>
+    <!-- 销售计划履历任务定时(按周) -->
+    <bean id="salesResumeWkTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="salesResumeJob"/>
+        <!-- 每周末23:00触发 -->
+        <property name="cronExpression" value="0 0 23 ? * 1"/>
+    </bean>
+
+    <!-- 库存履历任务 -->
+    <bean id="storageResumeTask" class="com.inbody.crm.sm.task.SmStorageResumeTask"/>
+    <bean id="storageResumeJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="storageResumeTask"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!-- 库存履历任务定时(按月) -->
+    <bean id="storageResumeMhTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="storageResumeJob"/>
+        <!-- 每月最后一天23:10触发 -->
+        <property name="cronExpression" value="0 10 23 L * ?"/>
+    </bean>
+    <!-- 库存履历任务定时(按周) -->
+    <bean id="storageResumeWkTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="storageResumeJob"/>
+        <!-- 每周末23:10触发 -->
+        <property name="cronExpression" value="0 10 23 ? * 1"/>
+    </bean>
+
+    <!-- 到期提醒邮件任务 -->
+    <bean id="mailRemindTask" class="com.inbody.crm.common.task.MailRemindTask"/>
+    <!-- 协议到期提醒 -->
+    <bean id="agrtExpireRemindJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="mailRemindTask"/>
+        <property name="targetMethod" value="agrtExpireRemind"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!-- 定时 -->
+    <bean id="agrtExpireRemindTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="agrtExpireRemindJob"/>
+        <!-- 每天9:00触发 -->
+        <property name="cronExpression" value="0 0 9 * * ?"/>
+    </bean>
+
+    <!-- 合同收款滞纳提醒 -->
+    <bean id="contrOvrdPayRemindJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="mailRemindTask"/>
+        <property name="targetMethod" value="contrOvrdPayRemind"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!-- 定时 -->
+    <bean id="contrOvrdPayRemindTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="contrOvrdPayRemindJob"/>
+        <!-- 每天9:00触发 -->
+        <property name="cronExpression" value="0 0 9 * * ?"/>
+    </bean>
+
+    <!-- 报价单收款滞纳提醒 -->
+    <bean id="quotaOvrdPayRemindJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="mailRemindTask"/>
+        <property name="targetMethod" value="quotaOvrdPayRemind"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!-- 定时 -->
+    <bean id="quotaOvrdPayRemindTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="quotaOvrdPayRemindJob"/>
+        <!-- 每天9:00触发 -->
+        <property name="cronExpression" value="0 0 9 * * ?"/>
+    </bean>
+
+    <!-- 安装信息未返回提醒 -->
+    <bean id="installNoFeedbackRemindJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="mailRemindTask"/>
+        <property name="targetMethod" value="installNoFeedbackRemind"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!-- 定时 -->
+    <bean id="installNoFeedbackRemindTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="installNoFeedbackRemindJob"/>
+        <!-- 每天9:00触发 -->
+        <property name="cronExpression" value="0 0 9 * * ?"/>
+    </bean>
+
+    <!-- 样机借用到期提醒 -->
+    <bean id="borrowExpiresRemindJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="mailRemindTask"/>
+        <property name="targetMethod" value="borrowExpiresRemind"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!-- 定时 -->
+    <bean id="borrowExpiresRemindTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="borrowExpiresRemindJob"/>
+        <!-- 每天9:00触发 -->
+        <property name="cronExpression" value="0 0 9 * * ?"/>
+    </bean>
+
+    <!-- 触发定时任务 -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="salesResumeMhTrigger"/>
+                <ref bean="salesResumeWkTrigger"/>
+                <ref bean="storageResumeMhTrigger"/>
+                <ref bean="storageResumeWkTrigger"/>
+                <ref bean="agrtExpireRemindTrigger"/>
+                <ref bean="contrOvrdPayRemindTrigger"/>
+                <ref bean="quotaOvrdPayRemindTrigger"/>
+                <ref bean="installNoFeedbackRemindTrigger"/>
+                <ref bean="borrowExpiresRemindTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+	<!-- 数据源配置, 使用 BoneCP 数据库连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+	    <!-- 数据源驱动类可不写，Druid默认会自动根据URL识别DriverClass -->
+	    <property name="driverClassName" value="${jdbc.driver}" />
+	    
+		<!-- 基本属性 url、user、password -->
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${jdbc.pool.init}" />
+		<property name="minIdle" value="${jdbc.pool.minIdle}" /> 
+		<property name="maxActive" value="${jdbc.pool.maxActive}" />
+		
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+		
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		
+		<property name="validationQuery" value="${jdbc.testSql}" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小（Oracle使用）
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" /> -->
+		
+		<!-- 配置监控统计拦截的filters -->
+	    <property name="filters" value="stat" /> 
+	</bean>
+	
+	<!-- 数据源配置, 使用应用服务器的数据库连接池 
+	<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/jeesite" />-->
+
+	<!-- 数据源配置, 不使用连接池 
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>-->
+
+	<!-- 加载sql字典配置文件 -->
+	<import resource="classpath*:sql-dict-config.xml" />
+
+</beans>

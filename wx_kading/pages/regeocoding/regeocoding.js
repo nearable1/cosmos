@@ -15,7 +15,7 @@ Page({
     onLoad: function() {
         var that = this;
         var BMap = new bmap.BMapWX({
-            ak: '您的ak'
+          ak: 'zjimx7XXScWMGGw9GL6rxikBWGZ8BA8y'
         });
         var fail = function(data) {
             console.log(data)

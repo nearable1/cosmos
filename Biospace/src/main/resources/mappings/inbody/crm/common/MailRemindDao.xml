@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.common.persistence.MailRemindDao">
+
+    <!-- 到期前30天以内的协议取得 -->
+    <select id="getExpiringAgreement" resultType="com.inbody.crm.common.entity.MailRemind">
+        SELECT 
+            a.agreement_paties_id AS "urlKey",
+            MAX(a.validity_date_to) AS "dueDate",
+            b.customer_ch_name AS "keyword",
+            a.create_by AS "chargePersonId",
+<!--             DATEDIFF(a.validity_date_to, NOW()) AS "dueDays", -->
+            c.email AS "chargeEmail",
+            e.email AS "groupLeaderEmail"
+        FROM cm_agreement a
+        LEFT JOIN cm_customer_info b ON b.customer_id = a.agreement_paties_id
+        LEFT JOIN sys_user c ON c.id = a.create_by AND c.del_flag = '0'
+        LEFT JOIN sys_office d ON d.id = c.office_id AND d.type = '3'
+        LEFT JOIN sys_user e ON e.id = d.primary_person AND e.del_flag = '0'
+        WHERE ( #{startDays} - DATEDIFF(a.validity_date_to, NOW()) ) MOD #{cycleDays} = 0
+        AND DATEDIFF(a.validity_date_to, NOW()) &lt;= #{startDays}
+        AND a.del_flag = '0'
+        GROUP BY a.agreement_paties_id
+    </select>
+
+    <!-- 收款滞纳合同取得 -->
+    <select id="getLatePaymentContract" resultType="com.inbody.crm.common.entity.MailRemind">
+        SELECT 
+            b.id AS "urlKey",
+            a.exp_date_from AS "dueDate",
+            a.order_no AS "keyword",
+            DATEDIFF(a.exp_date_from, NOW()) AS "dueDays",
+            b.create_by AS "chargePersonId",
+            c.email AS "chargeEmail",
+            e.email AS "groupLeaderEmail"
+        FROM so_gathering_info a
+        INNER JOIN so_order b ON b.order_no = a.order_no AND b.del_flag = '0'
+        LEFT JOIN sys_user c ON c.id = b.create_by AND c.del_flag = '0'
+        LEFT JOIN sys_office d ON d.id = c.office_id AND d.type = '3'
+        LEFT JOIN sys_user e ON e.id = d.primary_person AND e.del_flag = '0'
+        WHERE ( #{startDays} - DATEDIFF(a.exp_date_from, NOW()) ) MOD #{cycleDays} = 0
+        AND DATEDIFF(a.exp_date_from, NOW()) &lt;= #{startDays}
+        AND a.act_date_from IS NULL
+        AND a.del_flag = '0'
+    </select>
+
+    <!-- 收款滞纳报价单信息取得 -->
+    <select id="getLatePaymentQuota" resultType="com.inbody.crm.common.entity.MailRemind">
+        SELECT 
+            a.id AS "urlKey",
+            a.repair_no AS "keyword",
+            b.invoice_date AS "dueDate",
+            DATEDIFF(b.invoice_date, NOW()) AS "dueDays",
+            a.create_by AS "chargePersonId",
+            c.email AS "chargeEmail",
+            e.email AS "groupLeaderEmail"
+        FROM rm_quotation a
+        INNER JOIN ( SELECT t1.order_no, MAX(t2.invoice_date) AS "invoice_date"
+                     FROM im_invoice t1
+                     INNER JOIN im_invoice_dtl t2
+                     WHERE t1.id = t2.app_id
+                     AND t2.invoice_source = '20'
+                     AND t2.invoice_date IS NOT NULL
+                     AND t2.if_red = '0'
+                     AND t1.del_flag = '0'
+                     AND t2.del_flag = '0'
+                     GROUP BY t1.order_no ) b
+        LEFT JOIN sys_user c ON c.id = a.create_by AND c.del_flag = '0'
+        LEFT JOIN sys_office d ON d.id = c.office_id AND d.type = '3'
+        LEFT JOIN sys_user e ON e.id = d.primary_person AND e.del_flag = '0'
+        WHERE a.quotation_no = b.order_no
+        AND a.quotation_type = '2'
+        AND a.invoice_status = '30'
+        AND a.receive_status = '10'
+        AND ( #{startDays} - DATEDIFF(b.invoice_date, NOW()) ) MOD #{cycleDays} = 0
+        AND DATEDIFF(b.invoice_date, NOW()) &lt;= #{startDays}
+        AND a.del_flag = '0'
+    </select>
+
+    <!-- 取得安装信息未返回提醒信息 -->
+    <select id="getInstallNoFeedbackRemind" resultType="com.inbody.crm.common.entity.MailRemind">
+        SELECT 
+            DISTINCT(a.order_no) AS "urlKey",
+            a.order_no AS "keyword",
+<!--             a.latest_install_date AS "dueDate", -->
+<!--             DATEDIFF(a.latest_install_date, NOW()) AS "dueDays", -->
+            b.employee_no AS "chargePersonId",
+            c.email AS "chargeEmail",
+            e.email AS "groupLeaderEmail"
+        FROM sm_storage_info a
+        INNER JOIN so_order b
+        LEFT JOIN sys_user c ON c.id = b.employee_no AND c.del_flag = '0'
+        LEFT JOIN sys_office d ON d.id = c.office_id AND d.type = '3'
+        LEFT JOIN sys_user e ON e.id = d.primary_person AND e.del_flag = '0'
+        WHERE a.order_no = b.order_no
+        AND a.if_install = '1'
+        AND a.actual_install_date IS NULL
+        AND a.latest_install_date IS NOT NULL
+        AND ( DATEDIFF(a.latest_install_date, NOW()) = 1
+              OR (( #{startDays} - DATEDIFF(a.latest_install_date, NOW()) ) MOD #{cycleDays} = 0
+                AND DATEDIFF(a.latest_install_date, NOW()) &lt;= #{startDays}) )
+        AND a.del_flag = '0'
+        AND b.del_flag = '0'
+    </select>
+
+    <!-- 取得样机借用到期提醒信息 -->
+    <select id="getBorrowExpiresRemind" resultType="com.inbody.crm.common.entity.MailRemind">
+        SELECT 
+            a.material_no AS "urlKey",
+<!--             a.lender_name AS "keyword", -->
+            e.name AS "keyword",
+            a.lending_date_to AS "dueDate",
+            DATEDIFF(a.lending_date_to, NOW()) AS "dueDays",
+            d.responsible_person_id AS "chargePersonId",
+            e.email AS "chargeEmail",
+            g.email AS "groupLeaderEmail"
+        FROM sm_lending_mat a
+        INNER JOIN sm_storage_info b ON b.storage_id = a.storage_id AND b.storage_type = '22'
+        INNER JOIN sm_storage_app_dtl c ON c.lending_id  = a.id
+        INNER JOIN sm_storage_app d ON d.id = c.app_id
+        LEFT JOIN sys_user e ON e.id = d.responsible_person_id AND e.del_flag = '0'
+        LEFT JOIN sys_office f ON f.id = e.office_id AND f.type = '3'
+        LEFT JOIN sys_user g ON g.id = f.primary_person AND g.del_flag = '0'
+        WHERE ( DATEDIFF(a.lending_date_to, NOW()) = 7
+                OR (( #{startDays} - DATEDIFF(a.lending_date_to, NOW()) ) MOD #{cycleDays} = 0
+                  AND DATEDIFF(a.lending_date_to, NOW()) &lt;= #{startDays}) )
+        AND a.del_flag = '0'
+    </select>
+
+    <!-- 根据角色一览取得对应的收件人地址信息 -->
+    <select id="getRecipientByRoles" resultType="java.lang.String">
+        SELECT 
+            DISTINCT(t3.email) AS "email"
+        FROM sys_role t1
+        LEFT JOIN sys_user_role t2 ON t2.role_id = t1.id
+        LEFT JOIN sys_user t3 ON t3.id = t2.user_id
+        WHERE t1.enname IN
+        <foreach collection="roles" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND t3.email IS NOT NULL
+        AND t1.del_flag = '0'
+        AND t3.del_flag = '0'
+    </select>
+
+</mapper>

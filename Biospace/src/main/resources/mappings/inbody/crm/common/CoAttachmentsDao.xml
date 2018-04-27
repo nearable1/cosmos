@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.common.persistence.CoAttachmentsDao">
+    
+	<sql id="coAttachmentsColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.ass_id AS "assId",
+		a.line_no AS "lineNo",
+		a.address AS "address",
+		a.new_remarks AS "newRemarks",
+		a.file_name AS "fileName",
+		a.file_type AS "fileType"
+	</sql>
+	
+	<sql id="coAttachmentsJoins">
+	</sql>
+    
+	<select id="get" resultType="com.inbody.crm.common.entity.CoAttachments">
+		SELECT 
+			<include refid="coAttachmentsColumns"/>
+		FROM co_attachments a
+		<include refid="coAttachmentsJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="com.inbody.crm.common.entity.CoAttachments">
+		SELECT 
+			<include refid="coAttachmentsColumns"/>
+		FROM co_attachments a
+		<include refid="coAttachmentsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="com.inbody.crm.common.entity.CoAttachments">
+		SELECT 
+			<include refid="coAttachmentsColumns"/>
+		FROM co_attachments a
+		<include refid="coAttachmentsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO co_attachments(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			ass_id,
+			line_no,
+			address,
+			new_remarks,
+			file_name,
+			file_type
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{assId},
+			#{lineNo},
+			#{address},
+			#{newRemarks},
+			#{fileName},
+			#{fileType}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE co_attachments SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			ass_id = #{assId},
+			line_no = #{lineNo},
+			address = #{address},
+			new_remarks = #{newRemarks},
+			file_name = #{fileName},
+			file_type = #{fileType}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE co_attachments SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 根据id删除附件信息 -->
+	<delete id="deleteById">
+		DELETE FROM co_attachments WHERE id = #{id}
+	</delete>
+	
+	<!-- 删除关联所对应的所有附件信息 -->
+	<delete id="deleteByAssId">
+		DELETE FROM co_attachments WHERE ass_id = #{assId}
+	</delete>
+	
+	<!-- 根据关联Id取得附件信息一览 -->
+	<select id="findListByAssId" resultType="com.inbody.crm.common.entity.CoAttachments">
+		SELECT 
+			<include refid="coAttachmentsColumns"/>
+		FROM co_attachments a
+		WHERE a.del_flag = '0'
+		AND a.ass_id = #{assId}
+		ORDER BY a.update_date ASC, a.line_no ASC
+	</select>
+</mapper>

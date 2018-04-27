@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.ee.dao.EeEmpPlanDao">
+    
+	<sql id="eeEmpPlanColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.app_id AS "appId",
+		a.line_no AS "lineNo",
+		a.show_area AS "showArea",
+		a.display_item1 AS "displayItem1",
+		a.display_item2 AS "displayItem2",
+		a.display_item3 AS "displayItem3",
+		a.display_item4 AS "displayItem4",
+		a.display_item5 AS "displayItem5",
+		a.display_item6 AS "displayItem6",
+		a.display_item7 AS "displayItem7",
+		a.display_item8 AS "displayItem8"
+	</sql>
+	
+	<sql id="eeEmpPlanJoins">
+	</sql>
+    
+	<select id="get" resultType="EeEmpPlan">
+		SELECT 
+			<include refid="eeEmpPlanColumns"/>
+		FROM ee_emp_plan a
+		<include refid="eeEmpPlanJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="EeEmpPlan">
+		SELECT 
+			<include refid="eeEmpPlanColumns"/>
+		FROM ee_emp_plan a
+		<include refid="eeEmpPlanJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="appId != null and appId != ''">
+			and a.app_id = #{appId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.line_no
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="EeEmpPlan">
+		SELECT 
+			<include refid="eeEmpPlanColumns"/>
+		FROM ee_emp_plan a
+		<include refid="eeEmpPlanJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO ee_emp_plan(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			app_id,
+			line_no,
+			show_area,
+			display_item1,
+			display_item2,
+			display_item3,
+			display_item4,
+			display_item5,
+			display_item6,
+			display_item7,
+			display_item8
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{appId},
+			#{lineNo},
+			#{showArea},
+			#{displayItem1},
+			#{displayItem2},
+			#{displayItem3},
+			#{displayItem4},
+			#{displayItem5},
+			#{displayItem6},
+			#{displayItem7},
+			#{displayItem8}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE ee_emp_plan SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			app_id = #{appId},
+			line_no = #{lineNo},
+			show_area = #{showArea},
+			display_item1 = #{displayItem1},
+			display_item2 = #{displayItem2},
+			display_item3 = #{displayItem3},
+			display_item4 = #{displayItem4},
+			display_item5 = #{displayItem5},
+			display_item6 = #{displayItem6},
+			display_item7 = #{displayItem7},
+			display_item8 = #{displayItem8}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE ee_emp_plan SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="deleteById">
+		DELETE FROM ee_emp_plan
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

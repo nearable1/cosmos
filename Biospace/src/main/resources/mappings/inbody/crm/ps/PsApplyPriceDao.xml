@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.ps.dao.PsApplyPriceDao">
+    
+	<sql id="psApplyPriceColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.price_system AS "priceSystem",
+		a.workflow_status AS "workflowStatus"
+	</sql>
+	
+	<sql id="psApplyPriceJoins">
+	</sql>
+    
+	<select id="get" resultType="PsApplyPrice">
+		SELECT 
+			<include refid="psApplyPriceColumns"/>
+		FROM ps_apply_price a
+		<include refid="psApplyPriceJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PsApplyPrice">
+		SELECT u.name as "createBy.name"
+			<include refid="psApplyPriceColumns"/>
+		FROM ps_apply_price a
+		left join sys_user u on a.create_by = u.id
+		<include refid="psApplyPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findTempList" resultType="PsApplyPrice">
+		SELECT <include refid="psApplyPriceColumns"/>
+		FROM ps_apply_price a
+		left join sys_user u on a.create_by = u.id
+		<include refid="psApplyPriceJoins"/>
+		<where>
+			a.del_flag = 0
+			and a.proc_ins_id is null
+			and a.create_by = #{id}
+		</where>
+	</select>
+	
+	<select id="findAllList" resultType="PsApplyPrice">
+		SELECT 
+			<include refid="psApplyPriceColumns"/>
+		FROM ps_apply_price a
+		<include refid="psApplyPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO ps_apply_price(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			price_system,
+			workflow_status
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{priceSystem},
+			#{workflowStatus}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE ps_apply_price SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			price_system = #{priceSystem}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateStatus">
+		UPDATE ps_apply_price SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			workflow_status = #{workflowStatus}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE ps_apply_price SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteDetails">
+		DELETE FROM  ps_apply_price_dtl
+		WHERE app_id = #{id}
+	</delete>
+	
+</mapper>

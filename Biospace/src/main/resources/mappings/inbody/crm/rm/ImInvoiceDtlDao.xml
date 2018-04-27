@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.rm.dao.ImInvoiceDtlDao">
+    
+	<sql id="imInvoiceDtlColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.app_id AS "appId",
+		a.invoice_source AS "invoiceSource",
+		a.order_no AS "orderNo",
+		a.line_no AS "lineNo",
+		a.line_no2 AS "lineNo2",
+		a.invoice_type AS "invoiceType",
+		a.if_red AS "ifRed",
+		a.tax AS "tax",
+		a.invoice_date AS "invoiceDate",
+		a.invoice_amount AS "invoiceAmount",
+		a.num AS "num",
+		a.invoice_no AS "invoiceNo",
+		a.express_no AS "expressNo",
+		a.express_company AS "expressCompany"
+	</sql>
+	
+	<sql id="imInvoiceDtlJoins">
+	</sql>
+    
+	<select id="get" resultType="com.inbody.crm.rm.entity.ImInvoiceDtl">
+		SELECT 
+			<include refid="imInvoiceDtlColumns"/>
+		FROM im_invoice_dtl a
+		<include refid="imInvoiceDtlJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="com.inbody.crm.rm.entity.ImInvoiceDtl">
+		SELECT 
+			<include refid="imInvoiceDtlColumns"/>
+		FROM im_invoice_dtl a
+		<include refid="imInvoiceDtlJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="com.inbody.crm.rm.entity.ImInvoiceDtl">
+		SELECT 
+			<include refid="imInvoiceDtlColumns"/>
+		FROM im_invoice_dtl a
+		<include refid="imInvoiceDtlJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO im_invoice_dtl(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			app_id,
+			invoice_source,
+			order_no,
+			line_no,
+			line_no2,
+			invoice_type,
+			if_red,
+			tax,
+			invoice_date,
+			invoice_amount,
+			num,
+			invoice_no,
+			express_no,
+			express_company
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{appId},
+			#{invoiceSource},
+			#{orderNo},
+			#{lineNo},
+			#{lineNo2},
+			#{invoiceType},
+			#{ifRed},
+			#{tax},
+			#{invoiceDate},
+			#{invoiceAmount},
+			#{num},
+			#{invoiceNo},
+			#{expressNo},
+			#{expressCompany}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE im_invoice_dtl SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			app_id = #{appId},
+			invoice_source = #{invoiceSource},
+			order_no = #{orderNo},
+			line_no = #{lineNo},
+			line_no2 = #{lineNo2},
+			invoice_type = #{invoiceType},
+			if_red = #{ifRed},
+			tax = #{tax},
+			invoice_date = #{invoiceDate},
+			invoice_amount = #{invoiceAmount},
+			num = #{num},
+			invoice_no = #{invoiceNo},
+			express_no = #{expressNo},
+			express_company = #{expressCompany}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM im_invoice_dtl
+		WHERE id = #{id}
+	</delete>
+
+    <!-- 根据报价单编号取得所有发票明细数据 -->
+    <select id="getInvoiceDtlByQuotaId" resultType="com.inbody.crm.rm.entity.ImInvoiceDtl">
+        SELECT 
+            <include refid="imInvoiceDtlColumns"/>,
+            b.invoice_title AS "invoiceTitle",
+            b.workflow_status AS "workflowStatus"
+        FROM im_invoice_dtl a
+        INNER JOIN im_invoice b ON b.id = a.app_id
+        INNER JOIN rm_quotation c ON c.quotation_no = a.order_no
+        <where>
+            a.del_flag = '0'
+            AND b.del_flag = '0'
+            AND c.del_flag = '0'
+            AND c.id = #{quotaId}
+        </where>
+        ORDER BY b.create_date ASC, a.app_id ASC, a.line_no2 ASC
+    </select>
+
+    <!-- 根据发票id取得所有发票明细数据 -->
+    <select id="getInvoiceDtlByAppid"  resultType="com.inbody.crm.rm.entity.ImInvoiceDtl">
+        SELECT 
+            <include refid="imInvoiceDtlColumns"/>
+        FROM im_invoice_dtl a
+        INNER JOIN im_invoice b ON b.id = a.app_id
+        <where>
+            a.del_flag = '0'
+            AND b.del_flag = '0'
+            AND a.app_id = #{appId}
+        </where>
+        ORDER BY a.line_no2 ASC
+    </select>
+
+    <!-- 根据发票id删除所有发票明细数据 -->
+    <delete id="deleteInvoiceDtlByAppid">
+        DELETE FROM im_invoice_dtl
+        WHERE app_id = #{appId}
+    </delete>
+
+    <!-- 根据发票id取得所有发票明细行发票总金额-->
+    <select id="getInvoiceTotalAmountByAppid" resultType="java.math.BigDecimal">
+        SELECT 
+            SUM(a.invoice_amount)
+        FROM im_invoice_dtl a
+        INNER JOIN im_invoice b ON b.id = a.app_id
+        <where>
+            a.del_flag = '0'
+            AND b.del_flag = '0'
+            AND a.app_id = #{appId}
+        </where>
+    </select>
+
+    <!-- 根据报价单id取得报价单所有已审核发票明细总金额-->
+    <select id="getQuotaApplyedInvoiceTotalAmount" resultType="java.math.BigDecimal">
+        SELECT 
+            SUM(a.invoice_amount)
+        FROM im_invoice_dtl a
+        INNER JOIN im_invoice b ON b.id = a.app_id AND b.workflow_status = '50'
+        INNER JOIN rm_quotation c ON c.quotation_no = a.order_no
+        <where>
+            a.del_flag = '0'
+            AND b.del_flag = '0'
+            AND c.del_flag = '0'
+            AND c.id = #{quotaId}
+        </where>
+    </select>
+</mapper>

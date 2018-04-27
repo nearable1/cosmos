@@ -1,10 +1,10 @@
 {
   "pages":[
-    "pages/map/index",
-    "pages/user/index",
     "pages/search/search",
     "pages/suggestion/suggestion",
-    "pages/regeocoding/regeocoding"
+    "pages/regeocoding/regeocoding",
+    "pages/map/index",
+    "pages/user/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

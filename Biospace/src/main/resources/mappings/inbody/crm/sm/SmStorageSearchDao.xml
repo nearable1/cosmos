@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.sm.dao.SmStorageSearchDao">
+
+    <!-- 库存一览分页查询 -->
+    <select id="findStoragePage" resultType="com.inbody.crm.sm.domain.SmStorageSearch">
+        SELECT
+            <!-- 类型 -->
+            mt.material_type AS "materialType",
+            <!-- 物料号 -->
+            mt.material_no AS "materialNo",
+            <!-- 物料名 -->
+            mt.material_name AS "materialName",
+            <!-- 型号 -->
+            IFNULL(ai.model, mt.model) AS "model",
+            <!-- 安全库存量 -->
+            mt.safety_stock AS "safetyStockNum",
+            <!-- 在库数量 -->
+            SUM(wh.num) AS "inStockNum",
+            <!-- 库房数量 -->
+            GROUP_CONCAT(wh.warehouse_num) AS "warehouseNum",
+            <!-- 报价单占用数量 -->
+            SUM(wh.occupation_no) AS "quotaOccupyNum",
+            <!-- 借出数量 -->
+            lwi.lending_num AS "lendingNum",
+            <!-- 已检数量 -->
+            si.tested_num AS "testedNum",
+            <!-- 已开票未发货 -->
+            oi.invoiced_undelivered_num AS "invoicedUndeliveredNum",
+            <!-- 已发货未开票 -->
+            oi.uninvoiced_delivered_num AS "unInvoicedDeliveredNum",
+            <!-- 不在库数量 -->
+            IFNULL(lwi.lending_num, 0) + IFNULL(oi.uninvoiced_delivered_num, 0) AS "outStockNum",
+            <!-- 总数量 -->
+            IFNULL(SUM(wh.num), 0) + IFNULL(lwi.lending_num, 0) + IFNULL(oi.uninvoiced_delivered_num, 0) AS "totalNum",
+            <!-- 可用数量 -->
+            IFNULL(SUM(wh.num), 0) - IFNULL(SUM(wh.occupation_no), 0) - IFNULL(oi.invoiced_undelivered_num, 0) AS "availableNum",
+            <!-- 未到货数量  -->
+            po.not_arrived_num AS "notArrivedNum"
+        FROM sm_mat_info mt
+        LEFT JOIN ( SELECT t1.material_no, group_concat(t2.model) as model
+                    FROM sm_accessory_info t1
+                    LEFT JOIN sm_mat_info t2 ON t2.material_no = t1.main_material_no AND t2.material_type = '1' GROUP BY t1.material_no) ai ON ai.material_no = mt.material_no
+        LEFT JOIN ( SELECT
+                        material_no,
+                        warehouse,
+                        SUM(num) AS "num",
+                        SUM(occupation_no) AS "occupation_no",
+                        CAST(CONCAT("wh_", warehouse, ":", SUM(num)) AS CHAR) AS "warehouse_num"
+                    FROM sm_warehouse_info
+                    WHERE in_stock_status = '1'
+                    AND del_flag = '0'
+                    GROUP BY material_no, warehouse ) wh ON wh.material_no = mt.material_no 
+<!--         LEFT JOIN sys_dict sd ON sd.type = 'DM0050' AND sd.value = wi.warehouse -->
+<!--         LEFT JOIN ( SELECT sum(num) AS "in_stock_num", material_no from sm_warehouse_info where in_stock_status = '1' GROUP BY material_no ) iwi ON iwi.material_no = wi.material_no -->
+        LEFT JOIN ( SELECT SUM(num) AS "lending_num", material_no FROM sm_warehouse_info WHERE in_stock_status = '3' GROUP BY material_no ) lwi ON lwi.material_no = mt.material_no
+        LEFT JOIN ( SELECT COUNT(t1.sn_no) AS "tested_num", t1.material_no 
+                    FROM sm_sn_info t1
+                    INNER JOIN sm_warehouse_info t2
+                    WHERE t1.material_no = t2.material_no
+                    AND t1.sn_no = t2.sn_no
+                    AND t1.status = '3'
+                    AND t2.in_stock_status = '1'
+                    GROUP BY t1.material_no ) si ON si.material_no = mt.material_no
+        LEFT JOIN ( SELECT 
+                        IF( SUM( IFNULL(t1.invoice_num, 0) - IFNULL(t1.deliver_num, 0) ) &gt; 0,
+                            SUM( IFNULL(t1.invoice_num, 0) - IFNULL(t1.deliver_num, 0) ), 0 ) AS "invoiced_undelivered_num",
+                        IF( SUM( IFNULL(t1.deliver_num, 0) - IFNULL(t1.invoice_num, 0) ) &gt; 0,
+                            SUM( IFNULL(t1.deliver_num, 0) - IFNULL(t1.invoice_num, 0) ), 0 ) AS "uninvoiced_delivered_num",
+                        t1.material_no
+                    FROM so_order_dtl t1
+                    INNER join so_order t2
+                    WHERE t2.workflow_status = '50'
+                    AND t1.if_effective = '0'
+                    AND t1.order_id = t2.id
+                    AND t1.del_flag = '0'
+                    AND t2.del_flag = '0'
+                    GROUP BY t1.material_no ) oi ON oi.material_no = mt.material_no
+        LEFT JOIN ( SELECT
+                        IFNULL(SUM(t1.num), 0) - IFNULL(SUM(t1.al_arrival_num), 0) AS "not_arrived_num",
+                        t1.material_no
+                    FROM pm_purchase_ord_dtl t1
+                    INNER JOIN pm_purchase_ord t2
+                    WHERE t1.purchase_no = t2.purchase_no
+                    AND t2.workflow_status = '50'
+                    AND t1.del_flag = '0'
+                    AND t2.del_flag = '0'
+                    GROUP BY t1.material_no ) po ON po.material_no = mt.material_no
+        <where>
+            mt.del_flag = '0'
+            <if test="materialNo != null and materialNo != ''">
+            AND mt.material_no LIKE CONCAT('%', #{materialNo}, '%')
+            </if>
+            <if test="materialName != null and materialName != ''">
+            AND mt.material_name LIKE CONCAT('%', #{materialName}, '%')
+            </if>
+            <if test="model != null and model != ''">
+            AND ( mt.model LIKE CONCAT('%', #{model}, '%') OR ai.model LIKE CONCAT('%', #{model}, '%') )
+            </if>
+            <if test="materialType != null and materialType != ''">
+            AND mt.material_type = #{materialType}
+            </if>
+            <if test="materialType == null or materialType == ''">
+            AND mt.material_type IN ('1', '2', '4', '5', '7')
+            </if>
+        </where>
+        GROUP BY mt.material_no
+        <if test="showLowStock">
+        HAVING IFNULL(mt.safety_stock, 0) &gt; IFNULL(SUM(wh.num), 0) - IFNULL(oi.invoiced_undelivered_num, 0) + IFNULL(po.not_arrived_num, 0)
+        </if>
+    </select>
+
+    <!-- 库存履历查询 -->
+    <select id="findStorageResume" resultType="com.inbody.crm.sm.domain.SmStorageResume">
+        SELECT
+            <!-- 物料号 -->
+            mt.material_no AS "materialNo",
+            <!-- 物料名 -->
+            mt.material_name AS "materialName",
+            <!-- 在库数量 -->
+            SUM(wh.num) AS "inStockNum",
+            <!-- 库房数量 -->
+            GROUP_CONCAT(wh.warehouse_num) AS "warehouseNum",
+            <!-- 报价单占用数量 -->
+            SUM(wh.occupation_no) AS "quotaOccupyNum",
+            <!-- 借出数量 -->
+            lwi.lending_num AS "lendingNum",
+            <!-- 已开票未发货 -->
+            oi.invoiced_undelivered_num AS "invoicedUndeliveredNum",
+            <!-- 已发货未开票 -->
+            oi.uninvoiced_delivered_num AS "unInvoicedDeliveredNum",
+            <!-- 不在库数量 -->
+            IFNULL(lwi.lending_num, 0) + IFNULL(oi.uninvoiced_delivered_num, 0) AS "outStockNum",
+            <!-- 可用数量 -->
+            IFNULL(SUM(wh.num), 0) - IFNULL(SUM(wh.occupation_no), 0) - IFNULL(oi.invoiced_undelivered_num, 0) AS "availableNum",
+            <!-- 未到货数量  -->
+            po.not_arrived_num AS "notArrivedNum",
+            <!-- 本周进货 -->
+            psi.week_pur_num AS "weekPurchasedNum",
+            <!-- 本周销售 -->
+            sid.week_sales_num AS "weekSalesNum"
+        FROM sm_mat_info mt
+        LEFT JOIN ( SELECT
+                        material_no,
+                        warehouse,
+                        SUM(num) AS "num",
+                        SUM(occupation_no) AS "occupation_no",
+                        CAST(CONCAT("wh_", warehouse, ":", SUM(num)) AS CHAR) AS "warehouse_num"
+                    FROM sm_warehouse_info
+                    WHERE in_stock_status = '1'
+                    AND del_flag = '0'
+                    GROUP BY material_no, warehouse ) wh ON wh.material_no = mt.material_no 
+        LEFT JOIN ( SELECT SUM(num) AS "lending_num", material_no FROM sm_warehouse_info WHERE in_stock_status = '3' GROUP BY material_no ) lwi ON lwi.material_no = mt.material_no
+        LEFT JOIN ( SELECT 
+                        IF( SUM( IFNULL(t1.invoice_num, 0) - IFNULL(t1.deliver_num, 0) ) &gt; 0,
+                            SUM( IFNULL(t1.invoice_num, 0) - IFNULL(t1.deliver_num, 0) ), 0 ) AS "invoiced_undelivered_num",
+                        IF( SUM( IFNULL(t1.deliver_num, 0) - IFNULL(t1.invoice_num, 0) ) &gt; 0,
+                            SUM( IFNULL(t1.deliver_num, 0) - IFNULL(t1.invoice_num, 0) ), 0 ) AS "uninvoiced_delivered_num",
+                        t1.material_no
+                    FROM so_order_dtl t1
+                    INNER join so_order t2
+                    WHERE t2.workflow_status = '50'
+                    AND t1.if_effective = '0'
+                    AND t1.order_id = t2.id
+                    AND t1.del_flag = '0'
+                    AND t2.del_flag = '0'
+                    GROUP BY t1.material_no ) oi ON oi.material_no = mt.material_no
+        LEFT JOIN ( SELECT
+                        IFNULL(SUM(t1.num), 0) - IFNULL(SUM(t1.al_arrival_num), 0) AS "not_arrived_num",
+                        t1.material_no
+                    FROM pm_purchase_ord_dtl t1
+                    INNER JOIN pm_purchase_ord t2
+                    WHERE t1.purchase_no = t2.purchase_no
+                    AND t2.workflow_status = '50'
+                    AND t1.del_flag = '0'
+                    AND t2.del_flag = '0'
+                    GROUP BY t1.material_no ) po ON po.material_no = mt.material_no
+        LEFT JOIN ( SELECT SUM(num) AS "week_pur_num", material_no
+                    FROM sm_storage_info
+                    WHERE storage_type = '11'
+                    AND process_date &gt;= #{startResumeDate}
+                    AND process_date &lt;= #{endResumeDate}
+                    AND del_flag = '0'
+                    GROUP BY material_no ) psi ON psi.material_no = mt.material_no
+<!--         LEFT JOIN ( SELECT SUM(num) AS "week_sales_num", material_no -->
+<!--                     FROM sm_storage_info -->
+<!--                     WHERE storage_type = '21' -->
+<!--                     AND process_date &gt;= #{startResumeDate} -->
+<!--                     AND process_date &lt;= #{endResumeDate} -->
+<!--                     AND del_flag = '0' -->
+<!--                     GROUP BY material_no ) ssi ON ssi.material_no = mt.material_no -->
+        LEFT JOIN ( SELECT SUM(t1.num) AS "week_sales_num", t4.material_no
+                    FROM im_invoice_dtl t1
+                    INNER JOIN im_invoice t2
+                    INNER JOIN so_order t3
+                    INNER JOIN so_order_dtl t4
+                    WHERE t1.invoice_source = '10'
+                    AND t1.app_id = t2.id
+                    AND t2.workflow_status = '50'
+                    AND t2.order_no = t3.order_no
+                    AND t3.id = t4.order_id
+                    AND t1.line_no = t4.line_no
+                    AND t1.invoice_date &gt;= #{startResumeDate}
+                    AND t1.invoice_date &lt;= #{endResumeDate}
+                    AND t2.del_flag = '0'
+                    AND t3.del_flag = '0'
+                    GROUP BY t4.material_no ) sid ON sid.material_no = mt.material_no
+        <where>
+            mt.del_flag = '0'
+            AND mt.material_type IN ('1', '4', '5')
+        </where>
+        GROUP BY mt.material_no
+    </select>
+</mapper>

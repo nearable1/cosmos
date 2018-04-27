@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.sd.dao.SoApplyDeliverDtlDao">
+    
+	<sql id="soApplyDeliverDtlColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.app_id AS "appId",
+		a.order_no AS "orderNo",
+		a.line_no AS "lineNo",
+		a.if_install AS "ifInstall",
+		a.num AS "num",
+		a.contacts_name AS "contactsName",
+		a.telephone AS "telephone",
+		a.address AS "address"
+	</sql>
+	
+	<sql id="soApplyDeliverDtlJoins">
+	</sql>
+    
+	<select id="get" resultType="com.inbody.crm.sd.entity.SoApplyDeliverDtl">
+		SELECT 
+			<include refid="soApplyDeliverDtlColumns"/>
+		FROM so_apply_deliver_dtl a
+		<include refid="soApplyDeliverDtlJoins"/>
+		WHERE a.id = #{id}
+	</select>
+    
+	<select id="getSoApplyDeliverDtlListByAppId" resultType="com.inbody.crm.sd.entity.SoApplyDeliverDtl">
+		SELECT 
+			<include refid="soApplyDeliverDtlColumns"/>
+		FROM so_apply_deliver_dtl a
+		WHERE a.app_id = #{appId}
+		ORDER BY a.line_no
+	</select>
+	
+	<delete id="deleteSoApplyDeliverDtlByAppId">
+		delete from so_apply_deliver_dtl where app_id = #{appId}
+	</delete>
+	
+	<select id="findList" resultType="com.inbody.crm.sd.entity.SoApplyDeliverDtl">
+		SELECT 
+			<include refid="soApplyDeliverDtlColumns"/>
+		FROM so_apply_deliver_dtl a
+		<include refid="soApplyDeliverDtlJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="com.inbody.crm.sd.entity.SoApplyDeliverDtl">
+		SELECT 
+			<include refid="soApplyDeliverDtlColumns"/>
+		FROM so_apply_deliver_dtl a
+		<include refid="soApplyDeliverDtlJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO so_apply_deliver_dtl(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			app_id,
+			order_no,
+			line_no,
+			if_install,
+			num,
+			contacts_name,
+			telephone,
+			address
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{appId},
+			#{orderNo},
+			#{lineNo},
+			#{ifInstall},
+			#{num},
+			#{contactsName},
+			#{telephone},
+			#{address}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE so_apply_deliver_dtl SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			app_id = #{appId},
+			order_no = #{orderNo},
+			line_no = #{lineNo},
+			if_install = #{ifInstall},
+			num = #{num},
+			contacts_name = #{contactsName},
+			telephone = #{telephone},
+			address = #{address}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE so_apply_deliver_dtl SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.sm.dao.OutStorageManagementDao">
+
+
+
+	<select id="loadWarehouseList" resultType="java.util.Map">
+		SELECT
+		w.id,
+		w.MATERIAL_NO as material,
+		m.material_name as materialName,
+		w.warehouse
+		as warehouse,
+		(select label from sys_dict WHERE type='DM0050' and
+		value=w.WAREHOUSE ) as
+		warehouseName,
+		w.SN_NO as snNo,
+		s.PRODUCTION_DATE
+		as productionDate,
+		( select COUNT(*) from sm_sn_info where SN_NO in
+		(select SN_NO from
+		sm_warehouse_info where warehouse=w.warehouse and
+		MATERIAL_NO=w.MATERIAL_NO and del_flag='0' and IN_STOCK_STATUS='1' )
+		and machine_type='1') as newNum,
+		( select COUNT(*) from sm_sn_info
+		where SN_NO in (select SN_NO from
+		sm_warehouse_info where
+		warehouse=w.warehouse and
+		MATERIAL_NO=w.MATERIAL_NO and del_flag='0'
+		and IN_STOCK_STATUS='1' )
+		and machine_type='2' ) as usedNum,
+		( SELECT
+		SUM(num) FROM sm_warehouse_info where warehouse=w.warehouse
+		AND
+		MATERIAL_NO=w.MATERIAL_NO AND IN_STOCK_STATUS='1' and
+		del_flag='0') as
+		allNum,
+		m.model
+		from sm_warehouse_info as w
+		LEFT JOIN sm_sn_info as s ON
+		w.SN_NO=s.SN_NO
+		LEFT JOIN sm_mat_info as m ON w.MATERIAL_NO =
+		m.MATERIAL_NO
+		WHERE w.MATERIAL_NO = #{qureyMaterialNo} AND
+		w.IN_STOCK_STATUS='1'and w.del_flag='0' and
+		( SELECT SUM(num) FROM
+		sm_warehouse_info where warehouse=w.warehouse
+		AND
+		MATERIAL_NO=w.MATERIAL_NO AND IN_STOCK_STATUS='1' and del_flag='0')
+		!=0 group by w.MATERIAL_NO,w.warehouse
+	</select>
+
+	<select id="smStorageApp" resultType="java.util.Map">
+		SELECT * from
+		sm_storage_app WHERE ID = #{id}
+	</select>
+
+	<select id="selectBySnNo" resultType="java.util.Map">
+		SELECT
+		*
+		from
+		sm_warehouse_info as w
+		INNER JOIN sm_sn_info as i on
+		i.SN_NO=w.SN_NO
+		where w.SN_NO=#{snNo}
+		<choose>
+			<when test="materialNo!='' and materialNo!=null">
+				and w.MATERIAL_NO= #{materialNo}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="warehouse!='' and warehouse!=null">
+				and w.WAREHOUSE= #{warehouse}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+		AND w.DEL_FLAG='0' and w.IN_STOCK_STATUS='1' and i.status='3'
+
+	</select>
+
+	<select id="smStorageAppDtl" resultType="java.util.Map">
+		SELECT *,
+		SSA.customer_name as customerName,
+		(SELECT SN_NO
+		from sm_sn_info where sm_sn_info.MATERIAL_NO=w.MATERIAL_NO limit 1)as
+		snYesOrNo,
+		s.PRODUCTION_DATE as productionDate,
+		s.ORDER_NO as orderNo,
+		s.LINE_NO as lineNo,
+		( SELECT
+		SUM(num)
+		FROM sm_warehouse_info where warehouse=w.warehouse AND
+		MATERIAL_NO=w.MATERIAL_NO AND IN_STOCK_STATUS='1' and del_flag='0') as
+		wNum ,
+		(select label from sys_dict WHERE type='DM0050' and
+		value=w.WAREHOUSE ) as warehouseName,
+		(select id from
+		sm_warehouse_info
+		as i where
+		i.MATERIAL_NO=w.MATERIAL_NO and
+		i.WAREHOUSE=w.WAREHOUSE and
+		del_flag='0' and in_stock_status='1' group
+		by warehouse,w.MATERIAL_NO )
+		as wId from sm_storage_app_dtl as w LEFT
+		JOIN sm_sn_info as s ON
+		w.SN_NO=s.SN_NO LEFT JOIN sm_mat_info as m ON
+		w.MATERIAL_NO =
+		m.MATERIAL_NO LEFT JOIN sm_storage_app AS SSA ON
+		SSA.ID=W.APP_ID
+		WHERE
+		APP_ID = #{id}
+		ORDER BY w.create_date
+	</select>
+
+	<insert id="addByOutStorageManagement">
+		insert into SM_STORAGE_APP_DTL (
+		id,
+		app_id,
+		<choose>
+			<when test="purchaseNo!='' and purchaseNo!=null and purchaseNo!='null'">
+				purchase_no,
+			</when>
+		</choose>
+		<choose>
+			<when test="snNo!='' and snNo!=null">
+				sn_no,
+			</when>
+		</choose>
+		<choose>
+			<when test="materialNo!='' and materialNo!=null">
+				material_no,
+			</when>
+		</choose>
+		<choose>
+			<when test="num!='' and num!=null">
+				num,
+			</when>
+		</choose>
+		<choose>
+			<when test="warehouse!='' and warehouse!=null and warehouse!='null'">
+				warehouse,
+			</when>
+		</choose>
+		<choose>
+			<when test="address!='' and address!=null">
+				address,
+			</when>
+		</choose>
+		<choose>
+			<when test="contacts!='' and contacts!=null">
+				CONTACTS_NAME,
+			</when>
+		</choose>
+		<choose>
+			<when test="telephone!='' and telephone!=null">
+				telephone,
+			</when>
+		</choose>
+		<choose>
+			<when test="accessoriesRemarks!='' and accessoriesRemarks!=null">
+				accessories_remarks,
+			</when>
+		</choose>
+		<choose>
+			<when test="lendingDateTo!='' and lendingDateTo!=null">
+				lending_date_to,
+			</when>
+		</choose>
+		<choose>
+			<when test="extendDateTo!='' and extendDateTo!=null">
+				extend_date_to,
+			</when>
+		</choose>
+		<choose>
+			<when test="extendReason!='' and extendReason!=null">
+				extend_reason,
+			</when>
+		</choose>
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		<choose>
+			<when test="orderNo!='' and orderNo!=null">
+				order_no,
+			</when>
+		</choose>
+		<choose>
+			<when test="lineNo!='' and lineNo!=null and lineNo!='null'">
+				line_no,
+			</when>
+		</choose>
+		<choose>
+			<when test="purchaseNo!='' and purchaseNo!=null and purchaseNo!='null'">
+				proc_ins_id,
+			</when>
+		</choose>
+		del_flag
+		)
+		values
+		(
+		#{id},
+		#{appId},
+		<choose>
+			<when test="purchaseNo!='' and purchaseNo!=null and purchaseNo!='null'">
+				#{purchaseNo},
+			</when>
+		</choose>
+		<choose>
+			<when test="snNo!='' and snNo!=null">
+				#{snNo},
+			</when>
+		</choose>
+		<choose>
+			<when test="materialNo!='' and materialNo!=null">
+				#{materialNo},
+			</when>
+		</choose>
+		<choose>
+			<when test="num!='' and num!=null">
+				#{num},
+			</when>
+		</choose>
+		<choose>
+			<when test="warehouse!='' and warehouse!=null and warehouse!='null'">
+				#{warehouse},
+			</when>
+		</choose>
+		<choose>
+			<when test="address!='' and address!=null">
+				#{address},
+			</when>
+		</choose>
+		<choose>
+			<when test="contacts!='' and contacts!=null">
+				#{contacts},
+			</when>
+		</choose>
+		<choose>
+			<when test="telephone!='' and telephone!=null">
+				#{telephone},
+			</when>
+		</choose>
+		<choose>
+			<when test="accessoriesRemarks!='' and accessoriesRemarks!=null">
+				#{accessoriesRemarks},
+			</when>
+		</choose>
+		<choose>
+			<when test="lendingDateTo!='' and lendingDateTo!=null">
+				#{lendingDateTo},
+			</when>
+		</choose>
+		<choose>
+			<when test="extendDateTo!='' and extendDateTo!=null">
+				#{extendDateTo},
+			</when>
+		</choose>
+		<choose>
+			<when test="extendReason!='' and extendReason!=null">
+				#{extendReason},
+			</when>
+		</choose>
+		#{createBy.id},
+		#{createDate},
+		#{updateBy.id},
+		#{updateDate},
+		<choose>
+			<when test="orderNo!='' and orderNo!=null">
+				#{orderNo},
+			</when>
+		</choose>
+		<choose>
+			<when test="lineNo!='' and lineNo!=null and lineNo!='null'">
+				#{lineNo},
+			</when>
+		</choose>
+		<choose>
+			<when test="purchaseNo!='' and purchaseNo!=null and purchaseNo!='null'">
+				#{purchaseNo},
+			</when>
+		</choose>
+		0
+		)
+
+	</insert>
+
+	<insert id="addBySmStorageApp">
+
+		INSERT INTO SM_STORAGE_APP (
+		id,
+		storage_type,
+		workflow_status,
+		RESPONSIBLE_PERSON_ID,
+		<choose>
+			<when test="lendingType!='' and lendingType!=null">
+				lending_type,
+			</when>
+		</choose>
+		<choose>
+			<when test="customerId!='' and customerId!=null">
+				customer_name,
+			</when>
+		</choose>
+		<choose>
+			<when test="industry!='' and industry!=null">
+				industry,
+			</when>
+		</choose>
+		<choose>
+			<when test="lendingDateFrom!='' and lendingDateFrom!=null">
+				lending_date_from,
+			</when>
+		</choose>
+		<choose>
+			<when test="newRemarks!='' and newRemarks!=null">
+				new_remarks,
+			</when>
+		</choose>
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		process_date,
+		del_flag
+		)
+		VALUES (
+		#{id},
+		#{storageType} ,
+		#{workflowStatus},
+		#{createBy.id},
+		<choose>
+			<when test="lendingType!='' and lendingType!=null">
+				#{lendingType},
+			</when>
+		</choose>
+		<choose>
+			<when test="customerId!='' and customerId!=null">
+				#{customerId},
+			</when>
+		</choose>
+		<choose>
+			<when test="industry!='' and industry!=null">
+				#{industry},
+			</when>
+		</choose>
+		<choose>
+			<when test="lendingDateFrom!='' and lendingDateFrom!=null">
+				#{lendingDateFrom},
+			</when>
+		</choose>
+		<choose>
+			<when test="newRemarks!='' and newRemarks!=null">
+				#{newRemarks},
+			</when>
+		</choose>
+		#{createBy.id},
+		#{createDate},
+		#{updateBy.id},
+		#{updateDate},
+		#{date},
+		'0'
+		)
+	</insert>
+
+
+	<update id="update">
+		UPDATE SM_STORAGE_APP_DTL SET
+		update_by = #{updateBy.id},
+		<choose>
+			<when test="snNo!='' and snNo!=null">
+				sn_no = #{snNo},
+			</when>
+		</choose>
+		<choose>
+			<when test="accessoriesRemarks!='' and accessoriesRemarks!=null">
+				accessories_remarks = #{accessoriesRemarks},
+			</when>
+		</choose>
+		<choose>
+			<when test="lendingDateTo!='' and lendingDateTo!=null">
+				lending_date_to = #{lendingDateTo},
+			</when>
+		</choose>
+		<choose>
+			<when test="newSnNo!='' and newSnNo!=null">
+				new_sn_no = #{newSnNo},
+			</when>
+		</choose>
+		update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+
+
+
+</mapper>

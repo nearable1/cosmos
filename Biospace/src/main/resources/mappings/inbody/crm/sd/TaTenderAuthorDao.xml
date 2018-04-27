@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.sd.dao.TaTenderAuthorDao">
+    
+	<sql id="taTenderAuthorColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.authorization_no AS "authorizationNo",
+		a.tenderee AS "tenderee",
+		a.project_name AS "projectName",
+		a.end_customer_id AS "endCustomerId",
+		a.customer_segmentation AS "customerSegmentation",
+		a.bid_purpose AS "bidPurpose",
+		a.tender_type AS "tenderType",
+		a.bid_opening_date AS "bidOpeningDate",
+		a.bid_result AS "bidResult",
+		a.bid_remarks AS "bidRemarks",
+		a.validity_date_from AS "validityDateFrom",
+		a.validity_date_to AS "validityDateTo",
+		a.author_offer_type AS "authorOfferType",
+		a.offer_remarks AS "offerRemarks",
+		a.new_remarks AS "newRemarks",
+		a.contacts_name AS "contactsName",
+		a.agent_id AS "agentId",
+		a.telephone AS "telephone",
+		a.address AS "address"
+	</sql>
+    
+	<select id="get" resultType="TaTenderAuthor">
+		SELECT 
+			<include refid="taTenderAuthorColumns"/>
+		    ,a.workflow_status AS "workflowStatus"
+			,c1.customer_ch_name as "endCustomerName"
+			,c1.industry AS "industry"
+		    ,c2.customer_ch_name as "agentName"
+		FROM ta_tender_author a
+	    left join cm_customer_info c1
+	    on a.end_customer_id = c1.customer_id
+	    left join cm_customer_info c2
+	    on a.agent_id = c2.customer_id
+	    and c2.customer_type != 1
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TaTenderAuthor">
+		SELECT 
+			<include refid="taTenderAuthorColumns"/>
+		    ,CASE WHEN a.workflow_status = 50 THEN '50'
+		     ELSE '10' END AS "workflowStatus"
+			,b.material_no AS "materialNo"
+			,m.material_name AS "materialName"
+			,m.model AS "model"
+			,u.name AS "applyName"
+			,c1.customer_ch_name as "endCustomerName"
+			,c1.industry AS "industry"
+		    ,c2.customer_ch_name as "agentName"
+		FROM ta_tender_author a
+		inner JOIN ta_tender_author_dtl b
+		ON b.app_id = a.id
+		and b.del_flag = #{DEL_FLAG_NORMAL}
+	    inner join sys_user u
+	    on a.create_by = u.id
+	    inner join sm_mat_info m
+	    on b.material_no = m.material_no
+	    left join cm_customer_info c1
+	    on a.end_customer_id = c1.customer_id
+	    left join cm_customer_info c2
+	    on a.agent_id = c2.customer_id
+	    and c2.customer_type != 1
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="authorizationNoSearch != null and authorizationNoSearch != ''">
+				AND a.authorization_no like CONCAT(CONCAT('%',#{authorizationNoSearch}),'%')
+			</if>
+			<if test="projectNameSearch != null and projectNameSearch != ''">
+				AND a.project_name like CONCAT(CONCAT('%',#{projectNameSearch}),'%')
+			</if>
+			<if test="tendereeSearch != null and tendereeSearch != ''">
+				AND a.tenderee like CONCAT(CONCAT('%',#{tendereeSearch}),'%')
+			</if>
+			<if test="endCustomerIdSearch != null and endCustomerIdSearch != ''">
+				AND a.end_customer_id = #{endCustomerIdSearch}
+			</if>
+			<if test="agentIdSearch != null and agentIdSearch != ''">
+				AND a.agent_id = #{agentIdSearch}
+			</if>
+			<if test="workflowStatusSearch != null and workflowStatusSearch != ''">
+				<if test="workflowStatusSearch == '50'">
+				AND a.workflow_status = 50
+			    </if>
+			    <if test="workflowStatusSearch != '50'">
+				AND a.workflow_status != 50
+			    </if>
+			</if>
+			<if test="bidResultSearch != null and bidResultSearch != ''">
+				AND a.bid_result = #{bidResultSearch}
+			</if>
+			<if test="validityDateFromSearch != null and validityDateFromSearch != ''">
+				AND a.validity_date_to &gt;= #{validityDateFromSearch}
+			</if>
+			<if test="validityDateToSearch != null and validityDateToSearch != ''">
+				AND a.validity_date_from &lt;= #{validityDateToSearch}
+			</if>
+			<if test="bidOpeningDateFromSearch != null and bidOpeningDateFromSearch != ''">
+				AND a.bid_opening_date &gt;= #{bidOpeningDateFromSearch}
+			</if>
+			<if test="bidOpeningDateToSearch != null and bidOpeningDateToSearch != ''">
+				AND a.bid_opening_date &lt;= #{bidOpeningDateToSearch}
+			</if>
+			<if test="sqlMap != null and sqlMap.dataScope != null">
+			    AND a.create_by in ${sqlMap.dataScope}
+		    </if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TaTenderAuthor">
+		SELECT 
+			<include refid="taTenderAuthorColumns"/>
+		    ,CASE WHEN a.workflow_status = 50 THEN '50'
+		     ELSE '10' END AS "workflowStatus"
+		FROM ta_tender_author a
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO ta_tender_author(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			authorization_no,
+			tenderee,
+			project_name,
+			end_customer_id,
+			customer_segmentation,
+			bid_purpose,
+			tender_type,
+			bid_opening_date,
+			bid_result,
+			bid_remarks,
+			validity_date_from,
+			validity_date_to,
+			author_offer_type,
+			offer_remarks,
+			new_remarks,
+			contacts_name,
+			agent_id,
+			telephone,
+			address
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{authorizationNo},
+			#{tenderee},
+			#{projectName},
+			#{endCustomerId},
+			#{customerSegmentation},
+			#{bidPurpose},
+			#{tenderType},
+			#{bidOpeningDate},
+			#{bidResult},
+			#{bidRemarks},
+			#{validityDateFrom},
+			#{validityDateTo},
+			#{authorOfferType},
+			#{offerRemarks},
+			#{newRemarks},
+			#{contactsName},
+			#{agentId},
+			#{telephone},
+			#{address}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE ta_tender_author SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			authorization_no = #{authorizationNo},
+			tenderee = #{tenderee},
+			project_name = #{projectName},
+			end_customer_id = #{endCustomerId},
+			customer_segmentation = #{customerSegmentation},
+			bid_purpose = #{bidPurpose},
+			tender_type = #{tenderType},
+			bid_opening_date = #{bidOpeningDate},
+			bid_result = #{bidResult},
+			bid_remarks = #{bidRemarks},
+			validity_date_from = #{validityDateFrom},
+			validity_date_to = #{validityDateTo},
+			author_offer_type = #{authorOfferType},
+			offer_remarks = #{offerRemarks},
+			new_remarks = #{newRemarks},
+			contacts_name = #{contactsName},
+			agent_id = #{agentId},
+			telephone = #{telephone},
+			address = #{address}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE ta_tender_author SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateBO">
+		UPDATE bo_business_opp SET 
+			if_tender_author = 1
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

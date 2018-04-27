@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.sd.dao.AtAgentTargetDao">
+    
+	<sql id="atAgentTargetColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.customer_id AS "customerId",
+		a.agreement_id AS "agreementId",
+		a.target_type AS "targetType",
+		a.period AS "period",
+		a.total_amount AS "totalAmount",
+		a.material_no AS "materialNo",
+		a.num AS "num"
+	</sql>
+	
+	<sql id="atAgentTargetJoins">
+	</sql>
+    
+	<select id="get" resultType="AtAgentTarget">
+		SELECT 
+			<include refid="atAgentTargetColumns"/>
+		FROM at_agent_target a
+		<include refid="atAgentTargetJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="AtAgentTarget">
+		SELECT 
+			<include refid="atAgentTargetColumns"/>
+		FROM at_agent_target a
+		<include refid="atAgentTargetJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="AtAgentTarget">
+		SELECT 
+			<include refid="atAgentTargetColumns"/>
+		FROM at_agent_target a
+		<include refid="atAgentTargetJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findCompareAtAgentTargetPageList" resultType="AtAgentTargetSearch">
+		SELECT 
+			aat.customer_id AS "customerId",
+			aat.target_type AS "targetType",
+			aat.agreement_id AS "agreementId",
+			ca.validity_date_from AS "validityDateFrom",
+			cci.customer_ch_name AS "customerName"
+		FROM at_agent_target aat
+		INNER JOIN CM_AGREEMENT ca ON aat.agreement_id = ca.id AND aat.customer_id = ca.agreement_paties_id
+		<if test="ifNew == '1'.toString()">
+			INNER JOIN (
+				SELECT
+					taat.customer_id AS customer_id,
+					MAX(tca.validity_date_from) AS validity_date_from
+				FROM at_agent_target taat
+				INNER JOIN CM_AGREEMENT tca ON taat.agreement_id = tca.id
+					AND taat.customer_id = tca.agreement_paties_id GROUP BY taat.customer_id
+			) temp ON aat.customer_id = temp.customer_id AND ca.validity_date_from = temp.validity_date_from
+		</if>
+		INNER JOIN cm_customer_info cci ON aat.customer_id = cci.customer_id AND cci.customer_type = '2'
+		<if test="sqlMap != null and sqlMap.dataScope != null">
+			AND cci.responsible_person_id in ${sqlMap.dataScope}
+		</if>
+		<where>
+			aat.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="customerId != null and customerId != ''">
+			AND aat.customer_id = #{customerId}
+			</if>
+		</where>		
+		GROUP BY aat.customer_id, aat.agreement_id
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY aat.customer_id, ca.validity_date_from
+			</otherwise>
+		</choose>
+	</select>
+	
+	<sql id="trackSql">
+		SELECT
+			temp.material_no AS material_no,
+			<!-- MIN(DATE_FORMAT(iid.invoice_date, '%Y%m%d')) AS invoice_date_from,
+			MAX(DATE_FORMAT(iid.invoice_date, '%Y%m%d')) AS invoice_date_to, -->
+			<!-- DATE_FORMAT(iid.invoice_date, '%Y%m%d') AS invoice_date, -->
+			cad.period AS period,
+			<!-- MAX(cad.period) AS period, -->
+			MAX(temp.model) AS model,
+			SUM(iid.num) AS num,
+			SUM(iid.invoice_amount) AS invoice_amount
+		FROM IM_INVOICE_DTL iid
+		INNER JOIN IM_INVOICE ii ON ii.ID = iid.APP_ID AND ii.DEL_FLAG = '0' AND ii.workflow_status = '50'
+		INNER JOIN cm_agreement_dtl cad ON DATE_FORMAT(iid.invoice_date, '%Y%m%d') >= DATE_FORMAT(cad.period_date_from, '%Y%m%d') AND DATE_FORMAT(cad.period_date_to, '%Y%m%d') >= DATE_FORMAT(iid.invoice_date, '%Y%m%d')
+			<if test="agreementId != null and agreementId != ''">
+			AND cad.agreement_id = #{agreementId}
+			</if>
+		INNER JOIN
+			(SELECT 
+				so.ORDER_NO AS ORDER_NO,
+				CASE WHEN LENGTH(trim(IFNULL(sod.PACKAGE_MERTIRAL_NO,''))) > 0 THEN sod.PACKAGE_MERTIRAL_NO ELSE sod.material_no END AS material_no,
+				sod.LINE_NO AS LINE_NO,
+				smi.model AS model
+			FROM SO_ORDER_DTL sod
+			INNER JOIN SO_ORDER so ON sod.order_id = so.ID AND so.DEL_FLAG = '0'
+				<if test="customerId != null and customerId != ''">
+					AND so.customer_id = #{customerId}
+				</if>
+<!-- 				<if test="sqlMap != null and sqlMap.dataScope != null">
+					AND (so.create_by in ${sqlMap.dataScope} OR so.employee_no in ${sqlMap.dataScope})
+				</if> -->
+			INNER JOIN sm_mat_info smi ON IF(LENGTH(trim(IFNULL(sod.PACKAGE_MERTIRAL_NO,''))) > 0, smi.material_no=sod.PACKAGE_MERTIRAL_NO, smi.material_no=sod.material_no)
+			<if test="targetType == '2'.toString()">
+				AND (smi.material_type='1' OR smi.material_type='3')
+			</if>
+			ORDER BY so.ORDER_NO, sod.LINE_NO) temp
+		ON temp.ORDER_NO = iid.order_no AND temp.LINE_NO = iid.LINE_NO
+		WHERE iid.invoice_source = '10' AND iid.invoice_amount != 0
+		<!-- GROUP BY temp.material_no, DATE_FORMAT(iid.invoice_date, '%Y%m%d') -->
+		GROUP BY temp.material_no, CONVERT(cad.period,SIGNED)
+	</sql>
+	
+	<sql id="targetSql">
+		SELECT 
+			<if test="targetType == '1'.toString()">
+				ppit.model AS model,
+				ppit.material_no AS material_no,
+			</if>
+			<if test="targetType == '2'.toString()">
+				smi.model AS model,
+				a.material_no AS material_no,
+			</if>
+<!-- 			DATE_FORMAT(cad.period_date_from, '%Y%m%d') AS period_date_from,
+			DATE_FORMAT(cad.period_date_to, '%Y%m%d') AS period_date_to, -->
+			a.period AS period,
+			a.total_amount AS total_amount,
+			a.num AS num
+		FROM at_agent_target a
+		INNER JOIN cm_agreement_dtl cad ON a.agreement_id = cad.agreement_id AND a.period = cad.period
+		<if test="targetType == '1'.toString()">
+			LEFT JOIN
+			(SELECT 
+				ppi.agreement_paties_id AS agreement_paties_id,
+				ppi.agreement_id AS agreement_id,
+				ppi.material_no AS material_no,
+				smi.model AS model
+				FROM ps_price_info ppi
+				LEFT JOIN sm_mat_info smi ON smi.material_no=ppi.material_no
+			) ppit
+			ON a.customer_id = ppit.agreement_paties_id AND a.agreement_id = ppit.agreement_id
+		</if>
+		<if test="targetType == '2'.toString()">
+			LEFT JOIN sm_mat_info smi ON smi.material_no=a.material_no
+		</if>
+<!-- 		INNER JOIN cm_customer_info cci ON cci.customer_id = a.customer_id
+		<if test="sqlMap != null and sqlMap.dataScope != null">
+			AND cci.responsible_person_id in ${sqlMap.dataScope}
+		</if> -->
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="customerId != null and customerId != ''">
+			AND a.customer_id = #{customerId}
+			</if>
+			<if test="agreementId != null and agreementId != ''">
+			AND a.agreement_id = #{agreementId}
+			</if>
+			<if test="targetType != null and targetType != ''">
+			AND a.target_type = #{targetType}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="getCompareAtAgentTargetDtl" resultType="AtAgentTarget">
+		SELECT
+			target.model AS "model",
+			CASE WHEN target.period IS NULL THEN track.period ELSE target.period END AS "period",
+			target.total_amount AS "totalAmount",
+			target.material_no AS "materialNo",
+			target.num AS "num",
+			track.material_no AS "trackMaterialNo",
+			track.model AS "trackModel",
+			track.num AS "trackNum",
+			track.invoice_amount AS "trackAmount"
+		FROM (<include refid="trackSql"/>) track
+		LEFT JOIN (<include refid="targetSql"/>) target
+		<!-- ON track.invoice_date_from >= target.period_date_from AND target.period_date_to >= track.invoice_date_to -->
+		<!-- ON track.invoice_date >= target.period_date_from AND target.period_date_to >= track.invoice_date -->
+		ON track.period = target.period
+		<if test="targetType == '2'.toString()">
+			AND track.material_no = target.material_no
+		</if>
+		UNION
+		SELECT
+			target.model AS "model",
+			CASE WHEN target.period IS NULL THEN track.period ELSE target.period END AS "period",
+			target.total_amount AS "totalAmount",
+			target.material_no AS "materialNo",
+			target.num AS "num",
+			track.material_no AS "trackMaterialNo",
+			track.model AS "trackModel",
+			track.num AS "trackNum",
+			track.invoice_amount AS "trackAmount"
+		FROM (<include refid="targetSql"/>) target
+		LEFT JOIN (<include refid="trackSql"/>) track
+		<!-- ON track.invoice_date_from >= target.period_date_from AND target.period_date_to >= track.invoice_date_to -->
+		<!-- ON track.invoice_date >= target.period_date_from AND target.period_date_to >= track.invoice_date -->
+		ON track.period = target.period
+		<if test="targetType == '2'.toString()">
+			AND track.material_no = target.material_no
+		</if>
+		ORDER BY CONVERT(period,SIGNED)
+	</select>
+	
+	<select id="findAtAgentTargetPageList" resultType="AtAgentTargetSearch">
+		SELECT 
+			ca.agreement_paties_id AS "customerId",
+			aat.target_type AS "targetType",
+			ca.id AS "agreementId",
+			ca.validity_date_from AS "validityDateFrom",
+			cci.customer_ch_name AS "customerName"
+		FROM cm_agreement ca
+		<if test="ifNew == '1'.toString()">
+			INNER JOIN (
+				SELECT
+					tca.agreement_paties_id AS customer_id,
+					MAX(tca.validity_date_from) AS validity_date_from
+				FROM cm_agreement tca
+				GROUP BY tca.agreement_paties_id
+			) temp ON ca.agreement_paties_id = temp.customer_id AND ca.validity_date_from = temp.validity_date_from
+		</if>
+		LEFT JOIN at_agent_target aat ON aat.agreement_id = ca.id AND aat.customer_id = ca.agreement_paties_id
+		INNER JOIN cm_customer_info cci ON ca.agreement_paties_id = cci.customer_id AND cci.customer_type = '2'
+		<if test="sqlMap != null and sqlMap.dataScope != null">
+			AND cci.responsible_person_id in ${sqlMap.dataScope}
+		</if>
+		<where>
+			ca.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="customerId != null and customerId != ''">
+			AND ca.agreement_paties_id = #{customerId}
+			</if>
+		</where>		
+		GROUP BY ca.agreement_paties_id, ca.id
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY ca.agreement_paties_id, ca.validity_date_from
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getAtAgentTargetDtl" resultType="AtAgentTarget">
+		SELECT 
+			smi.model AS "model",
+			a.period AS "period",
+			a.total_amount AS "totalAmount",
+			a.material_no AS "materialNo",
+			a.target_type AS "targetType",
+			a.num AS "num"
+		FROM at_agent_target a
+		INNER JOIN cm_agreement_dtl cad ON a.agreement_id = cad.agreement_id AND a.period = cad.period
+		LEFT JOIN sm_mat_info smi ON smi.material_no=a.material_no
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="customerId != null and customerId != ''">
+			AND a.customer_id = #{customerId}
+			</if>
+			<if test="agreementId != null and agreementId != ''">
+			AND a.agreement_id = #{agreementId}
+			</if>
+			<if test="targetType != null and targetType != ''">
+			AND a.target_type = #{targetType}
+			</if>
+		</where>
+		ORDER BY CONVERT(a.period,SIGNED)
+	</select>
+	
+	<select id="getCmAgreementInfo" resultType="AtAgentTargetSearch">
+		SELECT 
+			a.id AS "agreementId",
+			a.agreement_paties_id AS "customerId",
+			a.validity_date_from AS "validityDateFrom",
+			cci.customer_ch_name AS "customerName"
+		FROM cm_agreement a
+		LEFT JOIN cm_customer_info cci ON a.agreement_paties_id = cci.customer_id AND cci.customer_type = '2'
+		WHERE a.del_flag = '0' AND a.id = #{agreementId}
+	</select>
+	
+	<delete id="deleteInfo">
+		DELETE FROM at_agent_target WHERE agreement_id = #{agreementId} AND customer_id = #{customerId}
+	</delete>
+	
+	<insert id="insert">
+		INSERT INTO at_agent_target(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			customer_id,
+			agreement_id,
+			target_type,
+			period,
+			total_amount,
+			material_no,
+			num
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{customerId},
+			#{agreementId},
+			#{targetType},
+			#{period},
+			#{totalAmount},
+			#{materialNo},
+			#{num}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE at_agent_target SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			customer_id = #{customerId},
+			agreement_id = #{agreementId},
+			target_type = #{targetType},
+			period = #{period},
+			total_amount = #{totalAmount},
+			material_no = #{materialNo},
+			num = #{num}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE at_agent_target SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.mm.dao.StorageManagementDao">
+
+	<!-- 待归还查询画面，待归还list分页查询 -->
+	<select id="findUnrestoredPageList" resultType="UnrestoredSearch">
+		SELECT
+			slm.MATERIAL_NO AS "materialNo",
+			CONCAT(smi.MATERIAL_NAME, " ", smi.model) AS "materialName",
+			slm.SN_NO AS "snNo",
+			ssni.PRODUCTION_DATE AS "productionDate",
+			slm.NUM AS "num",
+			ssi.LENDING_TYPE AS "lendingType",
+			slm.LENDER_NAME AS "lendingName",
+			ssi.INDUSTRY AS "industry",
+			ssi.NEW_REMARKS AS "newRemarks",
+			ssi.ACCESSORIES_REMARKS AS "accessoriesRemarks",
+			slm.LENDING_DATE_FROM AS "lendingDateFrom",
+			slm.LENDING_DATE_TO AS "lendingDateTo",
+			su.NAME AS "responsiblePersonName"
+		FROM
+			sm_lending_mat slm
+		INNER JOIN sm_storage_info ssi ON slm.storage_id = ssi.STORAGE_ID AND ssi.STORAGE_TYPE = '22'
+		INNER JOIN sm_mat_info smi ON slm.MATERIAL_NO = smi.MATERIAL_NO
+		LEFT JOIN sm_sn_info ssni ON ssni.SN_NO = slm.SN_NO AND ssni.MATERIAL_NO = slm.MATERIAL_NO
+		LEFT JOIN sys_user su ON su.id = ssi.RESPONSIBLE_PERSON_ID
+		WHERE
+			slm.DEL_FLAG = '0'
+			<if test="snNo != null and snNo != ''">
+				AND slm.SN_NO like CONCAT(CONCAT('%', #{snNo}), '%')
+			</if>
+			<if test="materialNo != null and materialNo != ''">
+				AND slm.MATERIAL_NO = #{materialNo}
+			</if>
+			<if test="materialName != null and materialName != ''">
+				AND (smi.MATERIAL_NAME like CONCAT(CONCAT('%', #{materialName}), '%')
+					OR smi.model like CONCAT(CONCAT('%', #{materialName}), '%'))
+			</if>
+			<if test="lendingType != null and lendingType != ''">
+				AND ssi.LENDING_TYPE = #{lendingType}
+			</if>
+			<if test="ifExpired == '1'.toString()">
+				AND DATE_FORMAT(NOW(), '%Y%m%d') > DATE_FORMAT(slm.LENDING_DATE_TO, '%Y%m%d')
+			</if>
+			<if test="sqlMap != null and sqlMap.dataScope != null">
+				AND ssi.RESPONSIBLE_PERSON_ID in ${sqlMap.dataScope}
+			</if>
+		ORDER BY slm.LENDING_DATE_FROM DESC
+	</select>
+</mapper>

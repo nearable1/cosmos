@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.pm.dao.SmSnInfoDao">
+    
+	<sql id="smSnInfoColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.sn_no AS "snNo",
+		a.material_no AS "materialNo",
+		a.storage_id AS "storageId",
+		a.warehouse AS "warehouse",
+		a.production_date AS "productionDate",
+		a.entry_date AS "entryDate",
+		a.machine_type AS "machineType",
+		a.status AS "status",
+		a.warranty_date_from AS "warrantyDateFrom",
+		a.warranty_date_to AS "warrantyDateTo",
+		a.if_install AS "ifInstall",
+		a.install_person_id AS "installPersonId",
+		a.latest_install_date AS "latestInstallDate",
+		a.actual_install_date AS "actualInstallDate",
+		a.purchase_no AS "purchaseNo",
+		a.order_no AS "orderNo",
+		a.line_no AS "lineNo",
+		a.old_order_no AS "oldOrderNo",
+		a.old_line_no AS "oldLineNo"
+	</sql>
+	
+	<sql id="smSnInfoJoins">
+	</sql>
+    
+	<select id="get" resultType="SmSnInfo">
+		SELECT 
+			<include refid="smSnInfoColumns"/>
+		FROM sm_sn_info a
+		<include refid="smSnInfoJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SmSnInfo">
+		SELECT 
+			<include refid="smSnInfoColumns"/>
+		FROM sm_sn_info a
+		<include refid="smSnInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SmSnInfo">
+		SELECT 
+			<include refid="smSnInfoColumns"/>
+		FROM sm_sn_info a
+		<include refid="smSnInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sm_sn_info(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			sn_no,
+			material_no,
+			storage_id,
+			warehouse,
+			production_date,
+			entry_date,
+			machine_type,
+			status,
+			warranty_date_from,
+			warranty_date_to,
+			if_install,
+			install_person_id,
+			latest_install_date,
+			actual_install_date,
+			purchase_no,
+			order_no,
+			line_no,
+			old_order_no,
+			old_line_no
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{snNo},
+			#{materialNo},
+			#{storageId},
+			#{warehouse},
+			#{productionDate},
+			#{entryDate},
+			#{machineType},
+			#{status},
+			#{warrantyDateFrom},
+			#{warrantyDateTo},
+			#{ifInstall},
+			#{installPersonId},
+			#{latestInstallDate},
+			#{actualInstallDate},
+			#{purchaseNo},
+			#{orderNo},
+			#{lineNo},
+			#{oldOrderNo},
+			#{oldLineNo}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sm_sn_info SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			sn_no = #{snNo},
+			material_no = #{materialNo},
+			storage_id = #{storageId},
+			warehouse = #{warehouse},
+			production_date = #{productionDate},
+			entry_date = #{entryDate},
+			machine_type = #{machineType},
+			status = #{status},
+			warranty_date_from = #{warrantyDateFrom},
+			warranty_date_to = #{warrantyDateTo},
+			if_install = #{ifInstall},
+			install_person_id = #{installPersonId},
+			latest_install_date = #{latestInstallDate},
+			actual_install_date = #{actualInstallDate},
+			purchase_no = #{purchaseNo},
+			order_no = #{orderNo},
+			line_no = #{lineNo},
+			old_order_no = #{oldOrderNo},
+			old_line_no = #{oldLineNo}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sm_sn_info SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 查询sn编号是否存在 -->
+	<select id="findCountBySnNo" resultType="java.lang.Integer">
+		SELECT count(a.sn_no)
+		FROM sm_sn_info a
+		<where>
+		    a.sn_no = #{snNo}
+		</where>		
+	</select>
+	
+</mapper>

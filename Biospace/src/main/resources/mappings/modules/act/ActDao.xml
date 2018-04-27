@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.modules.act.dao.ActDao">
+    
+	<update id="updateProcInsIdByBusinessId">
+		UPDATE ${businessTable} SET 
+			update_date = now(),
+			proc_ins_id = #{procInsId}
+		WHERE id = #{businessId}
+	</update>
+	
+	<update id="updateWorkFlowStatusByBusinessId">
+		UPDATE ${businessTable} SET 
+			update_date = now(),
+			workflow_status = #{status}
+		WHERE id = #{businessId}
+	</update>
+	
+	<select id="getWorkFlowStatusByBusinessId" resultType="java.lang.String">
+		SELECT workflow_status FROM ${businessTable}
+		WHERE id = #{businessId}
+	</select>
+	
+	<select id="getWorkFlowStatus2ByBusinessId" resultType="java.lang.String">
+		SELECT workflow_status2 FROM ${businessTable}
+		WHERE id = #{businessId}
+	</select>
+	
+	<select id="getOrderNoByBusinessId" resultType="java.lang.String">
+		SELECT ORDER_NO FROM so_order
+		WHERE id = #{businessId}
+	</select>
+	
+	<update id="updateWorkFlowStatusByOrderNo">
+		UPDATE ${businessTable} SET 
+			update_date = now(),
+			workflow_status = #{status}
+		WHERE order_no = #{businessId}
+	</update>
+	
+	<update id="updateWorkFlowStatus2ByBusinessId">
+		UPDATE ${businessTable} SET 
+			update_date = now(),
+			workflow_status2 = #{status}
+		WHERE id = #{businessId}
+	</update>
+	
+	<update id="updateCustomerVisitDateByBusinessId">
+		
+		update  cm_customer_info a inner join  
+			(select customer_name,max( d.act_date_from )as act_date_from    
+			from vr_visit_dtl d
+			inner join vr_visit v on d.visit_no = v.visit_no 
+			and v.id = #{businessId} and d.if_visit = 1 
+			group by d.customer_name 
+			)as dtv
+			on a.customer_id = dtv.customer_name 
+		set a.last_visit_date = dtv.act_date_from 
+		 where a.customer_id = dtv.customer_name
+		<![CDATA[
+			and if(a.last_visit_date is null,'1900-01-01',a.last_visit_date) < dtv.act_date_from  
+			]]>
+	</update>
+	
+	<update id="deleteBusinessDataById">
+		UPDATE ${businessTable} SET 
+			update_date = now(),
+			proc_ins_id = NULL,
+			workflow_status = #{status},
+			del_flag = '1'
+		WHERE id = #{businessId}
+	</update>
+</mapper>

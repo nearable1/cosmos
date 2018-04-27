@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.pm.dao.SmStorageInfoDao">
+    
+	<sql id="smStorageInfoColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.storage_id AS "storageId",
+		a.storage_apply_id AS "storageApplyId",
+		a.storage_type AS "storageType",
+		a.purchase_no AS "purchaseNo",
+		a.order_no AS "orderNo",
+		a.line_no AS "lineNo",
+		a.sn_no AS "snNo",
+		a.material_no AS "materialNo",
+		a.num AS "num",
+		a.warehouse AS "warehouse",
+		a.process_date AS "processDate",
+		a.responsible_person_id AS "responsiblePersonId",
+		a.new_remarks AS "newRemarks",
+		a.lending_type AS "lendingType",
+		a.industry AS "industry",
+		a.address AS "address",
+		a.contacts_name AS "contactsName",
+		a.telephone AS "telephone",
+		a.accessories_remarks AS "accessoriesRemarks",
+		a.lending_date_from AS "lendingDateFrom",
+		a.lending_date_to AS "lendingDateTo",
+		a.extend_date_to AS "extendDateTo"
+	</sql>
+	
+	<sql id="smStorageInfoJoins">
+	</sql>
+    
+	<select id="get" resultType="SmStorageInfo">
+		SELECT 
+			<include refid="smStorageInfoColumns"/>
+		FROM sm_storage_info a
+		<include refid="smStorageInfoJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SmStorageInfo">
+		SELECT 
+			<include refid="smStorageInfoColumns"/>
+		FROM sm_storage_info a
+		<include refid="smStorageInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SmStorageInfo">
+		SELECT 
+			<include refid="smStorageInfoColumns"/>
+		FROM sm_storage_info a
+		<include refid="smStorageInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sm_storage_info(
+			id,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			storage_id,
+			storage_apply_id,
+			storage_type,
+			purchase_no,
+			order_no,
+			line_no,
+			sn_no,
+			material_no,
+			num,
+			warehouse,
+			process_date,
+			responsible_person_id,
+			new_remarks,
+			lending_type,
+			industry,
+			address,
+			contacts_name,
+			telephone,
+			accessories_remarks,
+			lending_date_from,
+			lending_date_to,
+			extend_date_to
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{storageId},
+			#{storageApplyId},
+			#{storageType},
+			#{purchaseNo},
+			#{orderNo},
+			#{lineNo},
+			#{snNo},
+			#{materialNo},
+			#{num},
+			#{warehouse},
+			#{processDate},
+			#{responsiblePersonId},
+			#{newRemarks},
+			#{lendingType},
+			#{industry},
+			#{address},
+			#{contactsName},
+			#{telephone},
+			#{accessoriesRemarks},
+			#{lendingDateFrom},
+			#{lendingDateTo},
+			#{extendDateTo}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sm_storage_info SET 	
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			storage_id = #{storageId},
+			storage_apply_id = #{storageApplyId},
+			storage_type = #{storageType},
+			purchase_no = #{purchaseNo},
+			order_no = #{orderNo},
+			line_no = #{lineNo},
+			sn_no = #{snNo},
+			material_no = #{materialNo},
+			num = #{num},
+			warehouse = #{warehouse},
+			process_date = #{processDate},
+			responsible_person_id = #{responsiblePersonId},
+			new_remarks = #{newRemarks},
+			lending_type = #{lendingType},
+			industry = #{industry},
+			address = #{address},
+			contacts_name = #{contactsName},
+			telephone = #{telephone},
+			accessories_remarks = #{accessoriesRemarks},
+			lending_date_from = #{lendingDateFrom},
+			lending_date_to = #{lendingDateTo},
+			extend_date_to = #{extendDateTo}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sm_storage_info SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

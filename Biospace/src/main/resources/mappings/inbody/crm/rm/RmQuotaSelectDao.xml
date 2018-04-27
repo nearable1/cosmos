@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inbody.crm.rm.dao.RmQuotaSelectDao">
+    <!-- 取得报价单明细配件物料信息 -->
+    <select id="getQuotaMaterialDictList" resultType="com.inbody.crm.rm.domain.QuotaSelect">
+        SELECT 
+            d.material_no AS "id",
+            d.material_name AS "text",
+            d.safety_stock AS "safetyStock",
+            d.material_type AS "type",
+            d.if_sn AS "ifSn",
+            d.old_material_no AS "oldMaterialNo",
+            e.unit_price AS "unitPrice",
+            IFNULL(f.num, 0) AS "num",
+            IFNULL(f.available, 0) AS "availableQuantity",
+            f.warehouse AS "warehouse",
+            g.num AS "oldMaterialNum",
+            h.label AS "warehouseName"
+        FROM sm_sn_info a 
+        INNER JOIN sm_mat_info b ON b.material_no = a.material_no AND b.material_type = '1'
+        INNER JOIN sm_accessory_info c ON c.main_material_no = a.material_no
+        LEFT JOIN sm_mat_info d ON d.material_no = c.material_no
+        LEFT JOIN ps_price_info e ON e.price_system = '6' AND e.material_no = d.material_no
+        LEFT JOIN (SELECT 
+                       t1.material_no,
+                       t1.warehouse,
+                       sum(t1.num) AS "num",
+                       sum(t1.num - IFNULL(t1.occupation_no, 0)) AS "available"
+                   FROM sm_warehouse_info t1
+                   WHERE t1.in_stock_status = '1'
+                   GROUP BY t1.material_no, t1.warehouse) f ON f.material_no = d.material_no 
+        LEFT JOIN (SELECT 
+                       t1.material_no,
+                       sum(t1.num) AS "num"
+                   FROM sm_warehouse_info t1
+                   WHERE t1.in_stock_status = '1'
+                   GROUP BY t1.material_no) g ON g.material_no = d.old_material_no 
+        LEFT JOIN sys_dict h ON h.type = 'DM0050' and h.value = f.warehouse
+        <where>
+            a.del_flag = '0'
+            AND a.sn_no = #{snNo}
+            <if test="kw != null and kw != ''">
+            AND (d.material_no LIKE CONCAT('%', #{kw}, '%')
+                 OR d.material_name LIKE CONCAT('%', #{kw}, '%'))
+            </if>
+        </where>
+        ORDER BY f.available DESC
+    </select>
+
+    <!-- 取得报价单明细服务物料信息 -->
+    <select id="getQuotaServiceDictList" resultType="com.inbody.crm.rm.domain.QuotaSelect">
+        SELECT 
+            a.material_no AS "id",
+            CONCAT(a.material_name, " ", a.model) AS "text",
+            a.material_type AS "type"
+        FROM sm_mat_info a
+        <where>
+            a.del_flag = '0'
+            AND material_type = '6'
+            <if test="kw != null and kw != ''">
+            AND (a.material_no LIKE CONCAT(CONCAT('%', #{kw}), '%')
+                 OR a.material_name LIKE CONCAT(CONCAT('%', #{kw}), '%')
+                 OR a.model LIKE CONCAT('%', #{kw}, '%'))
+            </if>
+        </where>
+    </select>
+    
+    <!-- 取得报价单明细新sn信息 -->
+    <select id="getQuotaNewSnDictList" resultType="com.inbody.crm.rm.domain.QuotaSelect">
+        SELECT 
+            a.sn_no AS "id",
+            a.sn_no AS "text",
+            a.production_date AS "productionDate"
+        FROM sm_sn_info a
+        <where>
+            a.del_flag = '0'
+            AND a.material_no = #{materialNo}
+            AND a.warehouse = #{warehouse}
+            <if test="kw != null and kw != ''">
+            AND a.sn_no LIKE CONCAT(CONCAT('%', #{kw}), '%')
+            </if>
+        </where>
+    </select>
+</mapper>
