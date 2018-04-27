@@ -112,7 +112,8 @@ public class Action {
 			@RequestParam(value="platform") String platform,
 			@RequestParam(value="appname") String appname,
 			@RequestParam(value="sdkversion") String sdkversion,
-			@RequestParam(value="logversion") String logversion) {
+			@RequestParam(value="logversion") String logversion,
+			@RequestParam(value="keywords") String keywords) {
 		
 		String result = null;
 		
@@ -123,40 +124,53 @@ public class Action {
 				+ "&platform="+platform
 				+ "&appname="+appname
 				+ "&sdkversion="+sdkversion
-				+ "&logversion="+logversion;
-		System.out.println("around:"+url);
+				+ "&logversion="+logversion
+				+ "&keywords="+keywords;
 		result = urlString.getDataFromUrl(url);
 		
 		return result;
 	}
 	
-//	@RequestMapping(value="/v3/staticmap",produces="text/html;charset=UTF-8")
-//	@ResponseBody
-//	public String getStaticmap(@RequestParam(value="location") String location,
-//			@RequestParam(value="zoom") String zoom,
-//			@RequestParam(value="size") String size,
-//			@RequestParam(value="scale") String scale,
-//			@RequestParam(value="markers") String markers,
-//			@RequestParam(value="labels") String labels,
-//			@RequestParam(value="paths") String paths,
-//			@RequestParam(value="traffic") String traffic) {
-//		
-//		String result = null;
-//		
-//		String url = "https://restapi.amap.com/v3/staticmap?"
-//				+ "location="+location
-//				+ "&zoom="+zoom
-//				+ "&size="+size
-//				+ "&scale="+scale
-//				+ "&markers="+markers
-//				+ "&labels="+labels
-//				+ "&paths="+paths
-//				+ "&traffic="+traffic;
-//		
-//		result = urlString.getDataFromUrl(url);
-//		
-//		return result;
-//	}
+	@RequestMapping(value="/v3/staticmap",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getStaticmap(
+			@RequestParam(value="key") String key,
+			@RequestParam(value="s") String s,
+			@RequestParam(value="platform") String platform,
+			@RequestParam(value="appname") String appname,
+			@RequestParam(value="sdkversion") String sdkversion,
+			@RequestParam(value="logversion") String logversion,
+			@RequestParam(value="location") String location,
+			@RequestParam(value="zoom") String zoom,
+			@RequestParam(value="size") String size,
+			@RequestParam(value="scale") String scale,
+			@RequestParam(value="markers") String markers,
+			@RequestParam(value="labels") String labels,
+			@RequestParam(value="paths") String paths,
+			@RequestParam(value="traffic") String traffic) {
+		
+		String result = null;
+		
+		String url = "https://restapi.amap.com/v3/staticmap?"
+				+ "key="+key
+				+ "&s="+s
+				+ "&platform="+platform
+				+ "&appname="+appname
+				+ "&sdkversion="+sdkversion
+				+ "&logversion="+logversion
+				+ "&location="+location
+				+ "&zoom="+zoom
+				+ "&size="+size
+				+ "&scale="+scale
+				+ "&markers="+markers
+				+ "&labels="+labels
+				+ "&paths="+paths
+				+ "&traffic="+traffic;
+		
+		result = urlString.getDataFromUrl(url);
+		
+		return result;
+	}
 	
 	@RequestMapping(value="/v3/assistant/inputtips",produces="text/html;charset=UTF-8")
 	@ResponseBody
@@ -165,7 +179,9 @@ public class Action {
 			@RequestParam(value="platform") String platform,
 			@RequestParam(value="appname") String appname,
 			@RequestParam(value="sdkversion") String sdkversion,
-			@RequestParam(value="logversion") String logversion) {
+			@RequestParam(value="logversion") String logversion,
+			@RequestParam(value="location") String location,
+			@RequestParam(value="keywords") String keywords) {
 		
 		String result = null;
 		
@@ -175,8 +191,9 @@ public class Action {
 				+ "&platform="+platform
 				+ "&appname="+appname
 				+ "&sdkversion="+sdkversion
-				+ "&logversion="+logversion;
-		System.out.println("url:"+url);
+				+ "&logversion="+logversion
+				+ "&location="+location
+				+ "&keywords="+keywords;
 		result = urlString.getDataFromUrl(url);
 		
 		return result;
@@ -189,7 +206,9 @@ public class Action {
 			@RequestParam(value="platform") String platform,
 			@RequestParam(value="appname") String appname,
 			@RequestParam(value="sdkversion") String sdkversion,
-			@RequestParam(value="logversion") String logversion) {
+			@RequestParam(value="logversion") String logversion,
+			@RequestParam(value="origin") String origin,
+			@RequestParam(value="destination") String destination) {
 		
 		String result = null;
 		
@@ -199,7 +218,9 @@ public class Action {
 				+ "&platform="+platform
 				+ "&appname="+appname
 				+ "&sdkversion="+sdkversion
-				+ "&logversion="+logversion;
+				+ "&logversion="+logversion
+				+ "&origin="+origin
+				+ "&destination="+destination;
 		
 		result = urlString.getDataFromUrl(url);
 		
@@ -213,7 +234,9 @@ public class Action {
 			@RequestParam(value="platform") String platform,
 			@RequestParam(value="appname") String appname,
 			@RequestParam(value="sdkversion") String sdkversion,
-			@RequestParam(value="logversion") String logversion) {
+			@RequestParam(value="logversion") String logversion,
+			@RequestParam(value="origin") String origin,
+			@RequestParam(value="destination") String destination) {
 		
 		String result = null;
 		
@@ -223,7 +246,9 @@ public class Action {
 				+ "&platform="+platform
 				+ "&appname="+appname
 				+ "&sdkversion="+sdkversion
-				+ "&logversion="+logversion;
+				+ "&logversion="+logversion
+				+ "&origin="+origin
+				+ "&destination="+destination;
 		
 		result = urlString.getDataFromUrl(url);
 		
@@ -237,7 +262,9 @@ public class Action {
 			@RequestParam(value="platform") String platform,
 			@RequestParam(value="appname") String appname,
 			@RequestParam(value="sdkversion") String sdkversion,
-			@RequestParam(value="logversion") String logversion) {
+			@RequestParam(value="logversion") String logversion,
+			@RequestParam(value="origin") String origin,
+			@RequestParam(value="destination") String destination) {
 		
 		String result = null;
 		
@@ -247,7 +274,9 @@ public class Action {
 				+ "&platform="+platform
 				+ "&appname="+appname
 				+ "&sdkversion="+sdkversion
-				+ "&logversion="+logversion;
+				+ "&logversion="+logversion
+				+ "&origin="+origin
+				+ "&destination="+destination;
 		
 		result = urlString.getDataFromUrl(url);
 		
@@ -261,7 +290,9 @@ public class Action {
 			@RequestParam(value="platform") String platform,
 			@RequestParam(value="appname") String appname,
 			@RequestParam(value="sdkversion") String sdkversion,
-			@RequestParam(value="logversion") String logversion) {
+			@RequestParam(value="logversion") String logversion,
+			@RequestParam(value="origin") String origin,
+			@RequestParam(value="destination") String destination) {
 		
 		String result = null;
 		
@@ -271,7 +302,9 @@ public class Action {
 				+ "&platform="+platform
 				+ "&appname="+appname
 				+ "&sdkversion="+sdkversion
-				+ "&logversion="+logversion;
+				+ "&logversion="+logversion
+				+ "&origin="+origin
+				+ "&destination="+destination	;
 		
 		result = urlString.getDataFromUrl(url);
 		

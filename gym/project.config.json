@@ -1,5 +1,8 @@
 {
 	"description": "项目配置文件。",
+	"packOptions": {
+		"ignore": []
+	},
 	"setting": {
 		"urlCheck": true,
 		"es6": true,
@@ -8,10 +11,9 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.93",
-	"appid": "wx33800aa282ed651b",
-	"projectname": "gym",
-	"isGameTourist": false,
+	"libVersion": "1.9.98",
+	"appid": "touristappid",
+	"projectname": "%E5%95%86%E5%9F%8E1",
 	"condition": {
 		"search": {
 			"current": -1,
