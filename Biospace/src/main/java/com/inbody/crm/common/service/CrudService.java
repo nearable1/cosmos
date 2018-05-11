@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inbody.crm.common.persistence.CrudDao;
 import com.inbody.crm.common.persistence.DataEntity;
 import com.inbody.crm.common.persistence.Page;
+import com.inbody.crm.modules.family.entity.FamilyTwo;
 
 /**
  * Service基类
@@ -51,6 +52,13 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 	 */
 	public List<T> findList(T entity) {
 		return dao.findList(entity);
+	}
+	
+	/**
+	 * 查询familytwo
+	 */
+	public List<FamilyTwo> findFamily(String id) {
+		return dao.findFamily(id);
 	}
 	
 	/**

@@ -1,6 +1,4 @@
 {
-  "backgroundColor": "#fafafa",
-  "navigationBarBackgroundColor": "#0290c0",
-  "navigationBarTextStyle": "white",
-  "backgroundTextStyle": "dark"
+  "navigationBarTitleText": "商城首页",
+  "enablePullDownRefresh": true
 }

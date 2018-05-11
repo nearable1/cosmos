@@ -5,6 +5,8 @@ package com.inbody.crm.common.persistence;
 
 import java.util.List;
 
+import com.inbody.crm.modules.family.entity.FamilyTwo;
+
 /**
  * DAO支持类实现
  * @author ThinkGem
@@ -33,6 +35,11 @@ public interface CrudDao<T> extends BaseDao {
 	 * @return
 	 */
 	public List<T> findList(T entity);
+	
+	/**
+	 * 根据sellerId查询familytwo
+	 */
+	public List<FamilyTwo> findFamily(String id);
 	
 	/**
 	 * 查询所有数据列表

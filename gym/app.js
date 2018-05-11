@@ -1,127 +1,408 @@
 //app.js
-var e = require("utils/core.js");
+var util = require('./utils/utils.js');
+var api;
 App({
-  onLaunch: function () {
-    var e = this.getCache("userinfo");
-    ("" == e || e.needauth) && this.getUserInfo(function (e) { }, function (e, t) {
-      var t = t ? 1 : 0,
-        e = e || "";
-      //页面重定向
-      t && wx.redirectTo({
-        url: "/pages/message/auth/index?close=" + t + "&text=" + e
-      })
-    })
-  },
-  requirejs: function (e) {
-    return require("utils/" + e + ".js")
-  },
-  getCache: function (e, t) {
-    var i = +new Date / 1000,
-      n = "";
-    i = parseInt(i);
-    try {
-      n = wx.getStorageSync(e + this.globalData.appid),
-        n.expire > i || 0 == n.expire ? n = n.value : (n = "", this.removeCache(e))
-    } catch (e) {
-      n = void 0 === t ? "" : t
-    }
-    return n = n || ""
-  },
-  setCache: function (e, t, i) {
-    var n = +new Date / 1000,
-      a = true,
-      o = {
-        expire: i ? n + parseInt(i) : 0,
-        value: t
-      };
-    try {
-      wx.setStorageSync(e + this.globalData.appid, o)
-    } catch (e) {
-      a = false
-    }
-    return a
-  },
-  removeCache: function (e) {
-    var t = true;
-    try {
-      wx.removeStorageSync(e + this.globalData.appid)
-    } catch (e) {
-      t = false
-    }
-    return t
-  },
-  getUserInfo: function (t, i) {
-    var n = this,
-      a = n.getCache("userinfo");
-    if (a && !a.needauth)
-      return void (t && "function" == typeof t && t(a));
-    wx.login({
-      success: function (o) {
-        if (!o.code)
-          return void e.alert("获取用户登录态失败:" + o.errMsg);
-        e.post("wxapp/login", {
-          code: o.code
-        }, function (o) {
-          return o.error ? void e.alert("获取用户登录态失败:" + o.message) : o.isclose && i && "function" == typeof i ? void i(o.closetext, true) : void wx.getUserInfo({
-            success: function (i) {
-              a = i.userInfo,
-                e.get("wxapp/auth", {
-                  data: i.encryptedData,
-                  iv: i.iv,
-                  sessionKey: o.session_key
-                }, function (e) {
-                  i.userInfo.openid = e.openId,
-                    i.userInfo.id = e.id,
-                    i.userInfo.uniacid = e.uniacid,
-                    i.needauth = 0,
-                    n.setCache("userinfo", i.userInfo, 7200),
-                    t && "function" == typeof t && t(a)
-                })
+    is_on_launch: true,
+    onLaunch: function () {
+        this.setApi();
+        api = this.api;
+
+        this.getNavigationBarColor();
+        console.log(wx.getSystemInfoSync());
+        this.getStoreData();
+        this.getCatList();
+    },
+
+    getStoreData: function () {
+        var page = this;
+        this.request({
+            url: api.default.store,
+            success: function (res) {
+                if (res.code == 0) {
+                    wx.setStorageSync("store", res.data.store);
+                    wx.setStorageSync("store_name", res.data.store_name);
+                    wx.setStorageSync("show_customer_service", res.data.show_customer_service);
+                    wx.setStorageSync("contact_tel", res.data.contact_tel);
+                    wx.setStorageSync("share_setting", res.data.share_setting);
+                }
             },
-            fail: function () {
-              e.get("wxapp/check", {
-                openid: o.openid
-              }, function (e) {
-                e.needauth = 1,
-                  n.setCache("userinfo", e, 7200),
-                  t && "function" == typeof t && t(a)
-              })
+            complete: function () {
+                page.login();
             }
-          })
+        });
+    },
+
+    getCatList: function () {
+        this.request({
+            url: api.default.cat_list,
+            success: function (res) {
+                if (res.code == 0) {
+                    var cat_list = res.data.list || [];
+                    wx.setStorageSync("cat_list", cat_list);
+                }
+            }
+        });
+    },
+
+    login: function () {
+        var pages = getCurrentPages();
+        var page = pages[(pages.length - 1)];
+        wx.showLoading({
+            title: "正在登录",
+            mask: true,
+        });
+        wx.login({
+            success: function (res) {
+                if (res.code) {
+                    var code = res.code;
+                    wx.getUserInfo({
+                        success: function (res) {
+                            //console.log(res);
+                            getApp().request({
+                                url: api.passport.login,
+                                method: "post",
+                                data: {
+                                    code: code,
+                                    user_info: res.rawData,
+                                    encrypted_data: res.encryptedData,
+                                    iv: res.iv,
+                                    signature: res.signature
+                                },
+                                success: function (res) {
+                                    wx.hideLoading();
+                                    // console.log(code)
+                                    if (res.code == 0) {
+                                        wx.setStorageSync("access_token", res.data.access_token);
+                                        wx.setStorageSync("user_info", {
+                                            nickname: res.data.nickname,
+                                            avatar_url: res.data.avatar_url,
+                                            is_distributor: res.data.is_distributor,
+                                            parent: res.data.parent,
+                                            id: res.data.id,
+                                            is_clerk: res.data.is_clerk
+                                        });
+                                        // console.log(res);
+                                        // var parent_id = wx.getStorageSync("parent_id");
+                                        var p = getCurrentPages();
+                                        var parent_id = 0;
+                                        if (p[0].options.user_id != undefined) {
+                                            var parent_id = p[0].options.user_id;
+                                        }
+                                        else if (p[0].options.scene != undefined) {
+                                            var parent_id = p[0].options.scene;
+                                        }
+                                        // console.log(parent_id, p[0].options.scene, p[0].options.user_id);
+                                        getApp().bindParent({
+                                            parent_id: parent_id || 0
+                                        });
+
+                                        if (page == undefined) {
+                                            return;
+
+                                        }
+                                        var loginNoRefreshPage = getApp().loginNoRefreshPage;
+                                        for (var i in loginNoRefreshPage) {
+                                            if (loginNoRefreshPage[i] === page.route)
+                                                return;
+                                        }
+                                        wx.redirectTo({
+                                            url: "/" + page.route + "?" + util.objectToUrlParams(page.options),
+                                            fail: function () {
+                                                wx.switchTab({
+                                                    url: "/" + page.route,
+                                                });
+                                            },
+                                        });
+                                    } else {
+                                        wx.showToast({
+                                            title: res.msg
+                                        });
+                                    }
+                                }
+                            });
+                        },
+                        fail: function (res) {
+                            wx.hideLoading();
+                            getApp().getauth({
+                                content: '需要获取您的用户信息授权，请到小程序设置中打开授权',
+                                cancel: true,
+                                success: function (e) {
+                                    if (e) {
+                                        getApp().login();
+                                    }
+                                },
+                            });
+                        }
+                    });
+                } else {
+                    //console.log(res);
+                }
+
+            }
+        });
+    },
+    request: function (object) {
+        if (!object.data)
+            object.data = {};
+        var access_token = wx.getStorageSync("access_token");
+        if (access_token) {
+            object.data.access_token = access_token;
+        }
+        object.data._uniacid = this.siteInfo.uniacid;
+        object.data._acid = this.siteInfo.acid;
+        wx.request({
+            url: object.url,
+            header: object.header || {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            data: object.data || {},
+            method: object.method || "GET",
+            dataType: object.dataType || "json",
+            success: function (res) {
+                if (res.data.code == -1) {
+                    getApp().login();
+                } else {
+                    if (object.success)
+                        object.success(res.data);
+                }
+            },
+            fail: function (res) {
+                var app = getApp();
+                if (app.is_on_launch) {
+                    app.is_on_launch = false;
+                    wx.showModal({
+                        title: "网络请求出错",
+                        content: res.errMsg,
+                        showCancel: false,
+                        success: function (res) {
+                            if (res.confirm) {
+                                if (object.fail)
+                                    object.fail(res);
+                            }
+                        }
+                    });
+                } else {
+                    wx.showToast({
+                        title: res.errMsg,
+                        image: "/images/icon-warning.png",
+                    });
+                    if (object.fail)
+                        object.fail(res);
+                }
+            },
+            complete: function (res) {
+                if (object.complete)
+                    object.complete(res);
+            }
+        });
+    },
+    saveFormId: function (form_id) {
+        this.request({
+            url: api.user.save_form_id,
+            data: {
+                form_id: form_id,
+            }
+        });
+    },
+
+    loginBindParent: function (object) {
+        var access_token = wx.getStorageSync("access_token");
+        if (access_token == '') {
+            return true;
+        }
+        getApp().bindParent(object);
+    },
+    bindParent: function (object) {
+        if (object.parent_id == "undefined" || object.parent_id == 0)
+            return;
+        console.log("Try To Bind Parent With User Id:" + object.parent_id);
+        var user_info = wx.getStorageSync("user_info");
+        var share_setting = wx.getStorageSync("share_setting");
+        if (share_setting.level > 0) {
+            var parent_id = object.parent_id;
+            if (parent_id != 0) {
+                getApp().request({
+                    url: api.share.bind_parent,
+                    data: {parent_id: object.parent_id},
+                    success: function (res) {
+                        if (res.code == 0) {
+                            user_info.parent = res.data
+                            wx.setStorageSync('user_info', user_info);
+                        }
+                    }
+                });
+            }
+        }
+    },
+
+    /**
+     * 分享送优惠券
+     * */
+    shareSendCoupon: function (page) {
+        wx.showLoading({
+            mask: true,
+        });
+        if (!page.hideGetCoupon) {
+            page.hideGetCoupon = function (e) {
+                var url = e.currentTarget.dataset.url || false;
+                page.setData({
+                    get_coupon_list: null,
+                });
+                if (url) {
+                    wx.navigateTo({
+                        url: url,
+                    });
+                }
+            };
+        }
+        this.request({
+            url: api.coupon.share_send,
+            success: function (res) {
+                if (res.code == 0) {
+                    page.setData({
+                        get_coupon_list: res.data.list
+                    });
+                }
+            },
+            complete: function () {
+                wx.hideLoading();
+            }
+        });
+    },
+    getauth: function (object) {
+        wx.showModal({
+            title: '是否打开设置页面重新授权',
+            content: object.content,
+            confirmText: '去设置',
+            success: function (e) {
+                if (e.confirm) {
+                    wx.openSetting({
+                        success: function (res) {
+                            if (object.success) {
+                                object.success(res);
+                            }
+                        },
+                        fail: function (res) {
+                            if (object.fail) {
+                                object.fail(res);
+                            }
+                        },
+                        complete: function (res) {
+                            if (object.complete)
+                                object.complete(res);
+                        }
+                    })
+                } else {
+                    if (object.cancel) {
+                        getApp().getauth(object);
+                    }
+                }
+            }
         })
-      },
-      fail: function () {
-        e.alert("获取用户信息失败!")
-      }
-    })
-  },
-  getSet: function () {
-    var t = this;
-    "" == t.getCache("sysset") && setTimeout(function () {
-      var i = t.getCache("cacheset");
-      e.get("cacheset", {
-        version: i.version
-      }, function (e) {
-        e.update && t.setCache("cacheset", e.data),
-          t.setCache("sysset", e.sysset, 7200)
-      })
-    }, 10)
-  },
-  url: function (e) {
-    e = e || {};
-    var t = {},
-      i = "",
-      n = "",
-      a = this.getCache("usermid");
-    i = e.mid || "",
-      n = e.merchid || "",
-      "" != a ? ("" != a.mid && void 0 !== a.mid || (t.mid = i), "" != a.merchid && void 0 !== a.merchid || (t.merchid = n)) : (t.mid = i, t.merchid = n),
-      this.setCache("usermid", t, 7200)
-  },
-  globalData: {
-    appid: "wx4d3711e53cb26534",
-    api: "https://demo.we7.cc/app/ewei_shopv2_api.php?i=1",
-    approot: "https://demo.we7.cc/addons/ewei_shopv2/",
-    userInfo: null
-  }
-})
+    },
+
+    api: require('api.js'),
+    setApi: function () {
+        var siteroot = this.siteInfo.siteroot;
+        siteroot = siteroot.replace('app/index.php', '');
+        siteroot += 'addons/zjhj_mall/core/web/index.php?store_id=-1&r=api/';
+
+        function getNewApiUri(api) {
+            for (var i in api) {
+                if (typeof api[i] === 'string') {
+                    api[i] = api[i].replace('{$_api_root}', siteroot);
+                } else {
+                    api[i] = getNewApiUri(api[i]);
+                }
+            }
+            return api;
+        }
+
+        this.api = getNewApiUri(this.api);
+    },
+    siteInfo: require('siteinfo.js'),
+    pageOnLoad: function (page) {
+        console.log('--------pageOnLoad----------');
+        this.setNavigationBarColor();
+        this.setPageNavbar(page);
+    },
+    pageOnReady: function (page) {
+        console.log('--------pageOnReady----------');
+
+    },
+    pageOnShow: function (page) {
+        console.log('--------pageOnShow----------');
+
+    },
+    pageOnHide: function (page) {
+        console.log('--------pageOnHide----------');
+
+    },
+    pageOnUnload: function (page) {
+        console.log('--------pageOnUnload----------');
+
+    },
+
+    setPageNavbar: function (page) {
+        console.log('----setPageNavbar----');
+        console.log(page);
+        var navbar = wx.getStorageSync('_navbar');
+
+        if (navbar) {
+            setNavbar(navbar);
+        }
+        this.request({
+            url: api.default.navbar,
+            success: function (res) {
+                if (res.code == 0) {
+                    setNavbar(res.data);
+                    wx.setStorageSync('_navbar', res.data);
+                }
+            }
+        });
+
+        function setNavbar(navbar) {
+            var in_navs = false;
+            var route = page.route || (page.__route__ || null);
+            for (var i in navbar.navs) {
+                if (navbar.navs[i].url === "/" + route) {
+                    navbar.navs[i].active = true;
+                    in_navs = true;
+                } else {
+                    navbar.navs[i].active = false;
+                }
+            }
+            if (!in_navs)
+                return;
+            page.setData({_navbar: navbar});
+        }
+
+    },
+
+    getNavigationBarColor: function () {
+        var app = this;
+        app.request({
+            url: api.default.navigation_bar_color,
+            success: function (res) {
+                if (res.code == 0) {
+                    wx.setStorageSync('_navigation_bar_color', res.data);
+                    app.setNavigationBarColor();
+                }
+            }
+        });
+    },
+
+    setNavigationBarColor: function () {
+        var navigation_bar_color = wx.getStorageSync('_navigation_bar_color');
+        if (navigation_bar_color) {
+            wx.setNavigationBarColor(navigation_bar_color);
+        }
+    },
+
+    //登录成功后不刷新的页面
+    loginNoRefreshPage: [
+        'pages/index/index',
+        'pages/user/user',
+    ],
+
+});
