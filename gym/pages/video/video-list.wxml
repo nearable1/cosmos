@@ -1,6 +1,7 @@
 <!--pages/video/video-list.wxml-->
 <include src="/commons/navbar/navbar"/>
 <view class="after-navber">
+
 <view>
   <navigator class="topic-bar" url="/pages/topic-list/topic-list">
                 <view class="flex-row">
@@ -48,3 +49,7 @@
         </view>
     </view>
 </view>
+
+<modal hidden="{{ifhidden}}">  
+    <button style="border:0rpx" open-type="getUserInfo">点击以授权</button>
+</modal>

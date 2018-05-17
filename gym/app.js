@@ -2,6 +2,10 @@
 var util = require('./utils/utils.js');
 var api;
 App({
+
+  data: {
+    ifhidden: false
+  },
     is_on_launch: true,
     onLaunch: function () {
         this.setApi();
@@ -14,6 +18,7 @@ App({
     },
 
     getStoreData: function () {
+
         var page = this;
         this.request({
             url: api.default.store,
@@ -55,6 +60,7 @@ App({
             success: function (res) {
                 if (res.code) {
                     var code = res.code;
+                    
                     wx.getUserInfo({
                         success: function (res) {
                             //console.log(res);
@@ -122,6 +128,7 @@ App({
                             });
                         },
                         fail: function (res) {
+                          
                             wx.hideLoading();
                             getApp().getauth({
                                 content: '需要获取您的用户信息授权，请到小程序设置中打开授权',
@@ -275,6 +282,7 @@ App({
             content: object.content,
             confirmText: '去设置',
             success: function (e) {
+              
                 if (e.confirm) {
                     wx.openSetting({
                         success: function (res) {

@@ -15,6 +15,7 @@ Page({
     hide:'hide',
     show:false,
     animationData: {},
+    ifhidden: false
   },
 
   /**
