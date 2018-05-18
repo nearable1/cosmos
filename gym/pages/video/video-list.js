@@ -15,13 +15,19 @@ Page({
     hide:'hide',
     show:false,
     animationData: {},
-    ifhidden: false
+    showModal: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if(wx.getStorageSync("count")==0) {
+      this.setData({
+        showModal: true
+      })
+    }
+    
     this.loadData(options);
     app.pageOnLoad(this);
     var page = this;
@@ -165,6 +171,30 @@ Page({
         video_list: video_list,
         animationData: this.animation.export()
       });
+    }
+  },
+
+  /**
+   * 弹出框蒙层截断touchmove事件
+   */
+  preventTouchMove: function () {
+  },
+  /**
+   * 隐藏模态对话框
+   */
+  hideModal: function () {
+    this.setData({
+      showModal: false
+    });
+  },
+  /**
+   * 对话框确认按钮点击事件
+   */
+  onConfirm: function () {
+    this.hideModal();
+
+    if(wx.getStorageSync("count")==0) {
+      wx.setStorageSync("count", 1);
     }
   }
 })

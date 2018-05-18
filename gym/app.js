@@ -2,15 +2,11 @@
 var util = require('./utils/utils.js');
 var api;
 App({
-
-  data: {
-    ifhidden: false
-  },
     is_on_launch: true,
     onLaunch: function () {
         this.setApi();
         api = this.api;
-
+        wx.setStorageSync("count", 0);
         this.getNavigationBarColor();
         console.log(wx.getSystemInfoSync());
         this.getStoreData();
@@ -32,7 +28,9 @@ App({
                 }
             },
             complete: function () {
-                page.login();
+              
+              //page.login();
+              
             }
         });
     },
@@ -52,15 +50,14 @@ App({
     login: function () {
         var pages = getCurrentPages();
         var page = pages[(pages.length - 1)];
-        wx.showLoading({
-            title: "正在登录",
-            mask: true,
-        });
+        // wx.showLoading({
+        //     title: "正在登录",
+        //     mask: true,
+        // });
         wx.login({
             success: function (res) {
                 if (res.code) {
                     var code = res.code;
-                    
                     wx.getUserInfo({
                         success: function (res) {
                             //console.log(res);
@@ -120,9 +117,9 @@ App({
                                             },
                                         });
                                     } else {
-                                        wx.showToast({
-                                            title: res.msg
-                                        });
+                                        // wx.showToast({
+                                        //     title: res.msg
+                                        // });
                                     }
                                 }
                             });
@@ -355,7 +352,6 @@ App({
         console.log('----setPageNavbar----');
         console.log(page);
         var navbar = wx.getStorageSync('_navbar');
-
         if (navbar) {
             setNavbar(navbar);
         }

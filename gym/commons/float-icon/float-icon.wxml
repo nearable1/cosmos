@@ -11,8 +11,8 @@
 </movable-area>
 -->
 
-<view direction="all" class="float-icon">
+<!-- <view direction="all" class="float-icon">
   <button open-type="contact" class="float-icon-btn">
     <image src="{{store.service}}"></image>
   </button>
-</view>
+</view> -->
