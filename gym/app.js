@@ -28,9 +28,7 @@ App({
                 }
             },
             complete: function () {
-              
-              //page.login();
-              
+                //page.login();
             }
         });
     },
@@ -125,7 +123,6 @@ App({
                             });
                         },
                         fail: function (res) {
-                          
                             wx.hideLoading();
                             getApp().getauth({
                                 content: '需要获取您的用户信息授权，请到小程序设置中打开授权',
@@ -279,7 +276,6 @@ App({
             content: object.content,
             confirmText: '去设置',
             success: function (e) {
-              
                 if (e.confirm) {
                     wx.openSetting({
                         success: function (res) {
@@ -352,6 +348,7 @@ App({
         console.log('----setPageNavbar----');
         console.log(page);
         var navbar = wx.getStorageSync('_navbar');
+
         if (navbar) {
             setNavbar(navbar);
         }
