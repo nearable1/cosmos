@@ -7,7 +7,7 @@ Page({
         name: "",
         mobile: "",
         detail: "",
-        district: null,
+        district: null
     },
     onLoad: function (options) {
         app.pageOnLoad(this);

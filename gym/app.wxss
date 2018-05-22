@@ -379,6 +379,7 @@ button[plain]{
     height: 64rpx;
     display: block;
     margin: 0 auto;
+    
 }
 
 .navbar .navbar-text{
@@ -414,4 +415,25 @@ button[plain]{
 .no-scroll {
   height: 100%;
   overflow-y: hidden;
+}
+
+.confirm {
+  width:100%;
+  height:100%;
+  background-repeat: no-repeat;
+  background-size: 64rpx 64rpx;
+  background-position-x: center;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+.confirm text {
+  height: 100%;
+  line-height: 170rpx;
+  vertical-align: bottom;
+  font-size:30rpx;
+}
+
+button[class="confirm"]::after {
+  border: none;
 }

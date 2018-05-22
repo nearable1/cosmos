@@ -69,7 +69,7 @@ Page({
       'city':this.data.region[1],
       'area':this.data.region[2]}
     wx.request({
-      url: 'https://www.4java.cn/myseat/selectSchoolByRegion.do',
+      url: 'http://www.4java.cn:89/myseat/selectSchoolByRegion.do',
       method: 'POST',
       header: {
         "content-type": "application/x-www-form-urlencoded"
@@ -127,7 +127,7 @@ Page({
         area:this.data.region[2],
         chineseName: this.data.inputSchool}
       wx.request({
-        url: 'https://www.4java.cn/myseat/insertSchool.do',
+        url: 'http://www.4java.cn:89/myseat/insertSchool.do',
         method: 'POST',
         data: data,
         header: {
@@ -143,7 +143,7 @@ Page({
           }
           //学校arraySchool重新赋值
           wx.request({
-            url: 'https://www.4java.cn/myseat/selectSchoolByRegion.do',
+            url: 'http://www.4java.cn:89/myseat/selectSchoolByRegion.do',
             method: 'POST',
             header: {
               "content-type": "application/x-www-form-urlencoded"
@@ -226,7 +226,7 @@ Page({
     }
     //给schoolId赋值
     wx.request({
-      url: 'https://www.4java.cn/myseat/getSchoolId.do',
+      url: 'http://www.4java.cn:89/myseat/getSchoolId.do',
       method: 'POST',
       data: data1,
       header: {
@@ -252,7 +252,7 @@ Page({
           })
         } else {
           wx.request({
-            url: 'https://www.4java.cn/myseat/insertClass.do',
+            url: 'http://www.4java.cn:89/myseat/insertClass.do',
             data: data,
             method: 'POST',
             header: {
@@ -269,7 +269,7 @@ Page({
           })
           //给classId赋值
           wx.request({
-            url: 'https://www.4java.cn/myseat/getClassId.do',
+            url: 'http://www.4java.cn:89/myseat/getClassId.do',
             data: data2,
             method: 'POST',
             header: {

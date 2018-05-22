@@ -50,10 +50,10 @@
     </view>
 </view>
 
-<view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<!-- <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
 <view class="modal-dialog" wx:if="{{showModal}}">
   <view class="modal-title">进入轻轻健身</view>
   <view class="modal-footer">
     <button open-type='getUserInfo' class="btn-confirm" bindtap="onConfirm">确定</button>
   </view>
-</view>
+</view> -->

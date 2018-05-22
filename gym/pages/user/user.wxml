@@ -99,7 +99,7 @@
     </view>
 
     <view class="option-list">
-
+<!-- 
         <block wx:for="{{menu_list}}">
             <block wx:if="{{item.is_show==1}}">
 
@@ -190,7 +190,7 @@
                 </block>
 
             </block>
-        </block>
+        </block> -->
 
         <!-- <navigator class="option-item" url="/pages/pt/order/order">
             <view class="flex-row option-content">
@@ -212,7 +212,7 @@
         </block>
 
 
-        <navigator class="option-item" url="/pages/card/card">
+        <!-- <navigator class="option-item" url="/pages/card/card">
             <view class="flex-row option-content">
                 <view class="flex-grow-1 flex-row">
                     <view class="flex-grow-0 flex-y-center">
@@ -226,7 +226,7 @@
                     <image class="option-jisntou" src="/images/icon-jiantou-r.png"/>
                 </view>
             </view>
-        </navigator>
+        </navigator> -->
 
 
         <navigator class="option-item" url="/pages/coupon/coupon">
@@ -277,7 +277,7 @@
             </view>
         </navigator>
 
-        <navigator class="option-item" style="display: none">
+        <!-- <navigator class="option-item" style="display: none">
             <view class="flex-row option-content">
                 <view class="flex-grow-1 flex-row">
                     <view class="flex-grow-0 flex-y-center">
@@ -291,9 +291,9 @@
                     <image class="option-jisntou" src="/images/icon-jiantou-r.png"/>
                 </view>
             </view>
-        </navigator>
+        </navigator> -->
 
-        <navigator class="option-item" style="display: none">
+        <!-- <navigator class="option-item" style="display: none">
             <view class="flex-row option-content">
                 <view class="flex-grow-1 flex-row">
                     <view class="flex-grow-0 flex-y-center">
@@ -307,9 +307,9 @@
                     <image class="option-jisntou" src="/images/icon-jiantou-r.png"/>
                 </view>
             </view>
-        </navigator>
-
-        <button open-type="contact" class="option-item" plain="true" wx:if="{{show_customer_service==1}}">
+        </navigator> -->
+        <!-- <navigator>
+         <button open-type="contact" class="option-item" plain="true" wx:if="{{show_customer_service==1}}">
             <view class="flex-row option-content">
                 <view class="flex-grow-1 flex-row">
                     <view class="flex-grow-0 flex-y-center">
@@ -323,8 +323,8 @@
                     <image class="option-jisntou" src="/images/icon-jiantou-r.png"/>
                 </view>
             </view>
-        </button>
-
+          </button>
+        </navigator> -->
         <navigator data-tel="{{contact_tel}}" bindtap="callTel" class="option-item" wx:if="{{contact_tel!=''}}">
             <view class="flex-row option-content">
                 <view class="flex-grow-1 flex-row">
@@ -371,7 +371,7 @@
                 </view>
             </view>
         </navigator>
-        <block wx:if="{{user_info.is_clerk == 1}}">
+        <!-- <block wx:if="{{user_info.is_clerk == 1}}">
             <view class="option-item" bindtap='verify'>
                 <view class="flex-row option-content">
                     <view class="flex-grow-1 flex-row">
@@ -387,7 +387,7 @@
                     </view>
                 </view>
             </view>
-        </block>
+        </block> -->
     </view>
     <include src="/commons/copyright/copyright.wxml" />
 </view>
