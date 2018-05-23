@@ -15,7 +15,7 @@ Page({
       'classId': app.classId
     }
     wx.request({
-      url: 'http://www.4java.cn:89/myseat/selectSeat.do',
+      url: 'https://wxapp.4java.cn/myseat/selectSeat.do',
       data: data,
       method: 'POST',
       header: {
@@ -67,7 +67,7 @@ Page({
       'classId': app.classId
     }
     wx.request({
-      url: 'http://www.4java.cn:89/myseat/insertSeat.do',
+      url: 'https://wxapp.4java.cn/myseat/insertSeat.do',
       data: data,
       method: 'POST',
       header: {
@@ -76,7 +76,7 @@ Page({
       success: function (e) {
         //给每个班的座位赋值-全局变量
         wx.request({
-          url: 'http://www.4java.cn:89/myseat/selectSeat.do',
+          url: 'https://wxapp.4java.cn/myseat/selectSeat.do',
           data: data1,
           method: 'POST',
           header: {

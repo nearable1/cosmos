@@ -1,8 +1,6 @@
 {
   "pages":[
-    "pages/search/search",
-    "pages/suggestion/suggestion",
-    "pages/regeocoding/regeocoding",
+    "pages/map_gd/map_gd",
     "pages/map/index",
     "pages/user/index"
   ],
@@ -26,16 +24,8 @@
         "text": "map"
       },
       {
-        "pagePath": "pages/search/search",
-        "text": "search"
-      },
-      {
-        "pagePath": "pages/suggestion/suggestion",
-        "text": "suggestion"
-      },
-      {
-        "pagePath": "pages/regeocoding/regeocoding",
-        "text": "regeocoding"
+        "pagePath": "pages/map_gd/map_gd",
+        "text": "高德"
       }
     ]
   }

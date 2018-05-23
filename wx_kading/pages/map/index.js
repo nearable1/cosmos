@@ -1,22 +1,10 @@
-var coordtransform = require('../../utils/mapLocation.js');
+var coordtransform = require('../../utils/amap-wx.js');
 
 Page({
   data: {
     latitude:'',
     longitude: '',
     markers: [],
-    polyline: [{
-      points: [{
-        longitude: 121.41075,
-        latitude: 31.16697
-      }, {
-        longitude: 121.46379,
-        latitude: 31.21831
-      }],
-      color: "#FF0000DD",
-      width: 2,
-      dottedLine: true
-    }],
   },
   onReady: function (e) {
     // 使用 wx.createMapContext 获取 map 上下文
@@ -25,20 +13,21 @@ Page({
   onLoad: function() {
     
     var that = this
+  
     wx.chooseLocation({
       success: function (res) {
         // success
         console.log(res)
-        var wgs84togcj02 = coordtransform.wgs84togcj02(res.longitude, res.latitude);
+        //var wgs84togcj02 = coordtransform.wgs84togcj02(res.longitude, res.latitude);
         that.setData({
           longitude: res.longitude,//wgs84togcj02[0],
           latitude: res.latitude,//wgs84togcj02[1],
           markers: [{
-            iconPath: "/images/start.png",
+            iconPath: "../images/end.png",
             latitude: res.latitude,
             longitude: res.longitude,
             name: '',
-            width: 33,
+            width: 43,
             height: 43
           }]
         })
@@ -82,7 +71,7 @@ Page({
         
         if (res.code) {
           wx.request({
-            url: 'https://www.4java.cn/kading/getRunData.html', 
+            url: 'https://wxapp.4java.cn/kading/getRunData.html', 
             method: "POST",
             header: {
               'content-type': 'application/x-www-form-urlencoded'
