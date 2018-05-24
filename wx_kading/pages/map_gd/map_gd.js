@@ -9,17 +9,17 @@ Page({
     markers: [{
       iconPath: "../images/start.png",
       id: 0,
-      latitude: '',
-      longitude: '',
+      latitude: 39.989643,
+      longitude: 117.481028,
       width: 43,
       height: 43
     }, {
-      iconPath: "../images/end.png",
+        iconPath: "../images/end.png",
       id: 0,
-      latitude: '',
-      longitude: '',
-      width: 44,
-      height: 44
+      latitude: 39.90816,
+      longitude: 117.434446,
+      width: 43,
+      height: 43
     }],
     distance: '',
     cost: '',
@@ -27,13 +27,19 @@ Page({
   },
   onLoad: function () {
     var that = this;
+    //var key = config.Config.key;
     var myAmapFun = new amapFile.AMapWX({ key: '11627b48952cfcc6e18b900c50d7731f' });
     wx.getLocation({
       success: function(res) {
-        
+        that.setData({
+          latitude_s: res.latitude,
+          longitude_s: res.longitude,
+        })
         wx.chooseLocation({
-          success: function (e) {
+          success: function(e) {
             that.setData({
+              latitude_e: e.latitude,
+              longitude_e: e.longitude,
               markers: [{
                 iconPath: "../images/start.png",
                 id: 0,
@@ -46,14 +52,13 @@ Page({
                 id: 0,
                 latitude: e.latitude,
                 longitude: e.longitude,
-                width: 44,
-                height: 44
+                width: 43,
+                height: 43
               }]
             })
             myAmapFun.getWalkingRoute({
-
-              origin: res.latitude+','+res.longitude,
-              destination: e.latitude+'+'+e.longitude,
+              origin: res.longitude+','+res.latitude,
+              destination: e.longitude+','+e.latitude,
               success: function (data) {
                 var points = [];
                 if (data.paths && data.paths[0] && data.paths[0].steps) {
@@ -80,9 +85,9 @@ Page({
                     distance: data.paths[0].distance + '米'
                   });
                 }
-                if (data.taxi_cost) {
+                if (data.paths[0] && data.paths[0].duration) {
                   that.setData({
-                    cost: '打车约' + parseInt(data.taxi_cost) + '元'
+                    cost: parseInt(data.paths[0].duration / 60) + '分钟'
                   });
                 }
 
@@ -96,7 +101,7 @@ Page({
       },
     })
     
-    
+
   },
   
   goDetail: function () {
