@@ -1,32 +1,26 @@
 {
   "pages":[
-    "pages/map_gd/map_gd",
-    "pages/map/index",
-    "pages/user/index"
+    "pages/index/index",
+    "pages/regeo/regeo",
+    "pages/weather/weather",
+    "pages/poi/poi",
+    "pages/staticmap/staticmap",
+    "pages/navigation_car/navigation",
+    "pages/navigation_bus/navigation",
+    "pages/navigation_walk/navigation",
+    "pages/navigation_ride/navigation",
+    "pages/navigation_car_detail/navigation",
+    "pages/navigation_walk_detail/navigation",
+    "pages/navigation_ride_detail/navigation",
+    "pages/inputtips/input",
+    "pages/navigation_tx/navigation"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTitleText": "map",
+    "navigationBarTextStyle": "white"
   },
-  "tabBar": {
-    "position": "top",
-    "color": "#000000",
-    "selectedColor": "#4D8AD7",
-    "list": [
-      {
-        "pagePath": "pages/user/index",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/map/index",
-        "text": "map"
-      },
-      {
-        "pagePath": "pages/map_gd/map_gd",
-        "text": "高德"
-      }
-    ]
+  "networkTimeout":{
+    "request": 6000
   }
 }

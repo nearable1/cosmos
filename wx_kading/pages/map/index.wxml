@@ -1,4 +1,0 @@
-
-<map id="myMap" markers='{{markers}}' longitude="{{longitude}}" latitude="{{latitude}}" style="height:100vh;width:100%" polyline="{{polyline}}"/>
-
-<button bindtap="click">myrundata</button>
