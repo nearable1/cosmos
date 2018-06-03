@@ -1,7 +1,6 @@
 {
   "pages": [
-    "pages/music/music",
-    "pages/music/typelist/typelist"
+    "pages/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

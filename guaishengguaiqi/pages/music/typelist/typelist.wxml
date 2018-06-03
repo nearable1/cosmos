@@ -1,8 +1,0 @@
-<image src="{{imgUrls}}" style="width:100%;height:500rpx"></image> 
-
-<view class="myaudio" id="{{index}}" wx:for="{{list}}" wx:key="{{index}}" bindtap="click">
-  <view wx:for-index="second" wx:if="{{index==second}}" wx:for="{{baks}}"   wx:for-item="it2" style="background-image: url({{it2}});background-repeat: no-repeat;background-size: 8%;background-position-x:90%;background-position-y:center;">
-    <text class="text" style="color:#1296db">{{item.name}}</text>
-  </view>
-</view>
-
