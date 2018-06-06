@@ -1,45 +1,57 @@
 package com.cosmos.controller;
 
-import java.util.ArrayList;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
-import com.cosmos.entity.Sound;
-import com.cosmos.service.UserService;
+import com.cosmos.utils.SecretUtils;
+import com.cosmos.utils.UrlUtils;
 
 @Controller
 public class Action {
-	@Autowired
-	private UserService us;
+//	@Autowired
+//	private UserService us;
 	
-	//根据种类获取音乐文件
-	@RequestMapping(value="getAudio.html",produces="text/html;charset=UTF-8")
+	UrlUtils urlString = new UrlUtils();
+	
+	@RequestMapping(value="index.html",produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public String getAudio(@RequestParam(value="type")String type) {
-		ArrayList<Sound> audioList = us.getAudio(type);
+	public String index() {
+		System.out.println("hello world");
+		return "hello";
+	}
+	
+	//获取rundata
+	@RequestMapping(value="getRunData.html",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String getRunData(@RequestParam(value="js_code") String js_code) {
+		String url = "https://api.weixin.qq.com/sns/jscode2session?"
+				+ "appid=wx24637ac470fd8876&"
+				+ "secret=d3d4668c301717c18f77f58e1e1e2b8e"
+				+ "&js_code="+js_code+"&grant_type=authorization_code";
 		
-		return JSON.toJSONString(audioList);
+		String result = urlString.postDataFromUrl(url);
+		
+		return result;
 	}
 	
-	//获取种类的个数
-	@RequestMapping(value="getTypes.html",produces="text/html;charset=UTF-8")
+	@RequestMapping(value="decodeRunData.html",produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public String getTypes() {
-		ArrayList<String> typesList = us.getTypes();
-		return JSON.toJSONString(typesList);
-	}
-	
-	//获取种类的个数
-	@RequestMapping(value="getHots.html",produces="text/html;charset=UTF-8")
-	@ResponseBody
-	public String getHots() {
-		ArrayList<Sound> typesList = us.getHot();
-		return JSON.toJSONString(typesList);
+	public String decodeRunData(@RequestParam(value="encryptedData") String encryptedData,
+			@RequestParam(value="iv") String iv,
+			@RequestParam(value="appid") String appId,
+			@RequestParam(value="session_key") String sessionKey) {
+		
+		String result = null;
+		try {
+			//encryptedData, iv, appId, sessionKey
+			result = SecretUtils.AES128CBCdecrypt(encryptedData, iv, appId, sessionKey);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
