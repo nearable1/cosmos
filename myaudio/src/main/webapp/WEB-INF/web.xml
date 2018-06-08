@@ -28,7 +28,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>dispatcherServlet</servlet-name>
-    <url-pattern>/*.html</url-pattern>
+    <url-pattern>*.html</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>encoding</filter-name>

@@ -27,8 +27,8 @@ public class Action {
 	@ResponseBody
 	public String getRunData(@RequestParam(value="js_code") String js_code) {
 		String url = "https://api.weixin.qq.com/sns/jscode2session?"
-				+ "appid=wx24637ac470fd8876&"
-				+ "secret=d3d4668c301717c18f77f58e1e1e2b8e"
+				+ "appid=wx2369783e0c957bad&"
+				+ "secret=35c7402e658b21674d856dc734a1d928"
 				+ "&js_code="+js_code+"&grant_type=authorization_code";
 		
 		String result = urlString.postDataFromUrl(url);

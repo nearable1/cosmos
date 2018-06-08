@@ -1,23 +1,49 @@
+//var WXBizDataCrypt = require('../../lib/RdWXBizDataCrypt.js');
+
 Page({
   onLoad: function (options) {
     var that = this;
     wx.login({
       success: function (res) {
-        console.log(res.code)
         if (res.code) {
-          wx.request({
-            url: 'http://localhost:88/kading/getRunData.html?js_code=' + res.code,
-            header: {
-              'content-type': 'json'
-            },
-            success: function (res) {
-              console.log(res)
-            }
-          })
+          if(!wx.getStorageSync('sessionKey')) {
+            console.log(1111)
+            wx.getWeRunData({
+              success: function (res) {
+                console.log(11111)
+                var encryptedData = res.encryptedData;
+                var iv = res.iv;
+                var session_key = wx.getStorageSync('sessionKey')
+                console.log(session_key)
+                wx.request({
+                  url: 'http://localhost:88/myaudio/decodeRunData.html?encryptedData=' + encryptedData + '&iv=' + iv + '&appid=wx2369783e0c957bad&session_key=' + session_key,
+                  header: {
+                    'content-type': 'json'
+                  },
+                  success: function (e) {
+                    console.log(e)
+                  },
+                  fail: function () {
+                    console.log('fail')
+                  }
+                })
+              },
+              fail: function (res) {
+                wx.showModal({
+                  title: '提示',
+                  content: '开发者未开通微信运动，请关注“微信运动”公众号后重试',
+                  showCancel: false,
+                  confirmText: '知道了'
+                })
+              }
+            })
+          }
+          
         }
       }
     })
   },
+  //session_key: "d0tLbco2EBmFhStOvpbMVw==", openid: "oszPb4mXZ9VSqD_DXP4owpx517GA"
   //获取encryptedData（没有解密的步数）和iv（加密算法的初始向量）
   getData: function (appid, session_key) {
     wx.getSetting({
