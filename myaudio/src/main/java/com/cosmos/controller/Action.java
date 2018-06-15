@@ -40,9 +40,9 @@ public class Action {
 	@ResponseBody
 	public String decodeRunData(@RequestParam(value="encryptedData") String encryptedData,
 			@RequestParam(value="iv") String iv,
-			@RequestParam(value="appid") String appId,
 			@RequestParam(value="session_key") String sessionKey) {
 		
+		String appId = "wx2369783e0c957bad";
 		String result = null;
 		try {
 			//encryptedData, iv, appId, sessionKey
