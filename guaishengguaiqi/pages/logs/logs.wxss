@@ -1,8 +1,16 @@
-.log-list {
-  display: flex;
-  flex-direction: column;
-  padding: 40rpx;
+page {
+  height:100%;
 }
-.log-item {
-  margin: 10rpx;
+
+.image {
+  height:100%;
+  background-repeat: no-repeat;
+}
+
+.btn {
+  color:white;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 50rpx;
+  padding-top:10%
 }

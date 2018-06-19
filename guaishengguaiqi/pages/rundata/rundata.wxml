@@ -1,1 +1,4 @@
-<view>hello</view>
+<button>{{feet}}</button>
+<button>{{depth}}</button>
+<button>{{description}}</button>
+<image src='{{creature}}'></image>

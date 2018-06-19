@@ -4,7 +4,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    feet: '',
+    depth: '',
+    creature: '',
+    description: ''
   },
 
   /**
@@ -61,7 +64,37 @@ Page({
                             'content-type': 'json'
                           },
                           success: function(e) {
-                            console.log(e.data.stepInfoList[30])
+                            var feet = e.data.stepInfoList[30].step
+                            var depth = feet*55/100
+                            console.log(depth)
+                            var creature= ''
+                            var description = ''
+                            if(depth==0 || depth== null) {
+                              creature = '../../icon/1.jpg',
+                              description = '滨海'
+                            } else if (depth <= 200 && depth>0) {
+                              creature = '../../icon/2.jpg'
+                              description = '浅海'
+                            } else if (depth <= 2000 && depth > 200) {
+                              creature = '../../icon/3.jpg'
+                              description = '半深海'
+                            } else if (depth <= 6000 && depth > 2000) {
+                              creature = '../../icon/4.jpg'
+                              description = '深海'
+                            } else if (depth <= 12000 && depth > 6000) {
+                              creature = '../../icon/5.jpg'
+                              description = '超深渊层'
+                            } else if (depth > 12000) {
+                              creature = '../../icon/6.jpg'
+                              description = '海绵宝宝层'
+                            }
+                            that.setData({
+                              feet: feet,
+                              depth: depth,
+                              creature: creature,
+                              description: description
+                            })
+                            
                           },
                           fail: function(e) {
                             console.log("fail")
