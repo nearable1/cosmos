@@ -1,0 +1,15 @@
+{
+  "pages":[
+    "pages/card/card",
+    "pages/index/index",
+    "pages/map/map",
+    "pages/prize/prize",
+    "pages/detail/detail"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#000",
+    "navigationBarTitleText": "上海购物节点亮地图",
+    "navigationBarTextStyle":"white"
+  }
+}

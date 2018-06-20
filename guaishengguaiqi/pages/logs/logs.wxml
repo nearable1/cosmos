@@ -1,5 +1,5 @@
 
-<view style='background-image: url(../../icon/6.jpg)' class='image'>
+<view style='' class='body'>
   <view class='feet btn'>2222</view>
   <view class='depth btn'>2222</view> 
   <view class='description btn'>2222</view>
