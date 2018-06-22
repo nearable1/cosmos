@@ -5,7 +5,7 @@ page {
 .body {
   height:100%;
   background-repeat: no-repeat;
-  background: url(https://www.4java.cn/attachment/images/global/nopic.jpg) center / cover;
+  
 }
 
 .btn {
