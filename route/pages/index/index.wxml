@@ -1,0 +1,19 @@
+<view class="title">
+    以这首诗来形容您：
+</view>
+
+<view class="view1">
+    <view wx:for="{{poem}}" class="mod-text">
+        <text>{{item}}</text>
+    </view>
+</view>
+
+<view class="view2">
+    <view class="author">——  {{data.author}}</view>
+    <view class="head">{{data.head}}</view>
+    <!-- <view class="nature">潜在性格:{{nature}}</view> -->
+</view>
+
+<!--<view>{{data.poem}}</view>-->
+
+

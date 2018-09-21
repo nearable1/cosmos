@@ -1,0 +1,24 @@
+
+.radio{
+    margin-left: 10%;
+    margin-top: 5%;
+}
+
+.label{
+    margin-left: 5%;
+}
+
+.head{
+    margin-left: 3%;
+    margin-top:5%;
+    font-size:50rpx
+}
+
+.radio-group{
+    height: 70%
+}
+
+.button {
+    margin-top:10%;
+    background-color: bisque;
+}

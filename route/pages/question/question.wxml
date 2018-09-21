@@ -1,0 +1,9 @@
+
+<view class="head">{{head}}</view>
+<radio-group class="radio-group" bindchange="radioChange">
+    <view class="radio" wx:for="{{item}}">
+        <radio value="{{item.value}}" checked="{{item.checked}}"/><label class="label">{{item.name}}</label>
+    </view>
+</radio-group>
+
+<button bindtap="clicktonext" class="button">{{btnText}}</button>

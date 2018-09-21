@@ -1,0 +1,41 @@
+page{
+    background-image:url('https://www.appwx.club/manager/back.jpg');
+    background-size: 100% 100%;
+}
+.title{
+    margin-top:3%;
+    font-family: Bahnschrift;
+    padding-left:5%
+}
+.view1{
+    width:100%;
+    margin-top:10%;
+    height:500rpx;
+}
+.view2{
+    width:100%;
+    margin-top:5%;
+    height:400rpx;
+}
+.mod-text text{
+    writing-mode:vertical-rl;
+    float: right;
+    margin-right: 5%
+}
+
+.author{
+    writing-mode:vertical-rl;
+    float:left;
+    margin-left: 5%;
+    margin-top:7%
+}
+.head{
+    writing-mode:vertical-rl;
+    float:left;
+    margin-left: 5%
+}
+.nature{
+    float:right;
+    margin-right:5%;
+    margin-top:5%
+}
