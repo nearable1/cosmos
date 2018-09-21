@@ -15,27 +15,55 @@ page{
 .view2{
     width:100%;
     margin-top:5%;
-    height:400rpx;
+    height:500rpx;
 }
 .mod-text text{
     writing-mode:vertical-rl;
     float: right;
-    margin-right: 5%
+    margin-right: 5%;
+    letter-spacing: 5rpx;
 }
 
 .author{
     writing-mode:vertical-rl;
     float:left;
     margin-left: 5%;
-    margin-top:7%
+    margin-top:7%;
+    letter-spacing: 5rpx;
 }
 .head{
     writing-mode:vertical-rl;
     float:left;
-    margin-left: 5%
+    margin-left: 5%;
+    letter-spacing: 5rpx;
 }
 .nature{
     float:right;
     margin-right:5%;
     margin-top:5%
+}
+
+/**index.wxss**/
+.userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    float: right;
+    margin-top:25%;
+    margin-right: 7%
+}
+
+.userinfo-avatar {
+    width: 128rpx;
+    height: 128rpx;
+    margin: 20rpx;
+    border-radius: 50%;
+}
+
+/*.userinfo-nickname {*/
+    /*color: #aaa;*/
+/*}*/
+
+.usermotto {
+    margin-top: 200px;
 }

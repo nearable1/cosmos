@@ -21,4 +21,5 @@
 .button {
     margin-top:10%;
     background-color: bisque;
+    width:50%
 }
