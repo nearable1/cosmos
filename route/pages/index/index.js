@@ -54,12 +54,6 @@ Page({
     },
 
   getDetail: function(options) {
-      wx.showLoading({
-          title: '正在生成'
-      })
-      setTimeout(function(){
-          wx.hideLoading()
-      },1000)
 
       var that = this;
       var type = 0;
@@ -78,7 +72,7 @@ Page({
       }
       console.log(type)
       wx.request({
-          url: 'http://localhost:8080/index?type='+type,
+          url: 'https://www.appwx.club/route/index?type='+type,
           method: 'GET',
           header: {
               //设置参数内容类型为x-www-form-urlencoded
@@ -88,7 +82,7 @@ Page({
               console.log(res.data)
               var id = parseInt(res.data.type);
               wx.request({
-                  url:'http://localhost:8080/type?id='+id,
+                  url:'https://www.appwx.club/route/type?id='+id,
                   method:'GET',
                   header: {
                       //设置参数内容类型为x-www-form-urlencoded
@@ -113,6 +107,7 @@ Page({
               that.setData({
                   poem:str.split(",")
               })
+              wx.hideLoading()
           },
           fail: function (res) {
               console.log(res)

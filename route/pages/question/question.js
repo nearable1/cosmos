@@ -147,6 +147,9 @@ Page({
           wx.redirectTo({
               url: '../index/index?data='+sum
           })
+          wx.showLoading({
+              title: '正在生成'
+          })
       }else if(that.data.currentCount!=0){
           that.setData({
               sum: parseInt(that.data.sum)+parseInt(that.data.currentCount),

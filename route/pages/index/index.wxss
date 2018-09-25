@@ -1,5 +1,5 @@
 page{
-    background-image:url('https://www.appwx.club/manager/back.jpg');
+    background-image:url('https://www.appwx.club/manager/back2.jpg');
     background-size: 100% 100%;
 }
 .title{
@@ -49,7 +49,7 @@ page{
     flex-direction: column;
     align-items: center;
     float: right;
-    margin-top:25%;
+    margin-top:30%;
     margin-right: 7%
 }
 
