@@ -10,9 +10,11 @@ Page({
       poem: [],
       userInfo: {},
       hasUserInfo: false,
-      canIUse: wx.canIUse('button.open-type.getUserInfo')
+      canIUse: wx.canIUse('button.open-type.getUserInfo'),
+      shareTempFilePath:''
   },
   onLoad: function (options) {
+
       if (app.globalData.userInfo) {
           this.setData({
               userInfo: app.globalData.userInfo,
@@ -113,6 +115,22 @@ Page({
               console.log(res)
           }
       })
-  }
+  },
+   //设置分享
+    onShareAppMessage: function () {
+        return {
+            title: '看看古人如何描述你',
+            path: '/pages/start/start',
+            imageUrl: 'https://www.appwx.club/manager/back2.jpg',
+            success: function () {
+                wx.showToast({
+                    title: '转发成功',
+                    icon: 'success',
+                    duration: 2000
+                })
+            }
+        }
+    },
+
 
 })

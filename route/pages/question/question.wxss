@@ -1,4 +1,7 @@
-
+page{
+    background-image:url('https://www.appwx.club/manager/back2.jpg');
+    background-size: 100% 100%;
+}
 .radio{
     margin-left: 10%;
     margin-top: 5%;
@@ -10,8 +13,8 @@
 
 .head{
     margin-left: 3%;
-    margin-top:5%;
-    font-size:50rpx
+    margin-top:200rpx;
+    font-size:40rpx
 }
 
 .radio-group{
@@ -19,7 +22,6 @@
 }
 
 .button {
-    margin-top:10%;
-    background-color: bisque;
+    margin-top:20%;
     width:50%
 }

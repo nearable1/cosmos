@@ -6,4 +6,4 @@
     </view>
 </radio-group>
 
-<button bindtap="clicktonext" class="button">{{btnText}}</button>
+<button bindtap="clicktonext" class="button" plain="true">{{btnText}}</button>
