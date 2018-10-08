@@ -76,29 +76,7 @@ page{
     background-color: #F0F0EE;
 }
 
-.view{
-    width:49.8%;
-    float:left;
-    text-align: center;
-    line-height: 100rpx;
-    border-top: 1rpx gainsboro solid;
-    opacity:1;
-    background-color: #F0F0EE;
-}
-
-.cut {
-    border-right: 1rpx gainsboro solid;
-}
-.sharebtn{
-    width: 50%;
-    height: 100rpx;
-    opacity:0;
-    position: absolute;
-    margin-left:50%
-}
-.cutbtn{
-    width: 50%;
-    height: 100rpx;
-    opacity:0.5;
-    position: absolute;
+.img {
+    margin-top: 50%;
+    margin-left:10%
 }

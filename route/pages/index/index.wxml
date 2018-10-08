@@ -20,13 +20,9 @@
             <text class="userinfo-nickname">{{userInfo.nickName}}</text>
         </block>
     </view>
+    <image class="img" style="width: 80px; height: 80px; border-radius:100%;" src="../image/code.jpg"></image>
 </view>
-<view class="bottom">
-    <view class="view cut">保存到手机</view>
-    <view class="view share">分享给好友</view>
-    <button class="sharebtn" open-type="share">share</button>
-    <button class="cutbtn" bindtap='saveImageToPhotosAlbum'>截屏</button>
-</view>
+
 <!--style="background-image:url('../image/cut.png');"-->
 <!-- style="background-image:url('../image/transmit.png');"-->
 <!--<view>{{data.poem}}</view>-->
