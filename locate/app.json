@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/map/map",
     "pages/index/index",
     "pages/logs/logs"
   ],
@@ -8,5 +9,20 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar":{
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      }, {
+        "pagePath": "pages/logs/logs",
+        "text": "日志"
+      }, {
+        "pagePath": "pages/map/map",
+        "text": "地图"
+      }
+    ],
+    "position":"top"
   }
 }
