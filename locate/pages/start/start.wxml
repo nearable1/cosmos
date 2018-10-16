@@ -1,0 +1,17 @@
+<form bindsubmit="formSubmit" bindreset="formReset">
+
+  <view class="section">
+    <view class="section_self">self</view>
+    <input name="self" placeholder="输入自己电话"/>
+  </view>
+
+  <view class="section">
+    <view class="section_target">target</view>
+    <input name="target" placeholder="输入目标电话"/>
+  </view>
+
+  <view class="btn-area">
+    <button class="submit" formType="submit">Submit</button>
+    <button class="reset" formType="reset">Reset</button>
+  </view>
+</form>

@@ -1,0 +1,18 @@
+
+.setting {
+
+}
+button::after {
+    border-radius: 0;
+}
+
+.reset {
+    float:right;
+    width:50%;
+    border-radius: 0
+}
+.submit {
+    float:left;
+    width:50%;
+    border-radius: 0
+}

@@ -1,0 +1,8 @@
+<view class="container">
+
+<map class="container" markers="{{markers}}"
+     latitude="{{latitude}}"
+     longitude ="{{longitude}}" show-location></map>
+
+    <button hidden="{{hidden}}" class="setting" open-type="openSetting">获取授权</button>
+</view>

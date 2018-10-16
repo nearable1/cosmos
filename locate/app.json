@@ -1,8 +1,8 @@
 {
   "pages":[
-    "pages/map/map",
+    "pages/start/start",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/map/map"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -16,11 +16,8 @@
         "pagePath": "pages/index/index",
         "text": "首页"
       }, {
-        "pagePath": "pages/logs/logs",
-        "text": "日志"
-      }, {
-        "pagePath": "pages/map/map",
-        "text": "地图"
+        "pagePath": "pages/start/start",
+        "text": "开始"
       }
     ],
     "position":"top"
