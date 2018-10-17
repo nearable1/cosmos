@@ -12,4 +12,3 @@ page{
   justify-content: space-between;
   box-sizing: border-box;
 }
-/**padding: 200rpx 0;

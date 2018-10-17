@@ -1,7 +1,6 @@
 {
   "pages":[
     "pages/start/start",
-    "pages/index/index",
     "pages/map/map"
   ],
   "window":{
@@ -9,17 +8,5 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"black"
-  },
-  "tabBar":{
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页"
-      }, {
-        "pagePath": "pages/start/start",
-        "text": "开始"
-      }
-    ],
-    "position":"top"
   }
 }

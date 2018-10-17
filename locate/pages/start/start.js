@@ -4,12 +4,16 @@ var app = getApp()
 
 Page({
   data: {
-
+      hidden:true
   },
   onLoad: function () {
+        //获取定位权限
+      wx.getLocation({
 
+      })
     },
     formSubmit:function(e){
+
         var that = this
         //表单点击提交的时候获取数据
         //正则匹配
@@ -27,11 +31,43 @@ Page({
                 showCancel: false
             })
         }else {
-            app.data.selfPhone = e.detail.value.self
-            app.data.targetPhone = e.detail.value.target
-            wx.navigateTo({
-                url:'../map/map'
-            })
+            wx.getSetting({
+                    success: (res) => {
+                        if (!res.authSetting['scope.userLocation']) {
+                            that.setData({
+                                hidden:false
+                            })
+                        }else {
+                            app.data.selfPhone = e.detail.value.self
+                            app.data.targetPhone = e.detail.value.target
+                            wx.navigateTo({
+                                url:'../map/map'
+                            })
+                        }
+                    }
+                })
+
         }
     },
+    confirm: function(){
+        this.setData({
+            hidden: !this.data.hidden
+        });
+        console.log("clicked confirm");
+    },
+    //设置分享
+    onShareAppMessage: function () {
+        return {
+            title: '定位同伴位置',
+            path: '/pages/start/start',
+            imageUrl: 'https://www.appwx.club/manager/trace1.png',
+            success: function () {
+                wx.showToast({
+                    title: '转发成功',
+                    icon: 'success',
+                    duration: 2000
+                })
+            }
+        }
+    }
 })

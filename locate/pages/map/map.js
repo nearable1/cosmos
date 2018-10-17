@@ -9,34 +9,30 @@ Page({
         longitude: '',
         latitude: '',
         markers: [],
-        hidden: true
+        hidden: true,
+        interval: ''
+    },
+    onUnload: function() {
+        clearInterval(this.data.interval)
     },
     onLoad: function() {
         var that = this
-        //setInterval(function() {
-            wx.getSetting({
-                success: (res) => {
-                    if (!res.authSetting['scope.userLocation']) {
+        that.find(app.data.targetPhone)
+        this.setData({
+            interval: setInterval(function() {
+                wx.getLocation( {
+                    type: 'gcj02',
+                    success: function( res ) {
+                        console.log( res )
                         that.setData({
-                            hidden: false
+                            longitude: Number( res.longitude ),
+                            latitude: Number( res.latitude )
                         })
+                        that.saveOrUpdate(app.data.selfPhone,res.longitude,res.latitude)
                     }
-                }
-            })
-            wx.getLocation( {
-                type: 'gcj02',
-                success: function( res ) {
-                    console.log( res )
-                    that.setData({
-                        longitude: Number( res.longitude ),
-                        latitude: Number( res.latitude )
-                    })
-                    that.find(app.data.targetPhone)
-                    that.saveOrUpdate(app.data.selfPhone,res.longitude,res.latitude)
-                }
-            })
-        //},30000)
-
+                })
+            },3000)
+        })
     },
     find: function(phone) {
         var that = this
@@ -63,7 +59,7 @@ Page({
                         latitude: res.data.latitude,
                         longitude: res.data.longitude,
                         callout:{
-                            content:'那个人',
+                            content:'target',
                             color: '#FF0000',
                             fontSize: 15,
                             borderRadius: 10,
@@ -94,5 +90,20 @@ Page({
                 console.log(res)
             }
         })
+    },
+    //设置分享
+    onShareAppMessage: function () {
+        return {
+            title: '定位同伴位置',
+            path: '/pages/start/start',
+            imageUrl: 'https://www.appwx.club/manager/trace1.png',
+            success: function () {
+                wx.showToast({
+                    title: '转发成功',
+                    icon: 'success',
+                    duration: 2000
+                })
+            }
+        }
     }
 })
