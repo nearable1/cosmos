@@ -17,7 +17,6 @@ Page({
     },
     onLoad: function() {
         var that = this
-        that.find(app.data.targetPhone)
         this.setData({
             interval: setInterval(function() {
                 wx.getLocation( {
@@ -28,6 +27,7 @@ Page({
                             longitude: Number( res.longitude ),
                             latitude: Number( res.latitude )
                         })
+                        that.find(app.data.targetPhone)
                         that.saveOrUpdate(app.data.selfPhone,res.longitude,res.latitude)
                     }
                 })
