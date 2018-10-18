@@ -16,6 +16,24 @@ Page({
         clearInterval(this.data.interval)
     },
     onLoad: function() {
+        wx.request({
+            url: 'https://www.appwx.club/locate/find?phone=' + app.data.targetPhone,
+            method: 'GET',
+            header: {
+                //设置参数内容类型为x-www-form-urlencoded
+                'content-type': 'application/json'
+            },
+            success: function (res) {
+                if(res.data==null) {
+                    wx.showModal({
+                        title: '提示！！',
+                        content: '对方尚未填入正确电话号码',
+                        showCancel: false
+                    })
+                }
+            }
+        })
+
         var that = this
         this.setData({
             interval: setInterval(function() {
@@ -45,14 +63,7 @@ Page({
             },
             success: function (res) {
                 //赋值 phone location
-                if(res.data==null) {
-                    wx.showModal({
-                        title: '提示！！',
-                        content: '对方尚未填入正确电话号码',
-                        showCancel: false
-                    })
-                }else {
-                    console.log(res.data)
+                if(res.data!=null) {
                     var markers =[{
                         iconPath: "../../img/marker.png",
                         id: 0,
