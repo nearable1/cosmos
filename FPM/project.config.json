@@ -13,7 +13,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.3.0",
 	"appid": "wx2369783e0c957bad",
-	"projectname": "route",
+	"projectname": "fpm",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
