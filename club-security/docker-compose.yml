@@ -1,0 +1,14 @@
+version: '2'
+services:
+  club-admin:
+    image: club/admin
+    ports:
+      - "8080:8080"
+    environment:
+      - spring.profiles.active=dev
+  club-api:
+    image: club/api
+    ports:
+      - "8081:8081"
+    environment:
+      - spring.profiles.active=dev
