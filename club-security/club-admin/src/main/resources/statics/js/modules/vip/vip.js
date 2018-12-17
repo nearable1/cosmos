@@ -37,6 +37,22 @@ $(function () {
     });
 });
 
+//部门结构树
+var product_ztree;
+var product_setting = {
+    data: {
+        simpleData: {
+            enable: true,
+            idKey: "producrId",
+            pIdKey: "parentId",
+            rootPId: -1
+        },
+        key: {
+            url:"nourl"
+        }
+    }
+};
+
 var vm = new Vue({
 	el:'#rrapp',
 	data:{
@@ -45,7 +61,11 @@ var vm = new Vue({
         },
 		showList: true,
 		title: null,
-		dict: {}
+		dict: {},
+        role:{
+            productId:null,
+            productName:null
+        }
 	},
 	methods: {
 		query: function () {
@@ -63,6 +83,10 @@ var vm = new Vue({
 			}
 			vm.showList = false;
             vm.title = "修改";
+
+            vm.getDept();
+
+            vm.getDataTree();
             
             vm.getInfo(id)
 		},
@@ -120,6 +144,35 @@ var vm = new Vue({
                 postData:{'name': vm.q.name},
                 page:page
             }).trigger("reloadGrid");
-		}
+		},
+        getProduct: function(){
+            //加载部门树
+            $.get(baseURL + "product/product/list", function(r){
+                product_ztree = $.fn.zTree.init($("#productTree"), product_setting, r);
+                //展开所有节点
+                product_ztree.expandAll(true);
+            })
+        },
+        productTree: function(){
+            layer.open({
+                type: 1,
+                offset: '50px',
+                skin: 'layui-layer-molv',
+                title: "选择产品",
+                area: ['300px', '450px'],
+                shade: 0,
+                shadeClose: false,
+                content: jQuery("#productLayer"),
+                btn: ['确定', '取消'],
+                btn1: function (index) {
+                    var node = product_ztree.getSelectedNodes();
+                    //选择上级部门
+                    vm.role.productId = 1;//node[0].productId;
+                    vm.role.productName = '消费';//node[0].name;
+
+                    layer.close(index);
+                }
+            });
+        }
 	}
 });
