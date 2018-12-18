@@ -5,8 +5,7 @@ $(function () {
         colModel: [			
 			{ label: 'ID', name: 'id', width: 30, key: true },
 			{ label: '商品', name: 'name', sortable: false, width: 60 },
-			{ label: '价格', name: 'price', width: 100 },
-			{ label: '备注', name: 'remark', width: 80 }
+			{ label: '价格', name: 'price', width: 100 }
         ],
 		viewrecords: true,
         height: 385,

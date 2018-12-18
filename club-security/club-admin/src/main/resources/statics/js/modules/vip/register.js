@@ -6,9 +6,7 @@ $(function () {
             { label: '姓名', name: 'name', index: 'name', width: 80 },
             { label: '电话号码', name: 'phone', index: 'type', width: 80 },
             { label: '身份证', name: 'cardNo', index: 'code', width: 80 },
-            { label: '余额', name: 'balance', index: 'value', width: 80 },
-            { label: '注册门店', name: 'store', index: 'order_num', width: 80 },
-            { label: '备注', name: 'remark', index: 'remark', width: 80 }
+            { label: '余额', name: 'balance', index: 'value', width: 80 }
         ],
         viewrecords: true,
         height: 385,
@@ -76,7 +74,7 @@ var vm = new Vue({
                 success: function(r){
                     if(r.code === 0){
                         alert('操作成功', function(index){
-                            vm.reload();
+                            location.reload();
                         });
                     }else{
                         alert(r.msg);

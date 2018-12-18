@@ -6,9 +6,7 @@ $(function () {
 			{ label: '姓名', name: 'name', index: 'name', width: 80 },
 			{ label: '电话号码', name: 'phone', index: 'type', width: 80 },
 			{ label: '身份证', name: 'cardNo', index: 'code', width: 80 },
-			{ label: '余额', name: 'balance', index: 'value', width: 80 },
-			{ label: '注册门店', name: 'store', index: 'order_num', width: 80 },
-			{ label: '备注', name: 'remark', index: 'remark', width: 80 }
+			{ label: '余额', name: 'balance', index: 'value', width: 80 }
 		],
 		viewrecords: true,
         height: 385,
@@ -43,8 +41,8 @@ var product_setting = {
     data: {
         simpleData: {
             enable: true,
-            idKey: "producrId",
-            pIdKey: "parentId",
+            idKey: "id",
+            pIdKey: null,
             rootPId: -1
         },
         key: {
@@ -60,38 +58,58 @@ var vm = new Vue({
             name: null
         },
 		showList: true,
+        showConsume: true,
 		title: null,
 		dict: {},
-        role:{
-            productId:null,
-            productName:null
-        }
+        goods:{
+            id:null,
+            name:null,
+			price: null
+        },
+        charge: 0,
+        target: null
 	},
 	methods: {
 		query: function () {
 			vm.reload();
 		},
-		add: function(){
-			vm.showList = false;
-			vm.title = "新增";
-			vm.dict = {};
-		},
 		update: function (event) {
+		    vm.target = event.target.id;
 			var id = getSelectedRow();
 			if(id == null){
 				return ;
 			}
 			vm.showList = false;
-            vm.title = "修改";
-
-            vm.getDept();
-
-            vm.getDataTree();
-            
+			if(vm.target==='consume') {
+                vm.showConsume = true;
+                vm.title = '消费'
+            }else {
+                vm.showConsume = false;
+                vm.title = '充值'
+            }
+            vm.getProduct();
             vm.getInfo(id)
 		},
 		saveOrUpdate: function (event) {
 			var url = vm.dict.id == null ? "sys/dict/save" : "sys/dict/update";
+            /*充值*/
+            if(vm.target==='recharge') {
+                if(vm.charge>0) {
+                    vm.dict.balance = parseInt(vm.dict.balance)+parseInt(vm.charge);
+                } else if(vm.charge<0) {
+                    alert("金额不能为负数！");
+                    return;
+                }
+            }else if(vm.target==='consume') {
+                /*消费*/
+                if((vm.dict.balance-vm.goods.price)<0) {
+                    alert("余额不足，请充值！");
+                    return;
+                }else {
+                    vm.dict.balance=parseInt(vm.dict.balance)-parseInt(vm.goods.price);
+                }
+            }
+
 			$.ajax({
 				type: "POST",
 			    url: baseURL + url,
@@ -135,6 +153,7 @@ var vm = new Vue({
 		getInfo: function(id){
 			$.get(baseURL + "sys/dict/info/"+id, function(r){
                 vm.dict = r.dict;
+                vm.getProduct();
             });
 		},
 		reload: function (event) {
@@ -146,11 +165,10 @@ var vm = new Vue({
             }).trigger("reloadGrid");
 		},
         getProduct: function(){
-            //加载部门树
-            $.get(baseURL + "product/product/list", function(r){
+            //加载商品树
+            $.get(baseURL + "product/product/list2", function(r){
                 product_ztree = $.fn.zTree.init($("#productTree"), product_setting, r);
-                //展开所有节点
-                product_ztree.expandAll(true);
+
             })
         },
         productTree: function(){
@@ -167,9 +185,9 @@ var vm = new Vue({
                 btn1: function (index) {
                     var node = product_ztree.getSelectedNodes();
                     //选择上级部门
-                    vm.role.productId = 1;//node[0].productId;
-                    vm.role.productName = '消费';//node[0].name;
-
+                    vm.goods.id = node[0].id;
+                    vm.goods.name = node[0].name;
+					vm.goods.price = node[0].price;
                     layer.close(index);
                 }
             });

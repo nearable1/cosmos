@@ -6,11 +6,14 @@ import io.club.common.utils.PageUtils;
 import io.club.common.utils.R;
 import io.club.common.validator.ValidatorUtils;
 import io.club.modules.sys.entity.ProductEntity;
+import io.club.modules.sys.entity.SysDeptEntity;
 import io.club.modules.sys.service.ProductService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +30,7 @@ public class ProductController extends AbstractController {
 	private ProductService sysConfigService;
 	
 	/**
-	 * 所有配置列表
+	 * 所有商品列表
 	 */
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:config:list")
@@ -35,6 +38,14 @@ public class ProductController extends AbstractController {
 		PageUtils page = sysConfigService.queryPage(params);
 
 		return R.ok().put("page", page);
+	}
+
+	@RequestMapping("/list2")
+	@RequiresPermissions("sys:config:list")
+	public List<ProductEntity> list2(){
+		List<ProductEntity> list = sysConfigService.selectList(null);
+
+		return list;
 	}
 	
 	

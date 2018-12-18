@@ -13,11 +13,9 @@
             </div>
             <a class="btn btn-default" @click="query">查询</a>
 
-            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+            <a id="consume" class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;消费</a>
 
-            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;消费</a>
-
-            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;充值</a>
+            <a id="recharge" class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;充值</a>
 
             <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;注销</a>
 
@@ -26,57 +24,52 @@
         <div id="jqGridPager"></div>
     </div>
 
+    <!--消费-->
     <div v-show="!showList" class="panel panel-default">
         <div class="panel-heading">{{title}}</div>
         <form class="form-horizontal">
             <div class="form-group">
                         <div class="col-sm-2 control-label">姓名</div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="dict.name" placeholder="姓名"/>
+                            <input type="text" class="form-control" v-model="dict.name" readonly="readonly" placeholder="姓名"/>
                         </div>
                     </div>
             <div class="form-group">
                         <div class="col-sm-2 control-label">电话号码</div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="dict.phone" placeholder="电话号码"/>
+                            <input type="text" class="form-control" v-model="dict.phone" readonly="readonly" placeholder="电话号码"/>
                         </div>
                     </div>
             <div class="form-group">
                         <div class="col-sm-2 control-label">身份证</div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="dict.cardNo" placeholder="身份证"/>
+                            <input type="text" class="form-control" v-model="dict.cardNo" readonly="readonly" placeholder="身份证"/>
                         </div>
                     </div>
             <div class="form-group">
                         <div class="col-sm-2 control-label">余额</div>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" v-model="dict.balance" placeholder="余额"/>
+                            <input type="number" class="form-control" v-model="dict.balance" readonly="readonly" placeholder="余额"/>
                         </div>
                     </div>
-            <div class="form-group">
-                        <div class="col-sm-2 control-label">注册门店</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="dict.store" placeholder="注册门店"/>
-                        </div>
-                    </div>
-            <div class="form-group">
+            <div class="form-group" v-show="showConsume">
                 <div class="col-sm-2 control-label">消费项目</div>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" style="cursor:pointer;" v-model="role.productName" @click="productTree" readonly="readonly" placeholder="所属部门"/>
+                    <input type="text" class="form-control" style="cursor:pointer;" v-model="goods.name" @click="productTree" readonly="readonly"/>
                 </div>
             </div>
-            <div class="form-group" v-show="">
-                <div class="col-sm-2 control-label">充值金额</div>
+            <div class="form-group" v-show="showConsume">
+                <div class="col-sm-2 control-label">项目价格</div>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" v-model="dict.store" placeholder="注册门店"/>
+                    <input type="number" class="form-control" style="cursor:pointer;" v-model="goods.price" readonly="readonly"/>
                 </div>
             </div>
-            <div class="form-group">
-                        <div class="col-sm-2 control-label">备注</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="dict.remark" placeholder="备注"/>
-                        </div>
-                    </div>
+            <div class="form-group" v-show="!showConsume">
+                <div class="col-sm-2 control-label">充值</div>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" v-model="charge" v-model="charge" placeholder="请输入数字"/>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-sm-2 control-label"></div>
                 <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>

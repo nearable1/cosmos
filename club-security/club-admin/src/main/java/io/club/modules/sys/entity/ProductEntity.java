@@ -25,8 +25,6 @@ public class ProductEntity {
     private String name;
     @NotNull(message="价格不能为空")
     private Double price;
-    private String remark;
-    private Integer nodeId;
 
 }
 
