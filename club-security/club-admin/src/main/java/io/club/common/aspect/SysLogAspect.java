@@ -5,12 +5,16 @@ import com.google.gson.Gson;
 
 import io.club.common.annotation.SysLog;
 import io.club.common.annotation.SysLog;
+import io.club.modules.sys.entity.SysDeptEntity;
 import io.club.modules.sys.entity.SysLogEntity;
 import io.club.modules.sys.entity.SysUserEntity;
+import io.club.modules.sys.entity.VipEntity;
+import io.club.modules.sys.service.SysDeptService;
 import io.club.modules.sys.service.SysLogService;
 import io.club.common.utils.HttpContextUtils;
 import io.club.common.utils.IPUtils;
 
+import net.sf.json.JSONObject;
 import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -35,6 +39,9 @@ import java.util.Date;
 public class SysLogAspect {
 	@Autowired
 	private SysLogService sysLogService;
+
+	@Autowired
+	private SysDeptService sysDeptService;
 	
 	@Pointcut("@annotation(io.club.common.annotation.SysLog)")
 	public void logPointCut() { 
@@ -46,50 +53,37 @@ public class SysLogAspect {
 		long beginTime = System.currentTimeMillis();
 		//执行方法
 		Object result = point.proceed();
-		//执行时长(毫秒)
-		long time = System.currentTimeMillis() - beginTime;
 
 		//保存日志
-		saveSysLog(point, time);
+		saveSysLog(point);
 
 		return result;
 	}
 
-	private void saveSysLog(ProceedingJoinPoint joinPoint, long time) {
-		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-		Method method = signature.getMethod();
+	private void saveSysLog(ProceedingJoinPoint joinPoint) {
 
 		SysLogEntity sysLog = new SysLogEntity();
-		SysLog syslog = method.getAnnotation(SysLog.class);
-		if(syslog != null){
-			//注解上的描述
-			sysLog.setOperation(syslog.value());
-		}
-
-		//请求的方法名
-		String className = joinPoint.getTarget().getClass().getName();
-		String methodName = signature.getName();
-		sysLog.setMethod(className + "." + methodName + "()");
+		VipEntity vip = null;
 
 		//请求的参数
 		Object[] args = joinPoint.getArgs();
 		try{
-			String params = new Gson().toJson(args[0]);
-			sysLog.setParams(params);
+			vip = (VipEntity) args[0];
 		}catch (Exception e){
-
+			e.printStackTrace();
 		}
+		sysLog.setUsername(vip.getName());
+		sysLog.setPhone(vip.getPhone());
+		sysLog.setIdCard(vip.getCardNo());
+		sysLog.setBalance(vip.getBalance());
+		sysLog.setMoney(vip.getMoney());
+		sysLog.setOperation(vip.getLatest());
+		//门店
+		Long storeId = ((SysUserEntity) SecurityUtils.getSubject().getPrincipal()).getDeptId();
+		String store = sysDeptService.selectById(storeId).getName();
 
-		//获取request
-		HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
-		//设置IP地址
-		sysLog.setIp(IPUtils.getIpAddr(request));
+		sysLog.setStore(store);
 
-		//用户名
-		String username = ((SysUserEntity) SecurityUtils.getSubject().getPrincipal()).getUsername();
-		sysLog.setUsername(username);
-
-		sysLog.setTime(time);
 		sysLog.setCreateDate(new Date());
 		//保存系统日志
 		sysLogService.insert(sysLog);

@@ -66,6 +66,8 @@ var vm = new Vue({
         },
         saveOrUpdate: function (event) {
             var url = vm.dict.id == null ? "sys/dict/save" : "sys/dict/update";
+            vm.dict.latest = '注册';
+            vm.dict.money = vm.dict.balance;
             $.ajax({
                 type: "POST",
                 url: baseURL + url,

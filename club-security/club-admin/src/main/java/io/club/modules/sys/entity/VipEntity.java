@@ -45,6 +45,14 @@ public class VipEntity implements Serializable {
 	@NotNull(message="余额不能为空")
 	private Double balance;
 	/**
+	 * 最近行为
+	 */
+	private String latest;
+	/**
+	 * 发生金额
+	 */
+	private Double money;
+	/**
 	 * 删除标记  -1：已删除  0：正常
 	 */
 	@TableLogic

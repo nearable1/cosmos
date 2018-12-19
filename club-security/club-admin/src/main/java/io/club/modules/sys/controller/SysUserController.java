@@ -58,7 +58,6 @@ public class SysUserController extends AbstractController {
 	/**
 	 * 修改登录用户密码
 	 */
-	@SysLog("修改密码")
 	@RequestMapping("/password")
 	public R password(String password, String newPassword){
 		Assert.isBlank(newPassword, "新密码不为能空");
@@ -95,7 +94,6 @@ public class SysUserController extends AbstractController {
 	/**
 	 * 保存用户
 	 */
-	@SysLog("保存用户")
 	@RequestMapping("/save")
 	@RequiresPermissions("sys:user:save")
 	public R save(@RequestBody SysUserEntity user){
@@ -109,7 +107,6 @@ public class SysUserController extends AbstractController {
 	/**
 	 * 修改用户
 	 */
-	@SysLog("修改用户")
 	@RequestMapping("/update")
 	@RequiresPermissions("sys:user:update")
 	public R update(@RequestBody SysUserEntity user){
@@ -123,7 +120,6 @@ public class SysUserController extends AbstractController {
 	/**
 	 * 删除用户
 	 */
-	@SysLog("删除用户")
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:user:delete")
 	public R delete(@RequestBody Long[] userIds){

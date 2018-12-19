@@ -3,14 +3,14 @@ $(function () {
         url: baseURL + 'sys/log/list',
         datatype: "json",
         colModel: [			
-			{ label: 'id', name: 'id', width: 30, key: true },
-			{ label: '用户名', name: 'username', width: 50 }, 			
-			{ label: '用户操作', name: 'operation', width: 70 }, 			
-			{ label: '请求方法', name: 'method', width: 150 }, 			
-			{ label: '请求参数', name: 'params', width: 80 },
-            { label: '执行时长(毫秒)', name: 'time', width: 80 },
-			{ label: 'IP地址', name: 'ip', width: 70 }, 			
-			{ label: '创建时间', name: 'createDate', width: 90 }			
+			{ label: 'vip名', name: 'username',sortable: false, width: 50 },
+			{ label: '电话', name: 'phone',sortable: false, width: 70 },
+			{ label: '身份证', name: 'idCard',sortable: false, width: 150 },
+			{ label: '操作', name: 'operation',sortable: false, width: 80 },
+            { label: '发生金额', name: 'money',sortable: false, width: 80 },
+			{ label: '余额', name: 'balance',sortable: false, width: 70 },
+            { label: '消费门店', name: 'store',sortable: false, width: 70 },
+			{ label: '创建时间', name: 'createDate', sortable: false, width: 90 }
         ],
 		viewrecords: true,
         height: 385,

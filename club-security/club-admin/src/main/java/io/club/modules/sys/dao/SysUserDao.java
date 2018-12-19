@@ -2,6 +2,8 @@ package io.club.modules.sys.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import io.club.modules.sys.entity.SysUserEntity;
+import org.apache.ibatis.annotations.Mapper;
+import org.mybatis.spring.annotation.MapperScan;
 
 import java.util.List;
 

@@ -33,7 +33,7 @@ public class ProductController extends AbstractController {
 	 * 所有商品列表
 	 */
 	@RequestMapping("/list")
-	@RequiresPermissions("sys:config:list")
+	@RequiresPermissions("sys:product:list")
 	public R list(@RequestParam Map<String, Object> params){
 		PageUtils page = sysConfigService.queryPage(params);
 
@@ -41,7 +41,7 @@ public class ProductController extends AbstractController {
 	}
 
 	@RequestMapping("/list2")
-	@RequiresPermissions("sys:config:list")
+	@RequiresPermissions("sys:product:list")
 	public List<ProductEntity> list2(){
 		List<ProductEntity> list = sysConfigService.selectList(null);
 
@@ -53,7 +53,7 @@ public class ProductController extends AbstractController {
 	 * 配置信息
 	 */
 	@RequestMapping("/info/{id}")
-	@RequiresPermissions("sys:config:info")
+	@RequiresPermissions("sys:product:info")
 	public R info(@PathVariable("id") Long id){
 		ProductEntity config = sysConfigService.selectById(id);
 		
@@ -63,9 +63,8 @@ public class ProductController extends AbstractController {
 	/**
 	 * 保存配置
 	 */
-	@SysLog("保存配置")
 	@RequestMapping("/save")
-	@RequiresPermissions("sys:config:save")
+	@RequiresPermissions("sys:product:save")
 	public R save(@RequestBody ProductEntity config){
 		ValidatorUtils.validateEntity(config);
 
@@ -77,9 +76,8 @@ public class ProductController extends AbstractController {
 	/**
 	 * 修改配置
 	 */
-	@SysLog("修改配置")
 	@RequestMapping("/update")
-	@RequiresPermissions("sys:config:update")
+	@RequiresPermissions("sys:product:update")
 	public R update(@RequestBody ProductEntity config){
 		ValidatorUtils.validateEntity(config);
 		
@@ -91,9 +89,8 @@ public class ProductController extends AbstractController {
 	/**
 	 * 删除配置
 	 */
-	@SysLog("删除配置")
 	@RequestMapping("/delete")
-	@RequiresPermissions("sys:config:delete")
+	@RequiresPermissions("sys:product:delete")
 	public R delete(@RequestBody Long[] ids){
 		sysConfigService.deleteBatch(ids);
 		

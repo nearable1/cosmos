@@ -1,5 +1,6 @@
 package io.club.modules.sys.controller;
 
+import io.club.common.annotation.SysLog;
 import io.club.common.utils.PageUtils;
 import io.club.common.utils.R;
 import io.club.common.validator.ValidatorUtils;
@@ -50,6 +51,7 @@ public class VipController {
     /**
      * 保存
      */
+    @SysLog
     @RequestMapping("/save")
     @RequiresPermissions("sys:dict:save")
     public R save(@RequestBody VipEntity dict){
@@ -64,6 +66,7 @@ public class VipController {
     /**
      * 修改
      */
+    @SysLog
     @RequestMapping("/update")
     @RequiresPermissions("sys:dict:update")
     public R update(@RequestBody VipEntity dict){

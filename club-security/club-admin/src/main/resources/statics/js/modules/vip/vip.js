@@ -3,10 +3,10 @@ $(function () {
         url: baseURL + 'sys/dict/list',
         datatype: "json",
         colModel: [			
-			{ label: '姓名', name: 'name', index: 'name', width: 80 },
-			{ label: '电话号码', name: 'phone', index: 'type', width: 80 },
-			{ label: '身份证', name: 'cardNo', index: 'code', width: 80 },
-			{ label: '余额', name: 'balance', index: 'value', width: 80 }
+			{ label: '姓名', name: 'name', index: 'name',sortable: false, width: 80 },
+			{ label: '电话号码', name: 'phone', index: 'type',sortable: false, width: 80 },
+			{ label: '身份证', name: 'cardNo', index: 'code',sortable: false, width: 80 },
+			{ label: '余额', name: 'balance', index: 'value',sortable: false, width: 80 }
 		],
 		viewrecords: true,
         height: 385,
@@ -66,7 +66,7 @@ var vm = new Vue({
             name:null,
 			price: null
         },
-        charge: 0,
+        charge: null,
         target: null
 	},
 	methods: {
@@ -74,6 +74,8 @@ var vm = new Vue({
 			vm.reload();
 		},
 		update: function (event) {
+		    console.log("source:");
+		    console.log(event.target.id);
 		    vm.target = event.target.id;
 			var id = getSelectedRow();
 			if(id == null){
@@ -85,7 +87,7 @@ var vm = new Vue({
                 vm.title = '消费'
             }else {
                 vm.showConsume = false;
-                vm.title = '充值'
+                vm.title = '充值';
             }
             vm.getProduct();
             vm.getInfo(id)
@@ -96,6 +98,8 @@ var vm = new Vue({
             if(vm.target==='recharge') {
                 if(vm.charge>0) {
                     vm.dict.balance = parseInt(vm.dict.balance)+parseInt(vm.charge);
+                    vm.dict.latest = '充值';
+                    vm.dict.money = vm.charge;
                 } else if(vm.charge<0) {
                     alert("金额不能为负数！");
                     return;
@@ -107,6 +111,8 @@ var vm = new Vue({
                     return;
                 }else {
                     vm.dict.balance=parseInt(vm.dict.balance)-parseInt(vm.goods.price);
+                    vm.dict.latest = vm.goods.name;
+                    vm.dict.money = 0-vm.goods.price;
                 }
             }
 
