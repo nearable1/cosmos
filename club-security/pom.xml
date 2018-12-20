@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
 
     <name>club-security</name>
-    <url>http://www.renren.io</url>
+    <url></url>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
