@@ -40,10 +40,10 @@ var vm = new Vue({
 	data:{
 		user:{},
 		menuList:{},
-		main:"main.html",
+		main:"modules/vip/vip.html",
 		password:'',
 		newPassword:'',
-        navTitle:"控制台"
+        navTitle:"充值/消费"
 	},
 	methods: {
 		getMenuList: function (event) {
