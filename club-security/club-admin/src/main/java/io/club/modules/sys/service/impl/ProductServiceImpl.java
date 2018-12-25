@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Service("sysConfigService")
@@ -65,5 +66,12 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, ProductEntity> i
 		}
 
 		this.deleteBatchIds(Arrays.asList(ids));
+	}
+
+	@Override
+	public List<ProductEntity> selectList() {
+		List<ProductEntity> list = this.selectList(new EntityWrapper<ProductEntity>()
+				.eq("status", 1));
+		return list;
 	}
 }

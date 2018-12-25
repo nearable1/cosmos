@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.service.IService;
 import io.club.common.utils.PageUtils;
 import io.club.modules.sys.entity.ProductEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,5 +38,7 @@ public interface ProductService extends IService<ProductEntity>  {
 	 * 删除配置信息
 	 */
 	public void deleteBatch(Long[] ids);
+
+	public List<ProductEntity> selectList();
 	
 }

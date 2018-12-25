@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import io.club.modules.sys.entity.ProductEntity;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 系统配置信息
  * 

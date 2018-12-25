@@ -27,7 +27,7 @@ import java.util.Map;
 @RequestMapping("/product/product")
 public class ProductController extends AbstractController {
 	@Autowired
-	private ProductService sysConfigService;
+	private ProductService productService;
 	
 	/**
 	 * 所有商品列表
@@ -35,7 +35,7 @@ public class ProductController extends AbstractController {
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:product:list")
 	public R list(@RequestParam Map<String, Object> params){
-		PageUtils page = sysConfigService.queryPage(params);
+		PageUtils page = productService.queryPage(params);
 
 		return R.ok().put("page", page);
 	}
@@ -43,7 +43,7 @@ public class ProductController extends AbstractController {
 	@RequestMapping("/list2")
 	@RequiresPermissions("sys:product:list")
 	public List<ProductEntity> list2(){
-		List<ProductEntity> list = sysConfigService.selectList(null);
+		List<ProductEntity> list = productService.selectList(null);
 
 		return list;
 	}
@@ -55,7 +55,7 @@ public class ProductController extends AbstractController {
 	@RequestMapping("/info/{id}")
 	@RequiresPermissions("sys:product:info")
 	public R info(@PathVariable("id") Long id){
-		ProductEntity config = sysConfigService.selectById(id);
+		ProductEntity config = productService.selectById(id);
 		
 		return R.ok().put("config", config);
 	}
@@ -68,7 +68,7 @@ public class ProductController extends AbstractController {
 	public R save(@RequestBody ProductEntity config){
 		ValidatorUtils.validateEntity(config);
 
-		sysConfigService.save(config);
+		productService.save(config);
 		
 		return R.ok();
 	}
@@ -80,8 +80,8 @@ public class ProductController extends AbstractController {
 	@RequiresPermissions("sys:product:update")
 	public R update(@RequestBody ProductEntity config){
 		ValidatorUtils.validateEntity(config);
-		
-		sysConfigService.update(config);
+
+		productService.update(config);
 		
 		return R.ok();
 	}
@@ -92,9 +92,19 @@ public class ProductController extends AbstractController {
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:product:delete")
 	public R delete(@RequestBody Long[] ids){
-		sysConfigService.deleteBatch(ids);
+		productService.deleteBatch(ids);
 		
 		return R.ok();
+	}
+
+	/**
+	 * 删除配置
+	 */
+	@RequestMapping("/kind")
+	public List<ProductEntity> kind(){
+		List<ProductEntity> list = productService.selectList();
+
+		return list;
 	}
 
 }

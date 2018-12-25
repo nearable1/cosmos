@@ -34,7 +34,26 @@ $(function () {
         },
         gridComplete:function(){
         	//隐藏grid底部滚动条
-        	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
+        	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" });
+            //获取消费种类
+            $.ajax({
+                type: "POST",
+                url: baseURL + "product/product/kind",
+                contentType: "application/json",
+                success: function(r){
+                    vm.options = r;
+                }
+            });
+            //初始化营业额
+            $.ajax({
+                type: "POST",
+                url: baseURL + "sys/log/sum",
+                contentType: "application/json",
+                data: JSON.stringify(vm.countsum),
+                success: function(r){
+                    vm.sum = r;
+                }
+            });
         }
     });
 });
@@ -45,6 +64,12 @@ var vm = new Vue({
 		q:{
 			key: null
 		},
+        options:[],
+        sum:0,
+        countsum: {
+            typedata:0,
+            interdata:2
+        }
 	},
 	methods: {
 		query: function () {
@@ -56,6 +81,28 @@ var vm = new Vue({
 				postData:{'key': vm.q.key},
                 page:page
             }).trigger("reloadGrid");
-		}
+		},
+        consume: function(e) {
+            $.ajax({
+                type: "POST",
+                url: baseURL + "sys/log/sum",
+                contentType: "application/json",
+                data: JSON.stringify(vm.countsum),
+                success: function(r){
+                    vm.sum = r;
+                }
+            });
+        },
+        inter: function(e) {
+            $.ajax({
+                type: "POST",
+                url: baseURL + "sys/log/sum",
+                contentType: "application/json",
+                data: JSON.stringify(vm.countsum),
+                success: function(r){
+                    vm.sum = r;
+                }
+            });
+        }
 	}
 });

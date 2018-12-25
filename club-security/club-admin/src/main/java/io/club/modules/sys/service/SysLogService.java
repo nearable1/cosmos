@@ -19,4 +19,6 @@ public interface SysLogService extends IService<SysLogEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
 
+    Double sum(Map<String, Integer> params);
+
 }
