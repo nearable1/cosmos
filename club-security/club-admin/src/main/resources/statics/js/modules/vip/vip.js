@@ -75,8 +75,8 @@ var vm = new Vue({
 		},
 		update: function (event) {
 		    console.log("source:");
-		    console.log(event.target.id);
-		    vm.target = event.target.id;
+            console.log(event);
+		    vm.target = event;
 			var id = getSelectedRow();
 			if(id == null){
 				return ;
