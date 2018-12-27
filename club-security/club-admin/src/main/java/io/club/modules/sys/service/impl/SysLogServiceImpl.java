@@ -41,8 +41,8 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogDao, SysLogEntity> impl
             new Query<SysLogEntity>(params).getPage(),
             new EntityWrapper<SysLogEntity>().like(StringUtils.isNotBlank(name),"username", name)
                     .like(StringUtils.isNotBlank(operation),"operation", operation)
-                    .gt(start!=null,"create_date",start)
-                    .lt(end!=null,"create_date",end)
+                    .ge(start!=null,"create_date",start)
+                    .le(end!=null,"create_date",end)
                     .orderBy("create_date", false)
         );
 
@@ -58,8 +58,8 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogDao, SysLogEntity> impl
         Date end = string2Date((String)params.get("end"));
         List<SysLogEntity> list = this.selectList(new EntityWrapper<SysLogEntity>().like(StringUtils.isNotBlank(name),"username", name)
                 .like(StringUtils.isNotBlank(operation),"operation", operation)
-                .gt(start!=null,"create_date",start)
-                .lt(end!=null,"create_date",end)
+                .ge(start!=null,"create_date",start)
+                .le(end!=null,"create_date",end)
                 .notIn("operation","注册","充值"));
 
         Double sum = 0.0;
