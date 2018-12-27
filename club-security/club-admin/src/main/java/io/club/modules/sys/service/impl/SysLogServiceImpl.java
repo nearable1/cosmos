@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import io.club.common.utils.Query;
 import io.club.common.utils.PageUtils;
 import io.club.modules.sys.dao.SysLogDao;
+import io.club.modules.sys.entity.ProductEntity;
 import io.club.modules.sys.entity.SysLogEntity;
 import io.club.modules.sys.service.ProductService;
 import io.club.modules.sys.service.SysLogService;
@@ -13,6 +14,9 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 
@@ -27,44 +31,58 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogDao, SysLogEntity> impl
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        String key = (String)params.get("key");
+
+        String name = (String)params.get("name");
+        String operation = (String)params.get("type");
+        Date start = string2Date((String)params.get("start"));
+        Date end = string2Date((String)params.get("end"));
 
         Page<SysLogEntity> page = this.selectPage(
             new Query<SysLogEntity>(params).getPage(),
-            new EntityWrapper<SysLogEntity>().like(StringUtils.isNotBlank(key),"username", key).orderBy("create_date", false)
+            new EntityWrapper<SysLogEntity>().like(StringUtils.isNotBlank(name),"username", name)
+                    .like(StringUtils.isNotBlank(operation),"operation", operation)
+                    .gt(start!=null,"create_date",start)
+                    .lt(end!=null,"create_date",end)
+                    .orderBy("create_date", false)
         );
 
         return new PageUtils(page);
     }
 
     @Override
-    public Double sum(Map<String, Integer> params) {
+    public Double sum(Map<String, Object> params) {
 
-        String typedata = null;
-        if(params.get("typedata")!=0) {
-            typedata = productService.selectById(params.get("typedata")).getName();
-        }
+        String name = (String)params.get("name");
+        String operation = (String)params.get("type");
+        Date start = string2Date((String)params.get("start"));
+        Date end = string2Date((String)params.get("end"));
+        List<SysLogEntity> list = this.selectList(new EntityWrapper<SysLogEntity>().like(StringUtils.isNotBlank(name),"username", name)
+                .like(StringUtils.isNotBlank(operation),"operation", operation)
+                .gt(start!=null,"create_date",start)
+                .lt(end!=null,"create_date",end)
+                .notIn("operation","注册","充值"));
 
-        int time = params.get("interdata");
         Double sum = 0.0;
-        switch(time) {
-            case 1:
-                sum = sysLog.today(typedata);
-                break;
-            case 2:
-                sum = sysLog.recentMonth(typedata);
-                break;
-            case 3:
-                sum = sysLog.recentWeek(typedata);
-                break;
-            case 4:
-                sum = sysLog.thisMonth(typedata);
-                break;
-            default:
-                sum = 0.0;
-                break;
+        //求和
+        for(int i=0; i<list.size(); i++) {
+            sum += list.get(i).getMoney();
         }
+
         return sum;
+    }
+
+    public Date string2Date(String str) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try{
+            if(str==null || str.equals("")) {
+                return date;
+            }
+            date = sdf.parse(str);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
 

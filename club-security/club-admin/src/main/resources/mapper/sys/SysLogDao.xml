@@ -3,44 +3,5 @@
 
 <mapper namespace="io.club.modules.sys.dao.SysLogDao">
 
-    <select id="today" resultType="Double">
-		SELECT sum(money) FROM sys_log WHERE to_days(create_date) = to_days(now())
-		<if test="typedate!=null">
-		and operation=#{typedate}
-		</if>
-		<if test="typedate==null">
-		and operation != '注册' and operation != '充值'
-		</if>
-	</select>
-
-	<select id="recentMonth" resultType="Double">
-		SELECT sum(money) FROM `sys_log` WHERE DATE_SUB(CURDATE(), INTERVAL 1 MONTH) &lt;= date(create_date)
-		<if test="typedate!=null">
-			and operation=#{typedate}
-		</if>
-		<if test="typedate==null">
-			and operation != '注册' and operation != '充值'
-		</if>
-	</select>
-
-	<select id="recentWeek" resultType="Double">
-		SELECT sum(money) FROM sys_log WHERE DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(create_date)
-		<if test="typedate!=null">
-			and operation=#{typedate}
-		</if>
-		<if test="typedate==null">
-			and operation != '注册' and operation != '充值'
-		</if>
-	</select>
-
-	<select id="thisMonth" resultType="Double">
-		SELECT sum(money) FROM sys_log WHERE DATE_FORMAT(create_date,'%Y-%m') = DATE_FORMAT(CURDATE(),'%Y-%m')
-		<if test="typedate!=null">
-			and operation=#{typedate}
-		</if>
-		<if test="typedate==null">
-			and operation != '注册' and operation != '充值'
-		</if>
-	</select>
 
 </mapper>

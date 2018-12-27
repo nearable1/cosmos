@@ -49,7 +49,7 @@ $(function () {
                 type: "POST",
                 url: baseURL + "sys/log/sum",
                 contentType: "application/json",
-                data: JSON.stringify(vm.countsum),
+                data: JSON.stringify(vm.q),
                 success: function(r){
                     vm.sum = r;
                 }
@@ -62,14 +62,13 @@ var vm = new Vue({
 	el:'#rrapp',
 	data:{
 		q:{
-			key: null
+			key: null,
+            type: '',
+            start: null,
+            end: null
 		},
         options:[],
         sum:0,
-        countsum: {
-            typedata:0,
-            interdata:2
-        }
 	},
 	methods: {
 		query: function () {
@@ -78,31 +77,9 @@ var vm = new Vue({
 		reload: function (event) {
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
-				postData:{'key': vm.q.key},
+				postData:vm.q,
                 page:page
             }).trigger("reloadGrid");
-		},
-        consume: function(e) {
-            $.ajax({
-                type: "POST",
-                url: baseURL + "sys/log/sum",
-                contentType: "application/json",
-                data: JSON.stringify(vm.countsum),
-                success: function(r){
-                    vm.sum = r;
-                }
-            });
-        },
-        inter: function(e) {
-            $.ajax({
-                type: "POST",
-                url: baseURL + "sys/log/sum",
-                contentType: "application/json",
-                data: JSON.stringify(vm.countsum),
-                success: function(r){
-                    vm.sum = r;
-                }
-            });
-        }
+		}
 	}
 });

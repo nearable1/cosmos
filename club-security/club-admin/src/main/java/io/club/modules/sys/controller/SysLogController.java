@@ -1,5 +1,6 @@
 package io.club.modules.sys.controller;
 
+import com.alibaba.fastjson.JSON;
 import io.club.common.validator.ValidatorUtils;
 import io.club.modules.sys.entity.ParamEntity;
 import io.club.modules.sys.entity.ProductEntity;
@@ -48,11 +49,9 @@ public class SysLogController {
 	 */
 	@ResponseBody
 	@RequestMapping("/sum")
-	public Double sum(@RequestBody Map<String, Integer> params){
+	public Double sum(@RequestBody Map<String, Object> params){
 		Double sum = sysLogService.sum(params);
-		if(sum == null) {
-			sum = 0.0;
-		}
+
 		return Math.abs(sum);
 	}
 	
