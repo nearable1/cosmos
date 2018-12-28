@@ -6,7 +6,7 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>club-admin</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<description>club-admin</description>
 
 	<properties>
