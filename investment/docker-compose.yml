@@ -1,0 +1,20 @@
+version: '2'
+services:
+  autoapproval-admin:
+    image: auto-approval/admin
+    ports:
+      - "8081:8081"
+    environment:
+      - spring.profiles.active=dev
+  autoapproval-api:
+    image: auto-approval/api
+    ports:
+      - "8082:8082"
+    environment:
+      - spring.profiles.active=dev
+  autoapproval-job:
+      image: auto-approval/job
+      ports:
+        - "8083:8083"
+      environment:
+        - spring.profiles.active=dev
