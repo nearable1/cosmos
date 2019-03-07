@@ -1,10 +1,8 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/regeo/regeo",
     "pages/weather/weather",
     "pages/poi/poi",
-    "pages/staticmap/staticmap",
     "pages/navigation_car/navigation",
     "pages/navigation_bus/navigation",
     "pages/navigation_walk/navigation",
@@ -12,8 +10,7 @@
     "pages/navigation_car_detail/navigation",
     "pages/navigation_walk_detail/navigation",
     "pages/navigation_ride_detail/navigation",
-    "pages/inputtips/input",
-    "pages/navigation_tx/navigation"
+    "pages/inputtips/input"
   ],
   "window":{
     "backgroundTextStyle":"light",

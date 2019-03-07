@@ -14,11 +14,6 @@
 	"libVersion": "2.0.8",
 	"appid": "wx24637ac470fd8876",
 	"projectname": "kading_wx",
-	"svr": "",
-	"client": "",
-	"qcloudRoot": "",
-	"miniprogramRoot": "",
-	"pluginRoot": "",
 	"scripts": {},
 	"condition": {
 		"search": {

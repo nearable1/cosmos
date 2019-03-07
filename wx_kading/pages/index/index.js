@@ -1,9 +1,4 @@
 Page({
-  naviToRegeo: function (e) {
-    wx.navigateTo({
-      url: '../regeo/regeo'
-    })
-  },
   naviToWeather: function (e) {
     wx.navigateTo({
       url: '../weather/weather'
@@ -14,19 +9,9 @@ Page({
       url: '../poi/poi'
     })
   },
-  naviToStatic: function(){
-    wx.navigateTo({
-      url: '../staticmap/staticmap'
-    })
-  },
   naviToNavi: function(){
     wx.navigateTo({
       url: '../navigation_car/navigation'
-    })
-  },
-  naviToTx: function() {
-    wx.navigateTo({ 
-      url: '../navigation_tx/navigation'
     })
   }
 })
