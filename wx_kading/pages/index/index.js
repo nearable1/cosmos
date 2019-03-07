@@ -11,7 +11,7 @@ Page({
   },
   naviToNavi: function(){
     wx.navigateTo({
-      url: '../navigation_car/navigation'
+      url: '../navigation_walk/navigation'
     })
   }
 })
