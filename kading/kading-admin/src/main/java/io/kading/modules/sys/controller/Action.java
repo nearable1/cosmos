@@ -22,7 +22,7 @@ public class Action {
 	@Autowired
 	private UrlUtils urlString;
 
-	@RequestMapping(value="getRunData.html")
+	@RequestMapping(value="/v3/getRunData")
 	public JSONObject getRunData(@RequestParam(value="js_code") String js_code) {
 		String url = "https://api.weixin.qq.com/sns/jscode2session?"
 				+ "appid=wx24637ac470fd8876&"
@@ -33,7 +33,7 @@ public class Action {
 		return result;
 	}
 	
-	@RequestMapping(value="decodeRunData.html")
+	@RequestMapping(value="/v3/decodeRunData")
 	public String decodeRunData(@RequestParam(value="encryptedData") String encryptedData,
 			@RequestParam(value="iv") String iv,
 			@RequestParam(value="appid") String appId,

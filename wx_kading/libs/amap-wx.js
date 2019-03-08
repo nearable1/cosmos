@@ -1,3 +1,4 @@
+var config = require('./config.js').Config;
 function AMapWX(a) {
   this.key = a.key,
     this.requestConfig = {
@@ -39,7 +40,7 @@ AMapWX.prototype.getWxLocation = function (a, b) {
       var e = "base";
       a.type && "forecast" == a.type && (e = "all"),
         wx.request({
-          url: "http://localhost:8081/kading/v3/weather/weatherInfo",
+          url: config.url+"/v3/weather/weatherInfo",
           data: {
             city: d,
             extensions: e,
@@ -153,7 +154,7 @@ AMapWX.prototype.getWxLocation = function (a, b) {
       a.querytypes && (e["types"] = a.querytypes),
         a.querykeywords && (e["keywords"] = a.querykeywords),
         wx.request({
-          url: "http://localhost:8081/kading/v3/place/around",
+          url: config.url+"/v3/place/around",
           data: e,
           method: "GET",
           header: {
@@ -217,7 +218,7 @@ AMapWX.prototype.getWxLocation = function (a, b) {
       a.city && (d["city"] = a.city),
       a.citylimit && (d["citylimit"] = a.citylimit),
       wx.request({
-        url: "http://localhost:8081/kading/v3/assistant/inputtips",
+        url: config.url+"/v3/assistant/inputtips",
         data: d,
         method: "GET",
         header: {
@@ -254,7 +255,7 @@ AMapWX.prototype.getWxLocation = function (a, b) {
       a.avoidpolygons && (d["avoidpolygons"] = a.avoidpolygons),
       a.avoidroad && (d["avoidroad"] = a.avoidroad),
       wx.request({
-        url: "http://localhost:8081/kading/v3/direction/driving",
+        url: config.url+"/v3/direction/driving",
         data: d,
         method: "GET",
         header: {
@@ -288,7 +289,7 @@ AMapWX.prototype.getWxLocation = function (a, b) {
     a.origin && (d["origin"] = a.origin),
       a.destination && (d["destination"] = a.destination),
       wx.request({
-        url: "http://localhost:8081/kading/v3/direction/walking",
+        url: config.url+"/v3/direction/walking",
         data: d,
         method: "GET",
         header: {
@@ -324,7 +325,7 @@ AMapWX.prototype.getWxLocation = function (a, b) {
       a.city && (d["city"] = a.city),
       a.cityd && (d["cityd"] = a.cityd),
       wx.request({
-        url: "http://localhost:8081/kading/v3/direction/transit/integrated",
+        url: config.url+"/v3/direction/transit/integrated",
         data: d,
         method: "GET",
         header: {

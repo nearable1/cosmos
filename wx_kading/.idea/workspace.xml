@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4dd6c865-4160-4835-8feb-d08251df0e8e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/utils/HttpRequestUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/kading-admin/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-admin/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../kading/kading-admin/src/main/java/io/kading/common/config/ShiroConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-admin/src/main/java/io/kading/common/config/ShiroConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/kading-admin/src/main/java/io/kading/common/utils/UrlUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-admin/src/main/java/io/kading/common/utils/UrlUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../kading/kading-admin/src/main/java/io/kading/modules/sys/controller/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-admin/src/main/java/io/kading/modules/sys/controller/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/aspect/RedisAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/aspect/RedisAspect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/validator/Assert.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/validator/Assert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/validator/ValidatorUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/validator/ValidatorUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/xss/SQLFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/xss/SQLFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/logs/admin.log" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/logs/admin.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libs/amap-wx.js" beforeDir="false" afterPath="$PROJECT_DIR$/libs/amap-wx.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/libs/config.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,7 +26,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="js" value="27" />
+          <entry key="js" value="31" />
           <entry key="json" value="28" />
           <entry key="wxml" value="20" />
           <entry key="wxss" value="10" />
@@ -47,12 +37,12 @@
           <entry key="CSS" value="10" />
           <entry key="HTML" value="20" />
           <entry key="JSON" value="28" />
-          <entry key="JavaScript" value="27" />
+          <entry key="JavaScript" value="31" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="222" />
+          <entry key="js" value="266" />
           <entry key="json" value="9" />
           <entry key="wxml" value="10" />
         </counts>
@@ -61,7 +51,7 @@
         <counts>
           <entry key="HTML" value="10" />
           <entry key="JSON" value="9" />
-          <entry key="JavaScript" value="222" />
+          <entry key="JavaScript" value="266" />
         </counts>
       </usages-collector>
     </session>
@@ -71,12 +61,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/libs/amap-wx.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="55" column="33" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
+            <state relative-caret-position="552">
+              <caret line="66" column="33" lean-forward="true" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
               <folding>
                 <element signature="e#256#722#0" />
                 <element signature="e#4678#5592#0" />
                 <element signature="e#5777#7590#0" />
+                <element signature="e#8598#9529#0" />
                 <element signature="e#9581#10667#0" />
                 <element signature="e#10719#11531#0" />
                 <element signature="e#11583#12682#0" />
@@ -86,22 +77,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.json">
+        <entry file="file://$PROJECT_DIR$/libs/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="16" column="4" lean-forward="true" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+            <state relative-caret-position="161">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libs/config.js">
+        <entry file="file://$PROJECT_DIR$/pages/navigation_walk_detail/navigation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="69">
-              <caret line="3" column="40" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="40" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="207">
+              <caret line="9" column="27" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -119,6 +110,8 @@
       <find>getDrivingRoute</find>
       <find>getPoiAround</find>
       <find>getInputtips</find>
+      <find>getWalkingRoute</find>
+      <find>config</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -137,6 +130,7 @@
         <option value="$PROJECT_DIR$/pages/navigation_walk/navigation.wxml" />
         <option value="$PROJECT_DIR$/pages/index/index.js" />
         <option value="$PROJECT_DIR$/app.json" />
+        <option value="$PROJECT_DIR$/libs/config.js" />
         <option value="$PROJECT_DIR$/libs/amap-wx.js" />
       </list>
     </option>
@@ -264,7 +258,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15176000" />
+    <option name="totallyTimeSpent" value="17979000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
@@ -386,9 +380,6 @@
     <entry file="file://$PROJECT_DIR$/pages/navigation_walk_detail/navigation.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/navigation_walk_detail/navigation.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/navigation_walk_detail/navigation.wxss">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -444,22 +435,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="40" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="40" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/navigation_bus/navigation.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
           <caret line="32" column="17" lean-forward="true" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="17" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/qqmap-wx-jssdk.js">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app.json">
       <provider selected="true" editor-type-id="text-editor">
@@ -468,14 +452,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pages/navigation_walk_detail/navigation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="27" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/libs/amap-wx.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="55" column="33" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
+        <state relative-caret-position="552">
+          <caret line="66" column="33" lean-forward="true" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
           <folding>
             <element signature="e#256#722#0" />
             <element signature="e#4678#5592#0" />
             <element signature="e#5777#7590#0" />
+            <element signature="e#8598#9529#0" />
             <element signature="e#9581#10667#0" />
             <element signature="e#10719#11531#0" />
             <element signature="e#11583#12682#0" />
