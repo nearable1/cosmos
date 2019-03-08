@@ -1,6 +1,6 @@
 package io.kading.common.validator;
 
-import io.club.common.exception.RRException;
+import io.kading.common.exception.RRException;
 import org.apache.commons.lang.StringUtils;
 
 /**

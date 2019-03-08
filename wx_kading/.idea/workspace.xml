@@ -2,654 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4dd6c865-4160-4835-8feb-d08251df0e8e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../kading-manager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/pom-war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/AdminApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/annotation/DataFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/annotation/SysLog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/aspect/DataFilterAspect.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/aspect/SysLogAspect.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/config/DemoConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/config/FilterConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/config/FreemarkerConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/config/KaptchaConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/config/MybatisPlusConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/config/ShiroConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/config/SwaggerConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/config/WebConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/exception/RRExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/utils/ConfigConstant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/utils/Constant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/utils/Query.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/utils/RedisKeys.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/validator/group/AliyunGroup.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/validator/group/QcloudGroup.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/common/validator/group/QiniuGroup.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/datasources/DataSourceNames.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/datasources/DynamicDataSource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/datasources/DynamicDataSourceConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/datasources/annotation/DataSource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/datasources/aspect/DataSourceAspect.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/controller/AbstractController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/controller/ProductController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/controller/SysDeptController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/controller/SysLogController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/controller/SysLoginController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/controller/SysMenuController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/controller/SysPageController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/controller/SysRoleController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/controller/SysUserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/controller/VipController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/dao/ProductDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/dao/SysDeptDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/dao/SysLogDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/dao/SysMenuDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/dao/SysRoleDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/dao/SysRoleDeptDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/dao/SysRoleMenuDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/dao/SysUserDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/dao/SysUserRoleDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/dao/VipDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/entity/ParamEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/entity/ProductEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/entity/SysDeptEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/entity/SysLogEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/entity/SysMenuEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/entity/SysRoleDeptEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/entity/SysRoleEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/entity/SysRoleMenuEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/entity/SysUserEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/entity/SysUserRoleEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/entity/VipEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/redis/SysConfigRedis.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/ProductService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/SysDeptService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/SysLogService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/SysMenuService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/SysRoleDeptService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/SysRoleMenuService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/SysRoleService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/SysUserRoleService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/SysUserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/VipService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/impl/ProductServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/impl/SysDeptServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/impl/SysLogServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/impl/SysMenuServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/impl/SysRoleDeptServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/impl/SysRoleMenuServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/impl/SysRoleServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/impl/SysUserRoleServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/impl/SysUserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/service/impl/VipServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/shiro/RedisShiroSessionDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/shiro/ShiroTag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/shiro/ShiroUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/java/io/club/modules/sys/shiro/UserRealm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/application-dev.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/application-prod.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/application-test.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/banner.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/logback-spring.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/mapper/sys/ProductDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/mapper/sys/SysDeptDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/mapper/sys/SysLogDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/mapper/sys/SysMenuDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/mapper/sys/SysRoleDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/mapper/sys/SysRoleDeptDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/mapper/sys/SysRoleMenuDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/mapper/sys/SysUserDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/mapper/sys/SysUserRoleDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/mapper/sys/VipDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/css/print.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/css/reset.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/css/screen.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/css/typography.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/fonts/DroidSans-Bold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/fonts/DroidSans.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/images/collapse.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/images/expand.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/images/explorer_icons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/images/favicon-16x16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/images/favicon-32x32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/images/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/images/logo_small.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/images/pet_store_api.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/images/throbber.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/images/wordnik_api.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/index.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lang/en.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lang/translator.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lang/zh-cn.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/backbone-min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/es5-shim.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/handlebars-4.0.5.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/highlight.9.1.0.pack.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/highlight.9.1.0.pack_extended.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/jquery-1.8.0.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/jquery.ba-bbq.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/jquery.slideto.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/jquery.wiggle.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/js-yaml.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/jsoneditor.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/lodash.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/marked.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/object-assign-pollyfill.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/sanitize-html.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/lib/swagger-oauth.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/o2c.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/swagger-ui.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/public/swagger/swagger-ui.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/css/AdminLTE.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/css/all-skins.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/css/bootstrap-table.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/css/font-awesome.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/css/index1.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/css/main.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/fonts/FontAwesome.otf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/fonts/fontawesome-webfont.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/fonts/fontawesome-webfont.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/fonts/fontawesome-webfont.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/fonts/fontawesome-webfont.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/fonts/fontawesome-webfont.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/fonts/glyphicons-halflings-regular.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/fonts/glyphicons-halflings-regular.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/fonts/glyphicons-halflings-regular.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/js/common.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/js/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/js/index1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/js/modules/product/product.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/js/modules/sys/dept.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/js/modules/sys/log.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/js/modules/sys/menu.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/js/modules/sys/role.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/js/modules/sys/user.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/js/modules/vip/register.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/js/modules/vip/vip.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/js/navtab.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/libs/ajaxupload.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/libs/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/libs/app.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/libs/bootstrap-table.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/libs/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/libs/fastclick.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/libs/jquery.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/libs/jquery.slimscroll.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/libs/router.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/libs/validator.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/libs/vue-validator.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/libs/vue.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/jqgrid/grid.locale-cn.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/jqgrid/jquery.jqGrid.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/jqgrid/ui.jqgrid-bootstrap-ui.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/jqgrid/ui.jqgrid-bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/jqgrid/ui.jqgrid.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layer/layer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layer/mobile/layer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layer/mobile/need/layer.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layer/skin/default/icon-ext.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layer/skin/default/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layer/skin/default/layer.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layer/skin/default/loading-0.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layer/skin/default/loading-1.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layer/skin/default/loading-2.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layer/skin/moon/default.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layer/skin/moon/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/layui.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/code.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/_all.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/aero.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/aero.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/aero@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/blue.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/blue@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/flat.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/flat.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/flat@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/green.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/green.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/green@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/grey.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/grey.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/grey@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/orange.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/orange.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/orange@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/pink.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/pink.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/pink@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/purple.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/purple.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/purple@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/red.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/red@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/yellow.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/yellow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/flat/yellow@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/futurico/futurico.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/futurico/futurico.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/futurico/futurico@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/icheck.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/line/_all.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/line/aero.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/line/blue.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/line/green.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/line/grey.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/line/line.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/line/line.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/line/line@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/line/orange.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/line/pink.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/line/purple.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/line/red.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/line/yellow.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/_all.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/aero.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/aero.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/aero@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/blue.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/blue@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/green.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/green.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/green@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/grey.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/grey.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/grey@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/minimal.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/minimal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/minimal@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/orange.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/orange.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/orange@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/pink.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/pink.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/pink@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/purple.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/purple.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/purple@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/red.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/red@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/yellow.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/yellow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/minimal/yellow@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/polaris/polaris.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/polaris/polaris.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/polaris/polaris@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/_all.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/aero.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/aero.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/aero@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/blue.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/blue@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/green.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/green.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/green@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/grey.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/grey.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/grey@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/orange.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/orange.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/orange@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/pink.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/pink.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/pink@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/purple.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/purple.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/purple@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/red.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/red@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/square.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/square.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/square@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/yellow.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/yellow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/icheck/square/yellow@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/laydate/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/laydate/laydate.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/layer/default/icon-ext.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/layer/default/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/layer/default/layer.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/layer/default/loading-0.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/layer/default/loading-1.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/css/modules/layer/default/loading-2.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/font/iconfont.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/font/iconfont.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/font/iconfont.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/font/iconfont.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/0.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/1.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/10.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/11.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/12.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/13.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/14.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/15.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/16.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/17.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/18.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/19.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/2.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/20.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/21.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/22.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/23.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/24.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/25.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/26.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/27.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/28.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/29.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/3.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/30.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/31.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/32.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/33.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/34.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/35.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/36.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/37.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/38.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/39.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/4.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/40.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/41.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/42.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/43.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/44.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/45.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/46.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/47.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/48.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/49.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/5.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/50.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/51.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/52.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/53.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/54.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/55.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/56.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/57.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/58.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/59.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/6.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/60.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/61.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/62.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/63.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/64.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/65.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/66.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/67.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/68.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/69.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/7.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/70.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/71.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/8.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/images/face/9.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/dest/layui.all.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/dest/layui.mod.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/lib/jquery.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/modules/code.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/modules/element.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/modules/flow.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/modules/form.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/modules/laydate.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/modules/layedit.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/modules/layer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/modules/laypage.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/modules/laytpl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/modules/tree.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/modules/upload.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/lay/modules/util.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/layui.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/modules/icheck.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/layui/modules/pjax.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/treegrid/img/collapse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/treegrid/img/expand.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/treegrid/img/file.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/treegrid/img/folder.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/treegrid/jquery.treegrid.bootstrap3.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/treegrid/jquery.treegrid.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/treegrid/jquery.treegrid.extension.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/treegrid/jquery.treegrid.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/treegrid/tree.table.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/awesomeStyle/awesome.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/awesomeStyle/awesome.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/awesomeStyle/fa.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/awesomeStyle/img/loading.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/metroStyle/img/line_conn.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/metroStyle/img/loading.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/metroStyle/img/metro.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/metroStyle/img/metro.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/metroStyle/metroStyle.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/diy/1_close.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/diy/1_open.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/diy/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/diy/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/diy/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/diy/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/diy/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/diy/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/diy/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/diy/9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/line_conn.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/loading.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/zTreeStandard.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/img/zTreeStandard.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/css/zTreeStyle/zTreeStyle.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/statics/plugins/ztree/jquery.ztree.all.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/404.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/header.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/index1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/main.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/modules/product/product.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/modules/sys/dept.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/modules/sys/log.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/modules/sys/menu.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/modules/sys/role.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/modules/sys/user.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/modules/vip/register.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/main/resources/templates/modules/vip/vip.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/test/java/io/club/DynamicDataSourceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/test/java/io/club/RedisTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-admin/src/test/java/io/club/service/DataSourceTestService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/pom-war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/ApiApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/annotation/Login.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/annotation/LoginUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/config/FilterConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/config/SwaggerConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/config/WebMvcConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/controller/ApiLoginController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/controller/ApiRegisterController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/controller/ApiTestController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/dao/TokenDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/dao/UserDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/entity/TokenEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/entity/UserEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/exception/RRExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/form/LoginForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/form/RegisterForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/interceptor/AuthorizationInterceptor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/resolver/LoginUserHandlerMethodArgumentResolver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/service/TokenService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/service/impl/TokenServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/java/io/club/service/impl/UserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/resources/application-dev.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/resources/application-prod.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/resources/application-test.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/resources/banner.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/resources/logback-spring.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/resources/mapper/TokenDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-api/src/main/resources/mapper/UserDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/aspect/RedisAspect.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/config/RedisConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/exception/RRException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/utils/DateUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/utils/HttpContextUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/utils/IPUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/utils/MapUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/utils/PageUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/utils/R.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/utils/RedisUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/utils/SpringContextUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/validator/Assert.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/validator/ValidatorUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/validator/group/AddGroup.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/validator/group/Group.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/validator/group/UpdateGroup.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/xss/HTMLFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/xss/SQLFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/xss/XssFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-common/src/main/java/io/club/common/xss/XssHttpServletRequestWrapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/GeneratorApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/config/DbConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/controller/SysGeneratorController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/dao/GeneratorDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/dao/MySQLGeneratorDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/dao/OracleGeneratorDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/dao/PostgreSQLGeneratorDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/dao/SQLServerGeneratorDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/entity/ColumnEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/entity/TableEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/service/SysGeneratorService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/utils/DateUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/utils/GenUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/utils/PageUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/utils/Query.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/utils/R.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/utils/RRException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/java/io/club/utils/RRExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/generator.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/mapper/MySQLGeneratorDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/mapper/OracleGeneratorDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/mapper/PostgreSQLGeneratorDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/mapper/SQLServerGeneratorDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/css/AdminLTE.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/css/all-skins.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/css/font-awesome.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/css/main.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/fonts/FontAwesome.otf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/fonts/fontawesome-webfont.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/fonts/fontawesome-webfont.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/fonts/fontawesome-webfont.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/fonts/fontawesome-webfont.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/fonts/fontawesome-webfont.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/fonts/glyphicons-halflings-regular.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/fonts/glyphicons-halflings-regular.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/fonts/glyphicons-halflings-regular.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/js/common.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/js/generator.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/js/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/libs/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/libs/app.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/libs/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/libs/fastclick.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/libs/jquery.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/libs/jquery.slimscroll.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/libs/router.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/libs/vue.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/jqgrid/grid.locale-cn.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/jqgrid/jquery.jqGrid.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/jqgrid/ui.jqgrid-bootstrap-ui.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/jqgrid/ui.jqgrid-bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/jqgrid/ui.jqgrid.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/layer/layer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/layer/mobile/layer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/layer/mobile/need/layer.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/layer/skin/default/icon-ext.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/layer/skin/default/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/layer/skin/default/layer.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/layer/skin/default/loading-0.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/layer/skin/default/loading-1.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/layer/skin/default/loading-2.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/layer/skin/moon/default.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/static/plugins/layer/skin/moon/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/template/Controller.java.vm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/template/Dao.java.vm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/template/Dao.xml.vm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/template/Entity.java.vm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/template/Service.java.vm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/template/ServiceImpl.java.vm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/template/list.html.vm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/template/list.js.vm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/template/menu.sql.vm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/views/generator.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/views/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-generator/src/main/resources/views/main.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/club-security.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/docker-compose.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/logs/admin.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/logs/daily/admin.log.2018-12-13.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/logs/daily/admin.log.2018-12-14.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/logs/daily/admin.log.2018-12-17.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/logs/daily/admin.log.2018-12-18.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/logs/daily/admin.log.2018-12-19.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/logs/daily/admin.log.2018-12-20.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/logs/daily/admin.log.2018-12-24.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/logs/daily/admin.log.2018-12-26.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/logs/daily/admin.log.2018-12-27.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/logs/daily/admin.log.2018-12-28.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../club-security/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/.classpath" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/.settings/.jsdtscope" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/.settings/org.eclipse.wst.common.component" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/.settings/org.eclipse.wst.common.project.facet.core.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/.settings/org.eclipse.wst.common.project.facet.core.xml.bak" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/.settings/org.eclipse.wst.jsdt.ui.superType.container" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/.settings/org.eclipse.wst.jsdt.ui.superType.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/.settings/org.eclipse.wst.validation.prefs" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/utils/HttpRequestUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kading/kading-admin/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-admin/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kading/kading-admin/src/main/java/io/kading/common/config/ShiroConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-admin/src/main/java/io/kading/common/config/ShiroConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kading/kading-admin/src/main/java/io/kading/common/utils/UrlUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-admin/src/main/java/io/kading/common/utils/UrlUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kading/kading-admin/src/main/java/io/kading/modules/sys/controller/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-admin/src/main/java/io/kading/modules/sys/controller/Action.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/aspect/RedisAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/aspect/RedisAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/validator/Assert.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/validator/Assert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/validator/ValidatorUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/validator/ValidatorUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/xss/SQLFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/kading-common/src/main/java/io/kading/common/xss/SQLFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kading/logs/admin.log" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/logs/admin.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../kading/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../kading/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/java/com/cosmos/controller/Action.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/java/com/cosmos/dao/UserDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/java/com/cosmos/dao/UserMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/java/com/cosmos/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/java/com/cosmos/service/impl/UserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/java/com/cosmos/utils/SecretUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/java/com/cosmos/utils/UrlUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/resources/applicationContext-dao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/resources/applicationContext-service.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/resources/applicationContext.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/resources/database.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/resources/log4j.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/resources/mybatis-config.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kading/src/main/webapp/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libs/amap-wx.js" beforeDir="false" afterPath="$PROJECT_DIR$/libs/amap-wx.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -671,8 +36,8 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="js" value="24" />
-          <entry key="json" value="26" />
+          <entry key="js" value="27" />
+          <entry key="json" value="28" />
           <entry key="wxml" value="20" />
           <entry key="wxss" value="10" />
         </counts>
@@ -681,114 +46,61 @@
         <counts>
           <entry key="CSS" value="10" />
           <entry key="HTML" value="20" />
-          <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="24" />
+          <entry key="JSON" value="28" />
+          <entry key="JavaScript" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="4" />
-          <entry key="json" value="4" />
+          <entry key="js" value="222" />
+          <entry key="json" value="9" />
           <entry key="wxml" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="10" />
-          <entry key="JSON" value="4" />
-          <entry key="JavaScript" value="4" />
+          <entry key="JSON" value="9" />
+          <entry key="JavaScript" value="222" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/navigation_bus/navigation.wxml">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/libs/amap-wx.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="7" column="9" lean-forward="true" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+            <state relative-caret-position="506">
+              <caret line="55" column="33" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
+              <folding>
+                <element signature="e#256#722#0" />
+                <element signature="e#4678#5592#0" />
+                <element signature="e#5777#7590#0" />
+                <element signature="e#9581#10667#0" />
+                <element signature="e#10719#11531#0" />
+                <element signature="e#11583#12682#0" />
+              </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/navigation_car/navigation.wxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="69">
-              <caret line="3" column="67" selection-start-line="3" selection-start-column="67" selection-end-line="3" selection-end-column="67" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/navigation_walk/navigation.wxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="5" column="22" lean-forward="true" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="12" column="10" lean-forward="true" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/weather/weather.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/weather/weather.json">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
+            <state relative-caret-position="368">
+              <caret line="16" column="4" lean-forward="true" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.wxss">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/project.config.json">
+        <entry file="file://$PROJECT_DIR$/libs/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="11" column="6" lean-forward="true" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/libs/amap-wx.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="46" column="19" lean-forward="true" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
+            <state relative-caret-position="69">
+              <caret line="3" column="40" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="40" />
               <folding>
-                <element signature="e#256#722#0" />
-                <element signature="e#4678#5592#0" />
-                <element signature="e#5777#7590#0" />
-                <element signature="e#8598#9529#0" />
-                <element signature="e#9581#10667#0" />
-                <element signature="e#10719#11531#0" />
-                <element signature="e#11583#12682#0" />
+                <element signature="n#!!doc" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -803,6 +115,10 @@
       <find>getRidingRoute</find>
       <find>getRegeo</find>
       <find>getWxLocation</find>
+      <find>getTransitRoute</find>
+      <find>getDrivingRoute</find>
+      <find>getPoiAround</find>
+      <find>getInputtips</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -816,11 +132,11 @@
       <list>
         <option value="$PROJECT_DIR$/pages/index/index.json" />
         <option value="$PROJECT_DIR$/pages/index/index.wxml" />
-        <option value="$PROJECT_DIR$/app.json" />
         <option value="$PROJECT_DIR$/pages/navigation_bus/navigation.wxml" />
         <option value="$PROJECT_DIR$/pages/navigation_car/navigation.wxml" />
         <option value="$PROJECT_DIR$/pages/navigation_walk/navigation.wxml" />
         <option value="$PROJECT_DIR$/pages/index/index.js" />
+        <option value="$PROJECT_DIR$/app.json" />
         <option value="$PROJECT_DIR$/libs/amap-wx.js" />
       </list>
     </option>
@@ -948,7 +264,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4347000" />
+    <option name="totallyTimeSpent" value="15176000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1027,22 +343,6 @@
     <entry file="file://$PROJECT_DIR$/pages/navigation_ride/navigation.js" />
     <entry file="file://$PROJECT_DIR$/pages/regeo/regeo.js" />
     <entry file="file://$PROJECT_DIR$/pages/regeo/regeo.json" />
-    <entry file="file://$PROJECT_DIR$/libs/amap-wx.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="46" column="19" lean-forward="true" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
-          <folding>
-            <element signature="e#256#722#0" />
-            <element signature="e#4678#5592#0" />
-            <element signature="e#5777#7590#0" />
-            <element signature="e#8598#9529#0" />
-            <element signature="e#9581#10667#0" />
-            <element signature="e#10719#11531#0" />
-            <element signature="e#11583#12682#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/index/index.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
@@ -1068,13 +368,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
           <caret line="12" column="10" lean-forward="true" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -1148,6 +441,45 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
           <caret line="12" column="19" lean-forward="true" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="40" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="40" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/navigation_bus/navigation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="32" column="17" lean-forward="true" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="16" column="4" lean-forward="true" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/amap-wx.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="55" column="33" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
+          <folding>
+            <element signature="e#256#722#0" />
+            <element signature="e#4678#5592#0" />
+            <element signature="e#5777#7590#0" />
+            <element signature="e#9581#10667#0" />
+            <element signature="e#10719#11531#0" />
+            <element signature="e#11583#12682#0" />
+          </folding>
         </state>
       </provider>
     </entry>

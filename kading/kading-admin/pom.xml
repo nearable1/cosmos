@@ -21,6 +21,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>io.kading</groupId>
+			<artifactId>kading-common</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk15on</artifactId>
 			<version>1.59</version>

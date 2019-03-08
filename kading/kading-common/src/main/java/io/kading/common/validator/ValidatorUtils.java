@@ -1,7 +1,6 @@
 package io.kading.common.validator;
 
-
-import io.club.common.exception.RRException;
+import io.kading.common.exception.RRException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

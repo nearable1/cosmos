@@ -1,6 +1,6 @@
 package io.kading.common.aspect;
 
-import io.club.common.exception.RRException;
+import io.kading.common.exception.RRException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
