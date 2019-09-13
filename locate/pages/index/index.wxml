@@ -1,0 +1,5 @@
+<view class="container">
+  <view class="naviButton" id="weahter" bindtouchstart="naviToWeather">天气查询</view>
+  <view class="naviButton" id="poi" bindtouchstart="naviToPoi">周边兴趣点查询</view>
+  <view class="naviButton" id="navi" bindtouchstart="naviToNavi">出行路线规划</view>
+</view>
