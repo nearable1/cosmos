@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.call.customer.core.mapper.AppAuditMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.call.customer.core.entity.AppAudit">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="audit_item" jdbcType="VARCHAR" property="auditItem" />
+    <result column="channel" jdbcType="VARCHAR" property="channel" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="app_name" jdbcType="INTEGER" property="appName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, audit_item, channel, version, state, remark, update_time, create_time
+  </sql>
+  
+  <select id="selectListByPage" resultType="com.xiaoniu.call.customer.api.dto.AppAuditDTO">
+    select id, audit_item as auditItem, channel, version, state, remark, create_time as createTime, update_time as updateTime,
+    app_name as appName
+    from app_audit
+    where 1=1
+    <if test="auditItem != null and auditItem != '' ">
+      and audit_item = #{auditItem}
+    </if>
+    <if test="channel != null and channel != '' ">
+      and channel = #{channel}
+    </if>
+    <if test="appName != null and appName != '' ">
+      and app_name = #{appName}
+    </if>
+    <if test="version != null and version != ''">
+      and version LIKE concat('%',#{version},'%')
+    </if>
+    order by create_time desc
+  </select>
+
+  <select id="selectById" resultType="com.xiaoniu.call.customer.api.dto.AppAuditDTO">
+    select
+    *
+    from app_audit
+    where id = #{id}
+    limit 1
+  </select>
+</mapper>

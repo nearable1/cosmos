@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.walking.web.core.mapper.ext.SysRoleExtMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.walking.web.core.model.auto.SysRole">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+  </resultMap>
+
+
+  <select id="selectSysRoleListWithConditionByPage" parameterType="com.xiaoniu.walking.web.core.bo.SysRoleBO" resultMap="BaseResultMap">
+    select * from sys_role
+    <where>
+      <if test="roleCode != null and roleCode !=''">
+        and role_code = #{roleCode}
+      </if>
+    </where>
+    order by id desc
+  </select>
+
+
+</mapper>

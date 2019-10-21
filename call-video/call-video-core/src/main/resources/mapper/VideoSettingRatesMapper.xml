@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaoniu.call.video.core.mapper.VideSettingRatesMapper" >
+  <resultMap id="BaseResultMap" type="com.xiaoniu.call.video.core.entity.VideoSettingRates" >
+
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="video_number" property="videoNumber" jdbcType="VARCHAR" />
+    <result column="call_show_setting_rate" property="callShowSettingRate" jdbcType="DECIMAL" />
+    <result column="wallpaper_setting_rate" property="wallpaperSettingRate" jdbcType="DECIMAL" />
+    <result column="ringtone_setting_rate" property="ringtoneSettingRate" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, video_number, call_show_setting_rate, wallpaper_setting_rate, ringtone_setting_rate
+  </sql>
+  <select id="findByVideoNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--
+      查询是否存在
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from video_setting_rates
+    where video_number = #{videoNumber}
+    limit 1
+  </select>
+
+  <select id="pageList" resultType="com.xiaoniu.call.video.api.vo.VideoSettingRatesVO" parameterType="com.xiaoniu.call.video.api.bo.VideoSettingRatePageBO" >
+    <!--
+      查询是否存在
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from video_setting_rates
+    <choose>
+      <when test="rankType != null and rankType !=''">
+        order by ${rankType}
+      </when>
+      <otherwise>
+        order by call_show_setting_rate
+      </otherwise>
+    </choose>
+
+    <choose>
+      <when test="orderType != null and orderType !='' and orderType == 1">
+        asc
+      </when>
+      <otherwise>
+        desc
+      </otherwise>
+    </choose>
+
+  </select>
+
+  <insert id="insertNew" parameterType="com.xiaoniu.call.video.core.entity.VideoSettingRates" >
+    <!--
+      插入
+    -->
+    insert into video_setting_rates
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+
+      <if test="videoNumber != null" >
+        video_number,
+      </if>
+      <if test="callShowSettingRate != null" >
+        call_show_setting_rate,
+      </if>
+      <if test="wallpaperSettingRate != null" >
+        wallpaper_setting_rate,
+      </if>
+      <if test="ringtoneSettingRate != null" >
+        ringtone_setting_rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+
+      <if test="videoNumber != null" >
+        #{videoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="callShowSettingRate != null" >
+        #{callShowSettingRate,jdbcType=DECIMAL},
+      </if>
+      <if test="wallpaperSettingRate != null" >
+        #{wallpaperSettingRate,jdbcType=DECIMAL},
+      </if>
+      <if test="ringtoneSettingRate != null" >
+        #{ringtoneSettingRate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByVideoNumber" parameterType="com.xiaoniu.call.video.core.entity.VideoSettingRates" >
+    <!--
+     更新
+    -->
+    update video_setting_rates
+    <set >
+
+      <if test="callShowSettingRate != null" >
+        call_show_setting_rate = #{callShowSettingRate},
+      </if>
+      <if test="wallpaperSettingRate != null" >
+        wallpaper_setting_rate = #{wallpaperSettingRate},
+      </if>
+      <if test="ringtoneSettingRate != null" >
+        video_number = #{videoNumber},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

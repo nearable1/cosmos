@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.walking.web.core.mapper.auto.SysPermissionMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.walking.web.core.model.auto.SysPermission">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="permission_id" jdbcType="INTEGER" property="permissionId" />
+    <result column="names" jdbcType="VARCHAR" property="names" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="img_icon" jdbcType="VARCHAR" property="imgIcon" />
+    <result column="orders" jdbcType="SMALLINT" property="orders" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="authority" jdbcType="VARCHAR" property="authority" />
+    <result column="permission_type" jdbcType="CHAR" property="permissionType" />
+    <result column="permission_state" jdbcType="TINYINT" property="permissionState" />
+  </resultMap>
+</mapper>

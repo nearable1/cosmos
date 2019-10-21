@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.call.customer.core.mapper.AppVersionMapper">
+    <resultMap id="BaseResultMap" type="com.xiaoniu.call.customer.core.entity.AppVersion">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="app_type" jdbcType="INTEGER" property="appType"/>
+        <result column="channel" jdbcType="VARCHAR" property="channel"/>
+        <result column="is_popup" jdbcType="BIT" property="isPopup"/>
+        <result column="version_number" jdbcType="VARCHAR" property="versionNumber"/>
+        <result column="download_url" jdbcType="VARCHAR" property="downloadUrl"/>
+        <result column="is_forced_update" jdbcType="VARCHAR" property="isForcedUpdate"/>
+        <result column="version_update" jdbcType="VARCHAR" property="versionUpdate"/>
+        <result column="change_title" jdbcType="VARCHAR" property="changeTitle"/>
+        <result column="change_desc" jdbcType="VARCHAR" property="changeDesc"/>
+        <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="operator" jdbcType="VARCHAR" property="operator"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, app_type, channel, is_popup, version_number, download_url, is_forced_update,
+        version_update, change_title, change_desc, begin_time, end_time, state, remark, operator,
+        update_time, create_time
+    </sql>
+
+    <select id="getMaxAppVersionConfig" resultType="com.xiaoniu.call.customer.core.entity.AppVersion">
+        select
+        <include refid="Base_Column_List"/>
+        from app_version
+        <where>
+            app_type = #{appType} and
+            version_number &gt; #{versionNumber} and
+            channel = #{channel} and
+            state = 1 and
+            begin_time &lt;= now() and
+            end_time &gt;= now()
+        </where>
+        order by version_number desc
+        limit 1
+    </select>
+
+    <select id="selectValidVersionUpdateByAPPVersionNumber" resultType="com.xiaoniu.call.customer.core.entity.AppVersion">
+        select
+        <include refid="Base_Column_List"/>
+        from app_version
+        <where>
+            app_type = #{appType} and
+            version_number &gt; #{versionNumber} and
+            state = 1 and
+            begin_time &lt;= now() and
+            end_time &gt;= now()
+        </where>
+        order by version_number desc
+        limit 1
+    </select>
+</mapper>

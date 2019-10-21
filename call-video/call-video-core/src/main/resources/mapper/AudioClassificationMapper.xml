@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.call.video.core.mapper.AudioClassificationMapper">
+    <resultMap id="BaseResultMap" type="com.xiaoniu.call.video.core.entity.AudioClassification">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="app_name" property="appName" jdbcType="INTEGER" />
+        <result column="category_number" property="categoryNumber" jdbcType="VARCHAR" />
+        <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+        <result column="category_icon" property="categoryIcon" jdbcType="VARCHAR" />
+        <result column="back_img" property="backImg" jdbcType="VARCHAR" />
+        <result column="weight" property="weight" jdbcType="INTEGER" />
+        <result column="status" property="status" jdbcType="BIT" />
+        <result column="operator" property="operator" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, app_name, category_number, category_name, category_icon, back_img, weight, status, operator, update_time,
+        create_time
+    </sql>
+
+    <select id="selectValidList" resultType="com.xiaoniu.call.video.core.dto.AudioClassificationDTO">
+        <!--
+          查询分类信息（logo,name,code）
+        -->
+        select category_number, category_name, category_icon, back_img from audio_classification
+        where status = 1
+        <choose>
+            <when test="appName != null and appName != ''">
+                and app_name = #{appName}
+            </when>
+            <otherwise>
+                and app_name = 1
+            </otherwise>
+        </choose>
+        order by weight, create_time desc
+        limit ${pageIndex}, ${pageSize}
+    </select>
+
+    <select id="selectWebList" resultType="com.xiaoniu.call.video.api.dto.AudioClassificationWebDTO" parameterType="integer">
+        <!--
+          分页查询音频分类
+        -->
+        select
+        <include refid="Base_Column_List"/>
+        from audio_classification
+
+        <choose>
+            <when test="appName != null and appName != ''">
+                where app_name = #{appName}
+            </when>
+            <otherwise>
+                where app_name = 1
+            </otherwise>
+        </choose>
+        ORDER BY weight ASC ,create_time DESC
+    </select>
+
+    <insert id="insertAudioClassification" parameterType="com.xiaoniu.call.video.api.bo.AudioClassificationBO">
+        <!--
+          后台新增
+        -->
+        insert into audio_classification
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="appName != null">
+                app_name,
+            </if>
+            <if test="categoryNumber != null">
+                category_number,
+            </if>
+            <if test="categoryName != null">
+                category_name,
+            </if>
+            <if test="categoryIcon != null">
+                category_icon,
+            </if>
+            <if test="backImg != null">
+                back_img,
+            </if>
+            <if test="weight != null">
+                weight,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="operator != null">
+                operator,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="appName != null">
+                #{appName,jdbcType=INTEGER},
+            </if>
+            <if test="categoryNumber != null">
+                #{categoryNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="categoryName != null">
+                #{categoryName,jdbcType=VARCHAR},
+            </if>
+            <if test="categoryIcon != null">
+                #{categoryIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="backImg != null">
+                #{backImg,jdbcType=VARCHAR},
+            </if>
+            <if test="weight != null">
+                #{weight,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+            <if test="operator != null">
+                #{operator,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="checkRepetition" parameterType="com.xiaoniu.call.video.api.bo.AudioClassificationBO" resultMap="BaseResultMap">
+        <!--
+          后台校验是否新增重复
+        -->
+        select
+        <include refid="Base_Column_List" />
+        from audio_classification
+        where category_number = #{categoryNumber}
+        and app_name = #{appName}
+        limit 1
+    </select>
+
+    <delete id="deleteCategory" parameterType="java.lang.Integer">
+        <!--
+          delete
+        -->
+        delete from audio_classification
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <update id="updateCategory" parameterType="com.xiaoniu.call.video.api.bo.AudioClassificationBO">
+        <!--
+          update
+        -->
+        update audio_classification
+        <set>
+            <if test="appName != null">
+                app_name = #{appName,jdbcType=INTEGER},
+            </if>
+            <if test="categoryNumber != null">
+                category_number = #{categoryNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="categoryName != null">
+                category_name = #{categoryName,jdbcType=VARCHAR},
+            </if>
+            <if test="categoryIcon != null">
+                category_icon = #{categoryIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="backImg != null">
+                back_img = #{backImg,jdbcType=VARCHAR},
+            </if>
+            <if test="weight != null">
+                weight = #{weight,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+            <if test="operator != null">
+                operator = #{operator,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

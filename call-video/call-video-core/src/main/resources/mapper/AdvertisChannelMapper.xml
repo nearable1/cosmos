@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.call.video.core.mapper.AdvertisChannelMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.call.video.core.entity.AdvertisChannel">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="channel_number" jdbcType="VARCHAR" property="channelNumber" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channelName" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="delivery_start_time" jdbcType="TIMESTAMP" property="deliveryStartTime" />
+    <result column="delivery_end_time" jdbcType="TIMESTAMP" property="deliveryEndTime" />
+    <result column="click_volume" jdbcType="INTEGER" property="clickVolume" />
+    <result column="exposure" jdbcType="INTEGER" property="exposure" />
+    <result column="income" jdbcType="DECIMAL" property="income" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, channel_number, channel_name, status, delivery_start_time, delivery_end_time, 
+    click_volume, exposure, income, operator, update_time, create_time
+  </sql>
+</mapper>

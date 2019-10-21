@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.walking.web.core.mapper.ext.DatabaseExtMapper">
+    <resultMap id="DataBaseResultMap"
+               type="com.xiaoniu.walking.web.core.model.auto.Database">
+        <result column="TABLE_CATALOG" property="tableCatalog" jdbcType="VARCHAR"/>
+        <result column="TABLE_SCHEMA" property="tableSchema" jdbcType="VARCHAR"/>
+        <result column="TABLE_NAME" property="tableName" jdbcType="VARCHAR"/>
+        <result column="TABLE_TYPE" property="tableType" jdbcType="VARCHAR"/>
+        <result column="ENGINE" property="engine" jdbcType="VARCHAR"/>
+        <result column="VERSION" property="version" jdbcType="BIGINT"/>
+        <result column="ROW_FORMAT" property="rowFormat" jdbcType="VARCHAR"/>
+        <result column="TABLE_ROWS" property="tableRows" jdbcType="BIGINT"/>
+        <result column="AVG_ROW_LENGTH" property="avgRowLength" jdbcType="BIGINT"/>
+        <result column="DATA_LENGTH" property="dataLength" jdbcType="BIGINT"/>
+        <result column="MAX_DATA_LENGTH" property="maxDataLength" jdbcType="BIGINT"/>
+        <result column="INDEX_LENGTH" property="indexLength" jdbcType="BIGINT"/>
+        <result column="DATA_FREE" property="dataFree" jdbcType="BIGINT"/>
+        <result column="AUTO_INCREMENT" property="autoIncrement" jdbcType="BIGINT"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="CHECK_TIME" property="checkTime" jdbcType="TIMESTAMP"/>
+        <result column="TABLE_COLLATION" property="tableCollation" jdbcType="VARCHAR"/>
+        <result column="CHECKSUM" property="checksum" jdbcType="BIGINT"/>
+        <result column="CREATE_OPTIONS" property="createOptions" jdbcType="VARCHAR"/>
+        <result column="TABLE_COMMENT" property="tableComment" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <select id="queryDatabaseByPage" parameterType="com.xiaoniu.walking.web.core.bo.DatabaseBO"
+            resultMap="DataBaseResultMap">
+        select concat(
+        TRUNCATE (data_length / 1024 / 1024, 2),
+        ' MB'
+        ) AS data_size,
+        concat(truncate(index_length/1024/1024,2),' MB') as index_size,
+        TABLE_CATALOG,
+        TABLE_SCHEMA,
+        TABLE_NAME,
+        TABLE_TYPE,
+        ENGINE,
+        VERSION,
+        ROW_FORMAT,
+        TABLE_ROWS,
+        DATA_LENGTH,
+        INDEX_LENGTH,
+        DATA_FREE,
+        CREATE_TIME,
+        TABLE_COLLATION,
+        TABLE_COMMENT
+        from information_schema.tables where 1=1
+        <if test="tableSchema !=null">and INSTR(`TABLE_SCHEMA`,#{tableSchema}) > 0</if>
+        <if test="tableName !=null">and INSTR(`TABLE_NAME`,#{tableName}) > 0</if>
+        order by TABLE_ROWS desc
+    </select>
+
+
+</mapper>

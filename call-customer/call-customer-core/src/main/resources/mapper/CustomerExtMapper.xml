@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.call.customer.core.mapper.CustomerExtMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.call.customer.core.entity.CustomerExt">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="customer_id" jdbcType="BIGINT" property="customerId" />
+    <result column="device_code" jdbcType="VARCHAR" property="deviceCode" />
+    <result column="system_type" jdbcType="INTEGER" property="systemType" />
+    <result column="system_version" jdbcType="VARCHAR" property="systemVersion" />
+    <result column="app_version" jdbcType="VARCHAR" property="appVersion" />
+    <result column="phone_model" jdbcType="VARCHAR" property="phoneModel" />
+    <result column="register_channel" jdbcType="VARCHAR" property="registerChannel" />
+    <result column="download_channel" jdbcType="VARCHAR" property="downloadChannel" />
+    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="source" jdbcType="INTEGER" property="source" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, customer_id, device_code, system_type, system_version, app_version, phone_model, 
+    register_channel, download_channel, ip_address, source, update_time, create_time
+  </sql>
+</mapper>

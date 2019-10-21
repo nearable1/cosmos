@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.walking.web.core.mapper.auto.OsBannerMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.walking.web.core.model.auto.OsBanner">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="banner_id" jdbcType="INTEGER" property="bannerId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+    <result column="banner_position" jdbcType="VARCHAR" property="bannerPosition" />
+    <result column="forward_url" jdbcType="VARCHAR" property="forwardUrl" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_man" jdbcType="VARCHAR" property="createMan" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="modify_man" jdbcType="VARCHAR" property="modifyMan" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="app_name" jdbcType="INTEGER" property="appName" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.call.customer.core.mapper.AsmConfigDataMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.call.customer.core.entity.AsmConfigData">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="modify_man" jdbcType="VARCHAR" property="modifyMan" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xiaoniu.call.customer.core.entity.AsmConfigData">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="data" jdbcType="LONGVARCHAR" property="data" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, name, modify_man, create_time, update_time, remark, state
+  </sql>
+  <sql id="Blob_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    data
+  </sql>
+  
+  <select id="selectListByPage" parameterType="com.xiaoniu.call.customer.api.vo.AsmConfigDataVO" resultType="com.xiaoniu.call.customer.api.dto.AsmConfigDataDTO">
+    SELECT
+    m.id, m.name, m.data, m.create_time as createTime, m.remark, m.update_time as updateTime
+    FROM
+    asm_config_data m
+    WHERE m.state = 1
+    <if test="id != null and id != ''">
+      and m.id = #{id}
+    </if>
+    <if test="name != null and name != ''">
+      and m.id = #{id}
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and m.create_time <![CDATA[>=]]>  #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and m.create_time <![CDATA[<=]]>  #{endTime}
+    </if>
+    order by m.create_time desc
+  </select>
+  
+</mapper>

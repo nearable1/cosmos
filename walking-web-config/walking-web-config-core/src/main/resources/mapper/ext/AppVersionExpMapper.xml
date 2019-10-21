@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.walking.web.core.mapper.ext.AppVersionExpMapper">
+
+  <resultMap id="BaseResultMap" type="com.xiaoniu.walking.web.core.model.ext.AppVersionExt">
+    <id column="app_version_id" jdbcType="INTEGER" property="appVersionId" />
+    <result column="app_type" jdbcType="INTEGER" property="appType" />
+    <result column="app_name" jdbcType="INTEGER" property="appName" />
+    <result column="update_url" jdbcType="VARCHAR" property="updateUrl" />
+    <result column="force_update" jdbcType="INTEGER" property="forceUpdate" />
+    <result column="update_description" jdbcType="VARCHAR" property="updateDescription" />
+    <result column="app_version" jdbcType="VARCHAR" property="appVersion" />
+    <result column="app_version_code" jdbcType="VARCHAR" property="appVersionCode" />
+    <result column="encrypt_code" jdbcType="VARCHAR" property="encryptCode" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_man" jdbcType="VARCHAR" property="createMan" />
+    <result column="modify_man" jdbcType="VARCHAR" property="modifyMan" />
+  </resultMap>
+
+  <resultMap id="ResultMap" type="com.xiaoniu.walking.web.api.vo.AppVersionVO">
+    <result column="app_version_id" jdbcType="INTEGER" property="appVersionId" />
+    <result column="app_name" jdbcType="INTEGER" property="appName" />
+    <result column="update_url" jdbcType="VARCHAR" property="updateUrl" />
+    <result column="force_update" jdbcType="INTEGER" property="forceUpdate" />
+    <result column="update_description" jdbcType="VARCHAR" property="updateDescription" />
+    <result column="app_version" jdbcType="VARCHAR" property="appVersion" />
+    <result column="app_version_code" jdbcType="VARCHAR" property="appVersionCode" />
+    <result column="encrypt_code" jdbcType="VARCHAR" property="encryptCode" />
+    <!--<result column="start_time" jdbcType="TIMESTAMP" property="startTime" />-->
+    <!--<result column="end_time" jdbcType="TIMESTAMP" property="endTime" />-->
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    app_version_id, app_type, app_name, update_url, force_update, update_description,
+    app_version, app_version_code, encrypt_code, state, start_time, end_time, create_time,
+    modify_time, create_man, modify_man
+  </sql>
+
+  <select id="findAppVersionByPage" resultMap="BaseResultMap" parameterType="com.xiaoniu.walking.web.core.bo.AppVersionBO" >
+    <!--
+      查询列表
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from app_version
+    <where>
+      <if test="appName !=null and appName !=''"> and app_name = #{appName} </if>
+      <if test="state != null and state !=''">and state = #{state}</if>
+      <if test="appType != null and appType !=''">and app_type = #{appType}</if>
+      <if test="sTime != null and sTime != ''">
+        AND create_time <![CDATA[ >= ]]> #{sTime}
+      </if>
+      <if test="eTime != null and eTime != ''">
+        AND create_time <![CDATA[ <= ]]> #{eTime}
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+
+  <insert id="insertAppVersion" parameterType="com.xiaoniu.walking.web.core.model.ext.AppVersionExt" >
+    <!--
+     add
+    -->
+    insert into app_version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appVersionId != null" >
+        app_version_id,
+      </if>
+      <if test="appType != null" >
+        app_type,
+      </if>
+      <if test="appName != null" >
+        app_name,
+      </if>
+      <if test="updateUrl != null" >
+        update_url,
+      </if>
+      <if test="forceUpdate != null" >
+        force_update,
+      </if>
+      <if test="updateDescription != null" >
+        update_description,
+      </if>
+      <if test="appVersion != null" >
+        app_version,
+      </if>
+      <if test="appVersionCode != null" >
+        app_version_code,
+      </if>
+      <if test="encryptCode != null" >
+        encrypt_code,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createMan != null" >
+        create_man,
+      </if>
+      <if test="modifyMan != null" >
+        modify_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appVersionId != null" >
+        #{appVersionId,jdbcType=INTEGER},
+      </if>
+      <if test="appType != null" >
+        #{appType,jdbcType=INTEGER},
+      </if>
+      <if test="appName != null" >
+        #{appName,jdbcType=INTEGER},
+      </if>
+      <if test="updateUrl != null" >
+        #{updateUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="forceUpdate != null" >
+        #{forceUpdate,jdbcType=INTEGER},
+      </if>
+      <if test="updateDescription != null" >
+        #{updateDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="appVersion != null" >
+        #{appVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="appVersionCode != null" >
+        #{appVersionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptCode != null" >
+        #{encryptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createMan != null" >
+        #{createMan,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyMan != null" >
+        #{modifyMan,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateAppVersion" parameterType="com.xiaoniu.walking.web.core.model.ext.AppVersionExt" >
+    <!--
+      update
+    -->
+    update app_version
+    <set >
+      <if test="appType != null" >
+        app_type = #{appType,jdbcType=INTEGER},
+      </if>
+      <if test="appName != null" >
+        app_name = #{appName,jdbcType=INTEGER},
+      </if>
+      <if test="updateUrl != null" >
+        update_url = #{updateUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="forceUpdate != null" >
+        force_update = #{forceUpdate,jdbcType=INTEGER},
+      </if>
+      <if test="updateDescription != null" >
+        update_description = #{updateDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="appVersion != null" >
+        app_version = #{appVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="appVersionCode != null" >
+        app_version_code = #{appVersionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptCode != null" >
+        encrypt_code = #{encryptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createMan != null" >
+        create_man = #{createMan,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyMan != null" >
+        modify_man = #{modifyMan,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where app_version_id = #{appVersionId,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteAppVersionByAppVersionId" parameterType="java.lang.Integer" >
+    <!--
+    delete
+    -->
+    delete from app_version
+    where app_version_id = #{appVersionId,jdbcType=INTEGER}
+  </delete>
+
+  <select id="getAppVersion" resultMap="ResultMap" parameterType="com.xiaoniu.walking.web.core.bo.QueryAppVersionBO">
+    <!--
+    查询APP更新
+    -->
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM `app_version`
+    WHERE 1=1
+    AND state = 1
+
+    AND app_name = #{appName}
+    AND app_type = #{appType}
+    AND `start_time` <![CDATA[ <= ]]> NOW()
+    AND `end_time` <![CDATA[ >= ]]> NOW()
+    <!--<if test="channel !=null and channel !=''"> and channel = #{channel} </if>-->
+    ORDER BY create_time DESC
+    LIMIT 1
+  </select>
+
+    <select id="queryByAppVersionId" resultMap="BaseResultMap" parameterType="integer">
+        <!--
+        根据主键查询
+        -->
+        SELECT
+        <include refid="Base_Column_List" />
+        from app_version
+        where app_version_id = #{appVersionId}
+        limit 1
+
+    </select>
+
+
+</mapper>

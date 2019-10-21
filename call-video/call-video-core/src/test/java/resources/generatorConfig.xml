@@ -1,0 +1,59 @@
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="useSimpleType" value="true"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <property name="caseSensitive" value="true"/>
+            <property name="forceAnnotation" value="true"/>
+            <property name="beginningDelimiter" value="`"/>
+            <property name="endingDelimiter" value="`"/>
+        </plugin>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://rm-uf6muqdsogu7h721o.mysql.rds.aliyuncs.com:3306/fallinlove_dev"
+                        userId="zld_dev"
+                        password="5fL0UqZ53#5Lr#E!Bg">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.xiaoniu.call.video.core.entity"
+                            targetProject="C:\code\call\call-video\call-video-core\src\main\java"/>
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="C:\code\call\call-video\call-video-core\src\main\resources"/>
+
+        <javaClientGenerator targetPackage="com.xiaoniu.call.video.core.mapper"
+                             targetProject="C:\code\call\call-video\call-video-core\src\main\java"
+                             type="XMLMAPPER"/>
+
+        <!--<table tableName="video" enableUpdateByExample="false" enableSelectByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableCountByExample="false" selectByExampleQueryId="false">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="advertis_channel" enableUpdateByExample="false" enableSelectByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableCountByExample="false" selectByExampleQueryId="false">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="video_classification" enableUpdateByExample="false" enableSelectByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableCountByExample="false" selectByExampleQueryId="false">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="video_collection" enableUpdateByExample="false" enableSelectByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableCountByExample="false" selectByExampleQueryId="false">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <table tableName="video_behavior" enableUpdateByExample="false" enableSelectByExample="false"
+               enableDeleteByExample="false"
+               enableCountByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+    </context>
+</generatorConfiguration>

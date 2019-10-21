@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.call.customer.core.mapper.DicMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.call.customer.core.entity.Dic">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_man" jdbcType="VARCHAR" property="createMan" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="modify_man" jdbcType="VARCHAR" property="modifyMan" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, code, name, sort, create_time, create_man, modify_time, modify_man, remark, state
+  </sql>
+  
+  
+  <select id="queryDictListByPage" parameterType="map" resultType="com.xiaoniu.call.customer.api.dto.BigDictDTO">
+    select
+    dict.id AS bigId,
+    dict.code AS bigCode,
+    dict.name AS bigName,
+    dict.sort AS bigSort,
+    dict.create_time AS bigCreateTime,
+    dict.create_man AS bigCreateMan,
+    dict.modify_time AS bigModifyTime,
+    dict.modify_man AS bigModifyMan,
+    dict.remark AS bigRemark,
+    dict.state AS bigState
+    from dic dict
+    where 1=1
+    <if test="bigCode != null" >
+      AND  code like concat(concat('%',#{bigCode}),'%')
+    </if>
+    <if test="bigName != null" >
+      AND name like concat(concat('%',#{bigName}),'%')
+    </if>
+    <if test="bigStatus != null" >
+      AND state = #{bigStatus}
+    </if>
+    <if test="bigRemark != null" >
+      AND remark like concat(concat('%',#{bigRemark}),'%')
+    </if>
+    order by dict.create_time desc
+  </select>
+  
+  <insert id="addDict" parameterType="com.xiaoniu.call.customer.api.vo.BigDictVO">
+    insert into dic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bigCode != null">
+        code,
+      </if>
+      <if test="bigName != null">
+        name,
+      </if>
+      <if test="bigSort != null">
+        sort,
+      </if>
+      <if test="bigCreateTime != null">
+        create_time,
+      </if>
+      <if test="bigCreateMan != null">
+        create_man,
+      </if>
+      <if test="bigModifyTime != null">
+        modify_time,
+      </if>
+      <if test="bigModifyMan != null">
+        modify_man,
+      </if>
+      <if test="bigRemark != null">
+        remark,
+      </if>
+      <if test="bigState != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bigCode != null">
+        #{bigCode},
+      </if>
+      <if test="bigName != null">
+        #{bigName},
+      </if>
+      <if test="bigSort != null">
+        #{bigSort},
+      </if>
+      <if test="bigCreateTime != null">
+        #{bigCreateTime},
+      </if>
+      <if test="bigCreateMan != null">
+        #{bigCreateMan},
+      </if>
+      <if test="bigModifyTime != null">
+        #{bigModifyTime},
+      </if>
+      <if test="bigModifyMan != null">
+        #{bigModifyMan},
+      </if>
+      <if test="bigRemark != null">
+        #{bigRemark},
+      </if>
+      <if test="bigState != null">
+        #{bigState},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateDictByPK" parameterType="com.xiaoniu.call.customer.api.vo.BigDictVO">
+    update dic
+    <set>
+      <if test="bigCode != null">
+        code = #{bigCode},
+      </if>
+      <if test="bigName != null">
+        name = #{bigName},
+      </if>
+      <if test="bigModifyTime != null">
+        modify_time = #{bigModifyTime},
+      </if>
+      <if test="bigRemark != null">
+        remark = #{bigRemark},
+      </if>
+      <if test="bigState != null">
+        state = #{bigState},
+      </if>
+    </set>
+    where id = #{bigId}
+  </update>
+  
+  <delete id="deleteDictById" parameterType="java.lang.Long">
+    delete from dic where id = #{bigId}
+  </delete>
+  
+  <select id="queryDictByBigCode" parameterType="java.lang.String" resultType="com.xiaoniu.call.customer.api.dto.BigDictDTO">
+    select
+    dict.id AS bigId,
+    dict.code AS bigCode,
+    dict.name AS bigName,
+    dict.sort AS bigSort,
+    dict.create_time AS bigCreateTime,
+    dict.create_man AS bigCreateMan,
+    dict.modify_time AS bigModifyTime,
+    dict.modify_man AS bigModifyMan,
+    dict.remark AS bigRemark,
+	dict.state AS bigState
+    from
+     dic dict
+    where dict.code = #{bigCode}
+  </select>
+  
+  <select id="queryDictById" parameterType="java.lang.Long" resultType="com.xiaoniu.call.customer.api.dto.BigDictDTO">
+    select
+    dict.id AS bigId,
+    dict.code AS bigCode,
+    dict.name AS bigName,
+    dict.sort AS bigSort,
+    dict.create_time AS bigCreateTime,
+    dict.create_man AS bigCreateMan,
+    dict.modify_time AS bigModifyTime,
+    dict.modify_man AS bigModifyMan,
+    dict.remark AS bigRemark,
+	dict.state AS bigState
+    from
+     dic dict
+    where dict.id = #{bigId}
+  </select>
+  
+  
+  <select id="queryDictRedis" resultType="com.xiaoniu.call.customer.api.dto.BigDictDTO">
+    select
+    dict.id AS bigId,
+    dict.code AS bigCode,
+    dict.name AS bigName,
+    dict.sort AS bigSort,
+    dict.create_time AS bigCreateTime,
+    dict.create_man AS bigCreateMan,
+    dict.modify_time AS bigModifyTime,
+    dict.modify_man AS bigModifyMan,
+    dict.remark AS bigRemark,
+    dict.state AS bigState
+    from dic dict
+    where state = 1
+  </select>
+  
+  <select id="queryAllDictRedis" parameterType="map" resultType="com.xiaoniu.call.customer.api.dto.BigDictDTO">
+    select
+    dict.id AS bigId,
+    dict.code AS bigCode,
+    dict.name AS bigName,
+    dict.sort AS bigSort,
+    dict.create_time AS bigCreateTime,
+    dict.create_man AS bigCreateMan,
+    dict.modify_time AS bigModifyTime,
+    dict.modify_man AS bigModifyMan,
+    dict.remark AS bigRemark,
+    dict.state AS bigState
+    from dic dict
+  </select>
+</mapper>

@@ -1,0 +1,4 @@
+#apollo:
+#  bootstrap:
+#    enabled: true
+#    namespaces: application,walking.mongodb,walking.business

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.walking.web.core.mapper.ext.SysPermissionExtMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.walking.web.core.bo.MenuBO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="permission_id" jdbcType="INTEGER" property="permissionId" />
+    <result column="names" jdbcType="VARCHAR" property="names" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="img_icon" jdbcType="VARCHAR" property="imgIcon" />
+    <result column="orders" jdbcType="SMALLINT" property="orders" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="authority" jdbcType="VARCHAR" property="authority" />
+    <result column="permission_type" jdbcType="CHAR" property="permissionType" />
+    <result column="permission_state" jdbcType="TINYINT" property="permissionState" />
+    <result column="checked" jdbcType="TINYINT" property="checked" />
+  </resultMap>
+
+  <select id="findSysPermission" parameterType="map" resultType="com.xiaoniu.walking.web.core.bo.MenuBO">
+    select permission_id as permissionId, names, url, img_icon as imgIcon, orders, parent_id as parentId, permission_type as permissionType, authority,
+    (
+      CASE
+        WHEN permission_id in ( SELECT permission_id FROM sys_role_permission WHERE role_code = #{role_code})
+        THEN '1'
+        ELSE '0'
+      END
+    ) as 'checked'
+    from sys_permission where permission_state = 1
+    order by parent_id,orders
+  </select>
+
+
+
+  <select id="selectSysPermissionListWithConditionByPage" parameterType="com.xiaoniu.walking.web.core.bo.SysPermissionBO" resultMap="BaseResultMap">
+    select *
+    from sys_permission
+    <where>
+      <if test="permissionId != null">
+        and permission_id = #{permissionId}
+      </if>
+      <if test="names != null and names !=''">
+        and names = #{names}
+      </if>
+      <if test="parentId != null">
+        and parent_id = #{parentId}
+      </if>
+    </where>
+    order by parent_id, orders
+  </select>
+
+
+
+
+
+</mapper>

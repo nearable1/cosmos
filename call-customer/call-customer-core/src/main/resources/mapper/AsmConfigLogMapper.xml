@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.call.customer.core.mapper.AsmConfigLogMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.call.customer.core.entity.AsmConfigLog">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="rom" jdbcType="VARCHAR" property="rom" />
+    <result column="api" jdbcType="VARCHAR" property="api" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="report_type" jdbcType="INTEGER" property="reportType" />
+    <result column="modify_man" jdbcType="VARCHAR" property="modifyMan" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, rom, api, model, manufacturer, state, report_type, modify_man, create_time,
+    update_time, remark
+  </sql>
+  
+  <select id="selectListByPage" parameterType="com.xiaoniu.call.customer.api.vo.AsmConfigLogVO" resultType="com.xiaoniu.call.customer.api.dto.AsmConfigLogDTO">
+    SELECT
+    m.id, m.rom, m.api, m.model, m.manufacturer, m.create_time as createTime
+    FROM
+    asm_config_log m
+    WHERE m.state = 1
+    <if test="startTime != null and startTime != ''">
+      and m.create_time <![CDATA[>=]]>  #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and m.create_time <![CDATA[<=]]>  #{endTime}
+    </if>
+    <if test="rom != null and rom != '' ">
+      and m.rom = #{rom}
+    </if>
+    <if test="api != null and api != ''">
+      and m.api = #{api}
+    </if>
+    <if test="model != null and model != ''">
+      and m.model = #{model}
+    </if>
+    <if test="manufacturer != null and manufacturer != ''">
+      and m.manufacturer = #{manufacturer}
+    </if>
+    order by m.create_time desc
+  </select>
+</mapper>

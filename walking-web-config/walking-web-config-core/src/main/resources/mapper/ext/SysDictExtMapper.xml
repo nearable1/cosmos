@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.walking.web.core.mapper.ext.SysDictExtMapper">
+    <resultMap id="SysDictResultMap"
+               type="com.xiaoniu.walking.web.core.model.ext.SysDictExt">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <id column="value" property="value" jdbcType="VARCHAR"/>
+        <id column="label" property="label" jdbcType="VARCHAR"/>
+        <id column="type" property="type" jdbcType="VARCHAR"/>
+        <id column="description" property="description" jdbcType="VARCHAR"/>
+        <id column="sort" property="sort" jdbcType="INTEGER"/>
+        <id column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+        <id column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <id column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <id column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <id column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+        <id column="remarks" property="remarks" jdbcType="VARCHAR"/>
+        <id column="del_flag" property="delFlag" jdbcType="CHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		 id, `value`, label, `type`, description, sort, parent_id, create_by, create_date, update_by,
+    update_date, remarks, del_flag
+		
+	</sql>
+
+
+    <select id="querySysDictByPage" parameterType="com.xiaoniu.walking.web.core.bo.SysDictBO"
+            resultMap="SysDictResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dict sd WHERE 1=1
+        <if test="type !=null">and INSTR(sd.type,#{type}) > 0</if>
+        <if test="label !=null">and INSTR(sd.label,#{label}) > 0</if>
+        and sd.parent_id = 0
+        order by sd.create_date desc
+    </select>
+
+    <insert id="insertParent" parameterType="com.xiaoniu.walking.web.core.model.ext.SysDictExt">
+		INSERT INTO sys_dict (label,`type`,description,create_by,create_date,parent_id,del_flag)
+		VALUES(#{label},#{type},#{description},#{createBy},#{createDate},0,#{delFlag})
+	</insert>
+
+    <update id="updateParent" parameterType="com.xiaoniu.walking.web.core.model.ext.SysDictExt">
+        UPDATE sys_dict
+        <set>
+            <if test="type != null and type != ''">
+                `type`= #{type},
+            </if>
+            <if test="label != null and label != ''">
+                label = #{label},
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                del_flag = #{delFlag},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            update_date = #{updateDate},
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+		delete from sys_dict where id =  #{id}
+	</delete>
+
+    <select id="getSysDictNodesById" parameterType="java.lang.Long"
+            resultMap="SysDictResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_dict
+        WHERE parent_id = #{parentId}
+        order by sort asc
+    </select>
+
+    <insert id="saveChildren" parameterType="com.xiaoniu.walking.web.core.model.ext.SysDictExt">
+		INSERT INTO sys_dict (label,description,create_by,create_date,del_flag,sort,parent_id,`value`)
+		VALUES(#{label},#{description},#{createBy},#{createDate},#{delFlag},#{sort},#{parentId},#{value})
+	</insert>
+
+    <update id="editChildren" parameterType="com.xiaoniu.walking.web.core.model.ext.SysDictExt">
+        UPDATE sys_dict
+        <set>
+            <if test="value != null and value != ''">
+                value = #{value},
+            </if>
+            <if test="label != null and label != ''">
+                label = #{label},
+            </if>
+            <if test="sort != null and sort != ''">
+                sort = #{sort},
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                del_flag = #{delFlag},
+            </if>
+
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            update_date = #{updateDate},
+
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+
+    <select id="getSysDictNodesByType" parameterType="java.lang.String" resultType="com.xiaoniu.walking.web.api.vo.SysDictVO">
+        SELECT
+        label,value,description,sort
+        FROM sys_dict
+        WHERE parent_id= (select id from sys_dict where type = #{type} )
+        and del_flag = 0
+        order by sort
+    </select>
+
+    <select id="getSysDictByValue" parameterType="java.lang.String" resultType="com.xiaoniu.walking.web.api.vo.SysDictVO">
+        SELECT
+        label,value,description
+        FROM sys_dict
+        WHERE  value = #{value}
+        and del_flag = 0
+    </select>
+
+
+    <select id="getChildrenDetailByLabel" resultType="com.xiaoniu.walking.web.api.vo.SysDictVO">
+        select label,value,description
+        from sys_dict WHERE label = #{label}
+    </select>
+
+
+    <select id="getSysDictById" parameterType="java.lang.String" resultType="com.xiaoniu.walking.web.core.model.auto.SysDict">
+        SELECT
+          id, type, value, label, description
+        FROM sys_dict
+        WHERE id = #{id}
+    </select>
+
+</mapper>

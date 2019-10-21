@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Log4j 2.x 配置文件 -->
+<Configuration status="warn" strict="true" schema="Log4J-V2.2.xsd">
+    <Properties>
+        <Property name="LOG_BASE_DIR">/data/webconfig/logs</Property>
+        <Property name="LOG_LOCAL_DIR">C:/logs</Property>
+        <Property name="CONSOLE_LOG_PATTERN">%clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{-%5p} %clr{-}{faint} %clr{${sys:PID}}{magenta} %clr{-}{faint} %clr{[%-1t-%T]}{faint} %clr{%c}{cyan} %clr{:}{faint} %m%n%xwEx
+        </Property>
+        <Property name="FILE_LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p - %pid - [%-1t-%T] %c : %m%n%xwEx</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- 输出到控制台 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!-- 需要记录的格式 -->
+            <PatternLayout pattern="${sys:CONSOLE_LOG_PATTERN}"/>
+        </Console>
+        <!-- 控制台日志文件-->
+        <RollingRandomAccessFile name="stdout" fileName="${LOG_BASE_DIR}/stdout.log"
+                                 filePattern="${LOG_BASE_DIR}/stdout.%d{yyyy-MM-dd-HH}-%i.log.gz">
+            <!-- 需要记录的格式 -->
+            <PatternLayout pattern="${sys:FILE_LOG_PATTERN}"/>
+            <Policies>
+                <!-- 每小时生成一个日志文件 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!-- 每100MB生成一个日志文件 -->
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!-- 最大保留文件数量为100 -->
+            <DefaultRolloverStrategy max="100"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+
+
+        <!-- 全局配置 -->
+        <asyncRoot level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="stdout"/>
+        </asyncRoot>
+    </Loggers>
+
+</Configuration>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.call.customer.core.mapper.AdConfigMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.call.customer.core.entity.AdConfig">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="app_name" jdbcType="INTEGER" property="appName" />
+    <result column="ad_type" jdbcType="INTEGER" property="adType" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, app_name, ad_type, remark, update_time, create_time
+  </sql>
+  
+  <select id="selectListByPage" resultType="com.xiaoniu.call.customer.api.dto.AdConfigDTO">
+    select id, app_name as appName, ad_type as adType, create_time as createTime, update_time as updateTime
+    from ad_config
+    where 1=1
+    <if test="appName != null and appName != '' ">
+      and app_name = #{appName}
+    </if>
+    <if test="adType != null and adType != '' ">
+      and ad_type = #{adType}
+    </if>
+    order by create_time desc
+  </select>
+</mapper>

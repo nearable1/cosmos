@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.call.customer.core.mapper.DicOptMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.call.customer.core.entity.DicOpt">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dic_code" jdbcType="VARCHAR" property="dicCode" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_man" jdbcType="VARCHAR" property="createMan" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="modify_man" jdbcType="VARCHAR" property="modifyMan" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xiaoniu.call.customer.core.entity.DicOpt">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="value" jdbcType="LONGVARCHAR" property="value" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, dic_code, code, name, sort, create_time, create_man, modify_time, modify_man,
+    remark, state
+  </sql>
+  <sql id="Blob_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+      id, dic_code, code, name, value, sort, create_time, create_man, modify_time, modify_man,
+      remark, state
+  </sql>
+  
+  <select id="selectByDicCode" parameterType="map" resultMap="ResultMapWithBLOBs">
+    SELECT
+    <include refid="Blob_Column_List" />
+    FROM
+    dic_opt
+    WHERE dic_code = #{dicCode}
+    and state = 1
+    <if test="code != null and code != ''">
+      and code = #{code}
+    </if>
+    order by sort asc
+  </select>
+  
+  
+  <select id="queryDictListByPage" parameterType="com.xiaoniu.call.customer.api.vo.SmallDictQueryVO" resultType="com.xiaoniu.call.customer.api.dto.SmallDictDTO">
+    select
+    id as smallId,
+    dic_code as bigDicCode,
+    code as smallCode,
+    name as smallName,
+    value as smallValue,
+    sort as smallSort,
+    create_time as smallCreateTime,
+    create_man as smallCreateMan,
+    modify_time as smallModifyTime,
+    modify_man as smallModifyMan,
+    remark as smallRemark,
+    state as smallState
+    from dic_opt
+    where 1=1
+    <if test="smallCode != null" >
+      AND  code like concat(concat('%',#{smallCode}),'%')
+    </if>
+    <if test="bigDicCode != null" >
+      AND  dic_code = #{bigDicCode}
+    </if>
+    <if test="smallName != null" >
+      AND name like concat(concat('%',#{smallName}),'%')
+    </if>
+    <if test="smallStatus != null" >
+      AND state = #{smallStatus}
+    </if>
+    <if test="smallRemark != null" >
+      AND remark like concat(concat('%',#{smallRemark}),'%')
+    </if>
+    order by create_time desc
+  </select>
+  
+  <insert id="addDict" parameterType="com.xiaoniu.call.customer.api.vo.SmallDictVO">
+    insert into dic_opt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bigDicCode != null">
+        dic_code,
+      </if>
+      <if test="smallCode != null">
+        code,
+      </if>
+      <if test="smallName != null">
+        name,
+      </if>
+      <if test="smallValue != null">
+        value,
+      </if>
+      <if test="smallSort != null">
+        sort,
+      </if>
+      <if test="smallCreateTime != null">
+        create_time,
+      </if>
+      <if test="smallCreateMan != null">
+        create_man,
+      </if>
+      <if test="smallModifyTime != null">
+        modify_time,
+      </if>
+      <if test="smallModifyMan != null">
+        modify_man,
+      </if>
+      <if test="smallRemark != null">
+        remark,
+      </if>
+      <if test="smallState != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bigDicCode != null">
+        #{bigDicCode},
+      </if>
+      <if test="smallCode != null">
+        #{smallCode},
+      </if>
+      <if test="smallName != null">
+        #{smallName},
+      </if>
+      <if test="smallValue != null">
+        #{smallValue},
+      </if>
+      <if test="smallSort != null">
+        #{smallSort},
+      </if>
+      <if test="smallCreateTime != null">
+        #{smallCreateTime},
+      </if>
+      <if test="smallCreateMan != null">
+        #{smallCreateMan},
+      </if>
+      <if test="smallModifyTime != null">
+        #{smallModifyTime},
+      </if>
+      <if test="smallModifyMan != null">
+        #{smallModifyMan},
+      </if>
+      <if test="smallRemark != null">
+        #{smallRemark},
+      </if>
+      <if test="smallState != null">
+        #{smallState},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updatePatchSmallDict" parameterType="map">
+    update dic_opt
+    <set>
+      dic_code = #{newBigCode}
+    </set>
+    where dic_code = #{oldBigCode}
+  </update>
+  
+  <update id="updateDictByPK" parameterType="com.xiaoniu.call.customer.api.vo.SmallDictVO">
+    update dic_opt
+    <set>
+      <if test="smallCode != null">
+        code = #{smallCode},
+      </if>
+      <if test="smallName != null">
+        name = #{smallName},
+      </if>
+      <if test="smallValue != null">
+        value = #{smallValue},
+      </if>
+      <if test="smallModifyTime != null">
+        modify_time = #{smallModifyTime},
+      </if>
+      <if test="smallRemark != null">
+        remark = #{smallRemark},
+      </if>
+      <if test="smallState != null">
+        state = #{smallState},
+      </if>
+    </set>
+    where id = #{smallId}
+  </update>
+  
+  <delete id="deleteDictById" parameterType="map">
+    delete from dic_opt where id = #{smallId}
+  </delete>
+  
+  <delete id="deleteDictByBigCode" parameterType="map">
+    delete from dic_opt where id in(select id from (select * from dic_opt where dic_code = #{bigDictCode}) as a);
+  </delete>
+  
+  <select id="querySmallDictById" parameterType="java.lang.Long" resultType="com.xiaoniu.call.customer.api.dto.SmallDictDTO">
+    select
+    id as smallId,
+    dic_code as bigDicCode,
+    code as smallCode,
+    name as smallName,
+    value as smallValue,
+    sort as smallSort,
+    create_time as smallCreateTime,
+    create_man as smallCreateMan,
+    modify_time as smallModifyTime,
+    modify_man as smallModifyMan,
+    remark as smallRemark,
+    state as smallState
+    from dic_opt
+    where id = #{smallId}
+  </select>
+  
+  <select id="querySmallDictByCode" parameterType="java.util.Map" resultType="com.xiaoniu.call.customer.api.dto.SmallDictDTO">
+    select
+    id as smallId,
+    dic_code as bigDicCode,
+    code as smallCode,
+    name as smallName,
+    value as smallValue,
+    sort as smallSort,
+    create_time as smallCreateTime,
+    create_man as smallCreateMan,
+    modify_time as smallModifyTime,
+    modify_man as smallModifyMan,
+    remark as smallRemark,
+    state as smallState
+    from dic_opt
+    where code = #{smallCode} and dic_code = #{bigDicCode}
+  </select>
+  
+  <select id="querySmallDictByBigCode" parameterType="java.lang.String" resultType="com.xiaoniu.call.customer.api.dto.SmallDictDTO">
+    select
+    id as smallId,
+    dic_code as bigDicCode,
+    code as smallCode,
+    name as smallName,
+    value as smallValue,
+    sort as smallSort,
+    create_time as smallCreateTime,
+    create_man as smallCreateMan,
+    modify_time as smallModifyTime,
+    modify_man as smallModifyMan,
+    remark as smallRemark,
+    state as smallState
+    from dic_opt
+    where
+      state = 1
+      AND  dic_code = #{bigDicCode}
+  </select>
+  
+  
+  <!-- 根据code查询 小类字典 -->
+  <select id="queryDictDetailByCode" parameterType="map" resultType="com.xiaoniu.call.customer.api.dto.SmallDictDTO">
+    select
+    dict.id AS smallId,
+    dict.dic_code AS bigDicCode,
+    dict.code as smallCode,
+    dict.name AS smallName,
+    dict.value as smallValue,
+    dict.sort AS smallSort,
+    dict.create_time AS smallCreateTime,
+    dict.create_man AS smallCreateMan,
+    dict.modify_time AS smallModifyTime,
+    dict.modify_man AS smallModifyMan,
+    dict.remark AS smallRemark,
+	dict.state AS smallState
+    from
+     dic_opt dict
+    where dict.code = #{smallCode}
+  </select>
+  
+  <update id="updateValueByCode" parameterType="map">
+    update dic_opt
+    <set>
+      <if test="audioSwitch != null and audioSwitch !=''">
+        value=#{audioSwitch,jdbcType=VARCHAR}
+      </if>
+      <if test="videoSwitch != null and videoSwitch !=''">
+        value=#{videoSwitch,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where code = #{code,jdbcType=VARCHAR}
+  </update>
+
+
+</mapper>

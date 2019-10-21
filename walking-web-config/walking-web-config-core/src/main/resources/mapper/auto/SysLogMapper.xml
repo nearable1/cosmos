@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.walking.web.core.mapper.auto.SysLogMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.walking.web.core.model.auto.SysLog">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="action_module" jdbcType="VARCHAR" property="actionModule" />
+    <result column="action_url" jdbcType="VARCHAR" property="actionUrl" />
+    <result column="action_type" jdbcType="VARCHAR" property="actionType" />
+    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="action_param" jdbcType="LONGVARCHAR" property="actionParam" />
+  </resultMap>
+</mapper>

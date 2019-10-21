@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaoniu.walking.web.core.mapper.ext.MarketCostExtMapper" >
+
+  <resultMap id="BaseResultMap" type="com.xiaoniu.walking.web.core.model.ext.MarketCostExt" >
+
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cast_date" property="castDate" jdbcType="TIMESTAMP" />
+    <result column="channel" property="channel" jdbcType="VARCHAR" />
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="account_consume" property="accountConsume" jdbcType="DECIMAL" />
+    <result column="ad_click_num" property="adClickNum" jdbcType="INTEGER" />
+    <result column="install_num" property="installNum" jdbcType="INTEGER" />
+    <result column="anti_point" property="antiPoint" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_man" property="createMan" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="modify_man" property="modifyMan" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+
+    id, cast_date, channel, principal, account_consume, ad_click_num, install_num, anti_point, 
+    create_time, create_man, modify_time, modify_man, remark
+  </sql>
+
+  <select id="getAllByPage" resultMap="BaseResultMap" parameterType="com.xiaoniu.walking.web.core.bo.MarketCostBO" >
+    <!--
+     查询列表
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from market_cost
+    <where>
+      <if test="channel != null and channel !=''">and channel = #{channel}</if>
+      <if test="principal != null and principal !=''">and principal = #{principal}</if>
+      <if test="startTime != null">and cast_date <![CDATA[>= ]]> #{startTime}</if>
+      <if test="endTime != null">and cast_date <![CDATA[<= ]]> #{endTime}</if>
+    </where>
+    order by create_time desc
+  </select>
+
+  <delete id="deleteInfo" parameterType="java.lang.Integer" >
+    <!--
+      删除
+    -->
+    delete from market_cost
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <select id="getInfoById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+
+    select
+    <include refid="Base_Column_List" />
+    from market_cost
+    where id = #{id}
+    limit 1
+  </select>
+
+  <insert id="insertInfo" parameterType="com.xiaoniu.walking.web.core.bo.MarketCostBO" >
+    <!--
+      插入
+    -->
+    insert into market_cost
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="castDate != null" >
+        cast_date,
+      </if>
+      <if test="channel != null" >
+        channel,
+      </if>
+      <if test="principal != null" >
+        principal,
+      </if>
+      <if test="accountConsume != null" >
+        account_consume,
+      </if>
+      <if test="adClickNum != null" >
+        ad_click_num,
+      </if>
+      <if test="installNum != null" >
+        install_num,
+      </if>
+      <if test="antiPoint != null" >
+        anti_point,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createMan != null" >
+        create_man,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="modifyMan != null" >
+        modify_man,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="castDate != null" >
+        #{castDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null" >
+        #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="accountConsume != null" >
+        #{accountConsume,jdbcType=DECIMAL},
+      </if>
+      <if test="adClickNum != null" >
+        #{adClickNum,jdbcType=INTEGER},
+      </if>
+      <if test="installNum != null" >
+        #{installNum,jdbcType=INTEGER},
+      </if>
+      <if test="antiPoint != null" >
+        #{antiPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createMan != null" >
+        #{createMan,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyMan != null" >
+        #{modifyMan,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+    <update id="updateInfo" parameterType="com.xiaoniu.walking.web.core.bo.MarketCostBO" >
+    <!--
+     更新
+    -->
+    update market_cost
+    <set >
+      <if test="castDate != null" >
+        cast_date = #{castDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channel != null" >
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null" >
+        principal = #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="accountConsume != null" >
+        account_consume = #{accountConsume,jdbcType=DECIMAL},
+      </if>
+      <if test="adClickNum != null" >
+        ad_click_num = #{adClickNum,jdbcType=INTEGER},
+      </if>
+      <if test="installNum != null" >
+        install_num = #{installNum,jdbcType=INTEGER},
+      </if>
+      <if test="antiPoint != null" >
+        anti_point = #{antiPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createMan != null" >
+        create_man = #{createMan,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyMan != null" >
+        modify_man = #{modifyMan,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

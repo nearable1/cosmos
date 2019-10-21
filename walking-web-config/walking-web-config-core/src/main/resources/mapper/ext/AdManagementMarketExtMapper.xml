@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.walking.web.core.mapper.ext.AdManagementMarketExtMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.walking.web.core.model.auto.AdManagementMarket">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="management_id" jdbcType="INTEGER" property="managementId" />
+    <result column="market" jdbcType="VARCHAR" property="market" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+		  management_id, market
+	</sql>
+
+
+
+  <!--获取底部ad_management列表-->
+  <select id="getManagementMarketList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"/>
+    from ad_management_market where  market like concat(#{market},'%')
+  </select>
+
+
+
+  <!--获取广告列表列表-->
+  <select id="selectList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"/>
+    from ad_management_market
+    where  management_id = #{managementId}
+  </select>
+</mapper>

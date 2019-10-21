@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.call.customer.core.mapper.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.call.customer.core.entity.Customer">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="account_type" jdbcType="INTEGER" property="accountType" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="signature" jdbcType="VARCHAR" property="signature" />
+    <result column="avatar_address" jdbcType="VARCHAR" property="avatarAddress" />
+    <result column="cust_state" jdbcType="BIT" property="custState" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, username, password, account_type, nickname, signature, avatar_address, cust_state, 
+    update_time, create_time, last_login_time
+  </sql>
+  
+  <select id="selectByOpenId" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+	FROM
+		customer
+	WHERE username = #{openId}
+	and account_type =  #{accountType}
+  </select>
+  
+  <select id="selectListByPage" resultType="com.xiaoniu.call.customer.api.dto.AccountManageDTO">
+    select c.id, c.account_type as accountType, c.create_time as createTime, c.last_login_time as lastLoginTime,
+    e.phone_model as phoneModel, e.register_channel as registerChannel, c.nickname
+    from customer c inner join customer_ext e on
+    c.id = e.customer_id
+    where 1=1
+    <if test="id != null and id != ''">
+      and c.id = #{id}
+    </if>
+    <if test="accountType != null and accountType != 0 ">
+      and c.account_type = #{accountType}
+    </if>
+    <if test="nickname != null and nickname != '' ">
+      and c.nickname LIKE concat('%',#{nickname},'%')
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and c.last_login_time <![CDATA[>=]]> #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and c.last_login_time <![CDATA[<=]]> #{endTime}
+    </if>
+    order by c.create_time desc
+  </select>
+  
+  <select id="selectByOpenIdAndType" parameterType="map" resultType="com.xiaoniu.call.customer.core.dto.CustomerInfoDTO">
+    SELECT
+    c.id as customerId, c.nickname as nickName, c.avatar_address as avatarAddress, c.signature,c.account_type as accountType, cm.level
+    FROM
+    customer c left join customer_manager cm on
+    c.id = cm.customer_id
+    and cm.state = 1
+    WHERE c.username = #{openId}
+    and c.account_type =  #{accountType}
+  </select>
+  
+  <select id="selectByCustomerId" parameterType="map" resultType="com.xiaoniu.call.customer.core.dto.CustomerInfoDTO">
+    SELECT
+    c.id as customerId, c.nickname as nickName, c.avatar_address as avatarAddress, c.signature,c.account_type as accountType, cm.level
+    FROM
+    customer c left join customer_manager cm on
+    c.id = cm.customer_id
+    and cm.state = 1
+    WHERE c.id = #{customerId}
+  </select>
+  
+  <select id="selectManagerByPage" resultType="com.xiaoniu.call.customer.api.dto.ManagerDTO">
+    select cm.id, c.account_type as accountType, cm.create_time as createTime,
+    c.nickname, c.username, cm.level, cm.state, cm.customer_id as customerId
+    from customer_manager cm inner join customer c on
+    c.id = cm.customer_id
+    where 1=1
+    <if test="nickname != null and nickname != ''">
+      and c.nickname LIKE concat('%',#{nickname},'%')
+    </if>
+    order by cm.create_time desc
+  </select>
+</mapper>

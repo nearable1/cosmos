@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.walking.web.core.mapper.ext.BottomIconMarketExtMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.walking.web.core.model.auto.BottomIconMarket">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="icon_id" jdbcType="INTEGER" property="iconId" />
+    <result column="market" jdbcType="VARCHAR" property="market" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+		 id, icon_id, market
+	</sql>
+
+
+  <!--获取底部icon列表-->
+  <select id="getBottomIconMarketList" resultType="java.lang.Integer" >
+    select
+       icon_id as iconId
+    from bottom_icon_market where market like concat(#{market},'%')
+  </select>
+
+
+
+  <!--获取底部icon列表-->
+  <select id="selectList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"/>
+    from bottom_icon_market
+    where  icon_id = #{iconId}
+  </select>
+
+
+
+</mapper>

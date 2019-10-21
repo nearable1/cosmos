@@ -1,0 +1,75 @@
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <property name="caseSensitive" value="true"/>
+            <property name="forceAnnotation" value="true"/>
+        </plugin>
+    
+        <commentGenerator><property name="suppressAllComments" value="true" /></commentGenerator>
+        
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://rm-uf6muqdsogu7h721oro.mysql.rds.aliyuncs.com:3306/fallinlove_dev"
+                        userId="zld_dev"
+                        password="5fL0UqZ53#5Lr#E!Bg">
+        </jdbcConnection>
+    
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        
+        <javaModelGenerator targetPackage="com.xiaoniu.call.customer.core.entity"
+                            targetProject="C:\call\call-customer\call-customer-core\src\main\java"/>
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="C:\call\call-customer\call-customer-core\src\main\resources"/>
+
+        <javaClientGenerator targetPackage="com.xiaoniu.call.customer.core.mapper"
+                             targetProject="C:\call\call-customer\call-customer-core\src\main\java"
+                             type="XMLMAPPER"/>
+    
+        <!--<table tableName="advertis_channel" enableUpdateByExample="false" enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+        <!--<table tableName="dic" enableUpdateByExample="false" enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="dic_opt" enableUpdateByExample="false" enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+        <!--<table tableName="customer_ext" enableUpdateByExample="false" enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="customer_login_log" enableUpdateByExample="false" enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="video" enableUpdateByExample="false" enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="video_classification" enableUpdateByExample="false" enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="video_collection" enableUpdateByExample="false" enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+        <table tableName="customer_manager" enableUpdateByExample="false" enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+    </context>
+</generatorConfiguration>

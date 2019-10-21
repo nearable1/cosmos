@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.call.video.core.mapper.VideoPyxCollectionMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.call.video.core.entity.VideoPyxCollection">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="video_number" jdbcType="VARCHAR" property="videoNumber" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, device_id, video_number, update_time, create_time
+  </sql>
+  
+  <select id="selectCountByDeviceIdAndVideoNumber" resultType="java.lang.Integer">
+        select count(1) from video_pyx_collection
+        where device_id = #{deviceId} and video_number=#{videoNumber}
+    </select>
+  
+  <delete id="deleteByDeviceIdAndVideoNumber">
+        delete from video_pyx_collection
+        where device_id = #{deviceId} and video_number=#{videoNumber}
+    </delete>
+</mapper>

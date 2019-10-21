@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoniu.call.customer.core.mapper.AsmConfigMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoniu.call.customer.core.entity.AsmConfig">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="rom" jdbcType="VARCHAR" property="rom" />
+    <result column="api" jdbcType="VARCHAR" property="api" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="modify_man" jdbcType="VARCHAR" property="modifyMan" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, rom, api, model, manufacturer, modify_man, create_time, update_time, remark, state, sort, asm_data_id
+  </sql>
+  
+  <select id="selectByParam" parameterType="map" resultType="com.xiaoniu.call.customer.core.dto.AsmConfigDTO">
+    SELECT
+    m.rom, m.api, m.model, m.manufacturer, m.asm_data_id as asmDataId, s.data
+    FROM
+    asm_config m
+    inner join asm_config_data s
+    on m.asm_data_id = s.id
+    WHERE m.state = 1
+    <if test="rom != null and rom != '' ">
+      and m.rom = #{rom}
+    </if>
+    <if test="manufacturer != null and manufacturer != ''">
+      and m.manufacturer = #{manufacturer}
+    </if>
+    <if test="api != null and api != ''">
+      and m.api = #{api}
+    </if>
+    <if test="model != null and model != ''">
+      and m.model = #{model}
+    </if>
+    order by m.sort desc
+  </select>
+  
+  <select id="selectListByPage" parameterType="com.xiaoniu.call.customer.api.vo.AsmConfigVO" resultType="com.xiaoniu.call.customer.api.dto.AsmConfigDTO">
+    SELECT
+    m.id, m.rom, m.api, m.model, m.manufacturer, m.asm_data_id as asmDataId, m.create_time as createTime, m.update_time as modifyTime
+    FROM
+    asm_config m
+    WHERE m.state = 1
+    <if test="rom != null and rom != '' ">
+      and m.rom = #{rom}
+    </if>
+    <if test="api != null and api != ''">
+      and m.api = #{api}
+    </if>
+    <if test="model != null and model != ''">
+      and m.model = #{model}
+    </if>
+    <if test="manufacturer != null and manufacturer != ''">
+      and m.manufacturer = #{manufacturer}
+    </if>
+    <if test="asmDataId != null and asmDataId != ''">
+      and m.asm_data_id = #{asmDataId}
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and m.create_time <![CDATA[>=]]>  #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and m.create_time <![CDATA[<=]]>  #{endTime}
+    </if>
+    order by m.create_time desc
+  </select>
+  
+  
+  <select id="selectByAsmDataId" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    asm_config
+    WHERE state = 1
+    and asm_data_id =#{asmDataId}
+  </select>
+</mapper>
