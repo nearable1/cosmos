@@ -120,7 +120,7 @@ public class WrapResponseBodyFilter implements GlobalFilter, Ordered {
     private String getWrapBody(String originalBody) {
         log.info("originalBody:{}", originalBody);
         String wrapBody = originalBody;
-        if (wrapBody!=null && !wrapBody.equals("")) {
+        if (StringUtils.isNoneBlank(wrapBody)) {
             if (!PathMatchUtils.isErrorResult(wrapBody)) {
                 wrapBody = getWrapResponseBody("#DATA#").replace("\"#DATA#\"", wrapBody);
             }
