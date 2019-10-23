@@ -19,7 +19,7 @@ import java.util.List;
  * @author wuwen
  * @date 2019-07-15 16:58
  */
-@FeignClient(contextId = "videoPyxWebBusiness", value = "video")
+@FeignClient(name = "videoPyxWebBusiness", value = "video")
 @RequestMapping("/pyx")
 public interface VideoPyxWebBusiness {
 

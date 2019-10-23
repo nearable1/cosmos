@@ -18,6 +18,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-core</artifactId>
+            <version>3.8.2</version>
+        </dependency>
+        <dependency>
             <groupId>com.xiaoniu.call</groupId>
             <artifactId>call-video-api</artifactId>
             <version>1.1.8.RELEASE</version>

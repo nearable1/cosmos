@@ -46,8 +46,8 @@ import java.util.List;
 @Log4j2
 public class WrapResponseBodyFilter implements GlobalFilter, Ordered {
 
-    @Autowired
-    private AccessProperties accessProperties;
+//    @Autowired
+//    private AccessProperties accessProperties;
 
     @Override
     public int getOrder() {
@@ -58,11 +58,11 @@ public class WrapResponseBodyFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String rawPath = exchange.getRequest().getURI().getRawPath();
         log.info("WrapResponseBodyFilter --> rawPath:{}", rawPath);
-        if (PathMatchUtils.noneMatch(rawPath, accessProperties.getNoneWrapResponseBodyUris())) {
-            return chain.filter(exchange.mutate()
-                    .response(new ServerHttpResponseWrapper(exchange.getResponse(), exchange))
-                    .build());
-        }
+//        if (PathMatchUtils.noneMatch(rawPath, accessProperties.getNoneWrapResponseBodyUris())) {
+//            return chain.filter(exchange.mutate()
+//                    .response(new ServerHttpResponseWrapper(exchange.getResponse(), exchange))
+//                    .build());
+//        }
         return chain.filter(exchange);
         //return chain.filter(exchange).then(Mono.defer(() -> getBodyMono(exchange)));
     }
@@ -120,7 +120,7 @@ public class WrapResponseBodyFilter implements GlobalFilter, Ordered {
     private String getWrapBody(String originalBody) {
         log.info("originalBody:{}", originalBody);
         String wrapBody = originalBody;
-        if (StringUtils.isNoneBlank(wrapBody)) {
+        if (wrapBody!=null && !wrapBody.equals("")) {
             if (!PathMatchUtils.isErrorResult(wrapBody)) {
                 wrapBody = getWrapResponseBody("#DATA#").replace("\"#DATA#\"", wrapBody);
             }
@@ -149,12 +149,12 @@ public class WrapResponseBodyFilter implements GlobalFilter, Ordered {
         Flux<DataBuffer> wrapDataBuffer = originalDataBuffer;
         String rawPath = exchange.getRequest().getURI().getRawPath();
         log.info("WrapResponseBodyFilter --> rawPath:{}", rawPath);
-        if (PathMatchUtils.noneMatch(rawPath, accessProperties.getNoneWrapResponseBodyUris())) {
-            wrapDataBuffer = originalDataBuffer
-                    .publishOn(Schedulers.single())
-                    .flatMap(dataBuffer -> Flux.just(getDataBuffer(dataBufferFactory, getWrapBody(dataBuffer))))
-                    .defaultIfEmpty(getDataBuffer(dataBufferFactory, getWrapResponseBody(null)));
-        }
+//        if (PathMatchUtils.noneMatch(rawPath, accessProperties.getNoneWrapResponseBodyUris())) {
+//            wrapDataBuffer = originalDataBuffer
+//                    .publishOn(Schedulers.single())
+//                    .flatMap(dataBuffer -> Flux.just(getDataBuffer(dataBufferFactory, getWrapBody(dataBuffer))))
+//                    .defaultIfEmpty(getDataBuffer(dataBufferFactory, getWrapResponseBody(null)));
+//        }
         return response.writeWith(wrapDataBuffer);
     }
 

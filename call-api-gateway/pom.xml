@@ -31,16 +31,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
-            <version>2.1.4.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.xiaoniu.architecture</groupId>
-            <artifactId>xiaoniu-commons-core</artifactId>
-            <version>1.1.3.RELEASE</version>
-        </dependency>
         <!-- 项目组commons -->
         <dependency>
             <groupId>com.xiaoniu.architecture</groupId>

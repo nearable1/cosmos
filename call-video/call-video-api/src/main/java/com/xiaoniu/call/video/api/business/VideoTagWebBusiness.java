@@ -18,7 +18,7 @@ import javax.validation.Valid;
  * @author liuyinkai
  * @date 2019-08-06
  */
-@FeignClient(contextId = "videoTagWebBusiness", value = "video")
+@FeignClient(name = "videoTagWebBusiness", value = "video")
 public interface VideoTagWebBusiness {
 
     /**

@@ -15,7 +15,7 @@ import javax.validation.Valid;
  * @author liuyinkai
  * @date 2019-08-07
  */
-@FeignClient(contextId = "redisManagementWebBusiness", value = "video")
+@FeignClient(name = "redisManagementWebBusiness", value = "video")
 public interface RedisManagementWebBusiness {
 
     /**
