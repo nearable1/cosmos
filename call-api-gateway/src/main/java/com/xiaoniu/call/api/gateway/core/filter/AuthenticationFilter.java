@@ -27,11 +27,11 @@ import reactor.core.publisher.Mono;
 @Log4j2
 public class AuthenticationFilter implements GlobalFilter, Ordered {
 
-//    @Autowired
-//    private AccessProperties accessProperties;
-//
-//    @Autowired
-//    private CustomerBusiness customerBusiness;
+    @Autowired
+    private AccessProperties accessProperties;
+
+    @Autowired
+    private CustomerBusiness customerBusiness;
 
     @Override
     public int getOrder() {
@@ -42,14 +42,14 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String rawPath = exchange.getRequest().getURI().getRawPath();
 
-//        boolean noneMatch = FilterPathMatcherHelper.noneMatch(accessProperties.getIgnoreHeaderAndTokenUrls(), rawPath);
-//        if (noneMatch) {
-//            HeaderHelper.checkCustomerIdAndAccessToken();
-//            boolean result = customerBusiness.checkToken(Long.valueOf(HeaderHelper.getCustomerId()), HeaderHelper.getAccessToken());
-//            if (!result) {
-//                return ServerWebExchangeHelper.writeWith(exchange, new BusinessException(ResultCodeEnum.ILLEGAL_ACCESS_TOKEN, "AccessToken" + "校验不通过"));
-//            }
-//        }
+        boolean noneMatch = FilterPathMatcherHelper.noneMatch(accessProperties.getIgnoreHeaderAndTokenUrls(), rawPath);
+        if (noneMatch) {
+            HeaderHelper.checkCustomerIdAndAccessToken();
+            boolean result = customerBusiness.checkToken(Long.valueOf(HeaderHelper.getCustomerId()), HeaderHelper.getAccessToken());
+            if (!result) {
+                return ServerWebExchangeHelper.writeWith(exchange, new BusinessException(ResultCodeEnum.ILLEGAL_ACCESS_TOKEN, "AccessToken" + "校验不通过"));
+            }
+        }
         return chain.filter(exchange);
     }
 
